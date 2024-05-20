@@ -1,0 +1,412 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  overflow: hidden;
+}
+.callInteraction {
+  overflow: auto;
+  height: 100%;
+}
+.callInteraction::-webkit-scrollbar {
+  display: none;
+}
+
+.navbarCard {
+  border-radius: 50px;
+  /* background: linear-gradient(145deg, #cacaca, #f0f0f0); */
+}
+
+.MuiInputBase-root .MuiOutlinedInput-root {
+  font-weight: 200 !important;
+  font-size: 10px !important;
+  line-height: 0.4375em !important;
+}
+.MuiCardContent-root {
+  padding: 5px !important;
+}
+.smart_assist {
+  overflow-y: scroll;
+  height: 100vh;
+}
+.smart_assist::-webkit-scrollbar {
+  display: none;
+}
+
+.agentSummary {
+  overflow: scroll;
+  height: 100vh;
+  width: 207vh !important
+}
+.agentSummary::-webkit-scrollbar {
+  display: none;
+}
+
+.Customerdetails {
+  overflow: scroll;
+  height: 87%;
+}
+
+.Customerdetails::-webkit-scrollbar {
+  display: none;
+}
+
+.interactioncard_collapse::-webkit-scrollbar {
+  display: none;
+}
+
+.css-hyum1k-MuiToolbar-root {
+  min-height: 50px !important;
+}
+
+
+
+.notification_toggle {
+  background: #fff;
+  height: 100%;
+  top: 50px;
+  z-index: 9999 !important;
+  position: fixed;
+  right: 0;
+  width: 26%;
+  box-shadow: 0px 0px 2px 1px #aaaaaa;
+}
+
+.Email_toggle {
+  background: #fff;
+  height: 100%;
+  top: 50px;
+  z-index: 9999 !important;
+  position: fixed;
+  right: 0;
+  width: 26%;
+  box-shadow: 0px 0px 2px 1px #aaaaaa;
+}
+
+.MissedCalls_toggle {
+  background: #fff;
+  height: 100%;
+  top: 50px;
+  z-index: 9999 !important;
+  position: fixed;
+  right: 0;
+  width: 26%;
+  box-shadow: 0px 0px 2px 1px #aaaaaa;
+}
+
+.Interaction_toggle {
+  background: #fff;
+  height: 100%;
+  top: 50px;
+  z-index: 9999 !important;
+  position: fixed;
+  right: 0;
+  width: 26%;
+  box-shadow: 0px 0px 2px 1px #aaaaaa;
+}
+
+.Whatsappnotification_toggle {
+  background: #fff;
+  height: 100%;
+  top: 50px;
+  z-index: 9999 !important;
+  position: fixed;
+  right: 0;
+  width: 26%;
+  box-shadow: 0px 0px 2px 1px #aaaaaa;
+}
+
+.incomingScreen {
+  background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+  box-shadow: 0px 0px 18px 1px #aaaaaa;
+  border-radius: 20px 20px 20px 20px;
+  top: 450px;
+  position: fixed;
+  right: 20px;
+
+}
+
+.answerScreen {
+  background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+  box-shadow: 0px 0px 10px 0px #aaaaaa;
+  border-radius: 20px;
+  width: 18rem;
+  bottom: 2rem;
+  position: fixed;
+  /* right: 20px; */
+  left: 20rem;
+  position: absolute;
+  z-index: 9999;
+
+}
+
+.answerScreen_smallScreen{
+  background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+  box-shadow: 0px 0px 10px 0px #aaaaaa;
+  border-radius: 50px;
+  width: 18rem;
+  bottom: 2rem;
+  position: fixed;
+  /* right: 20px; */
+  left: 20rem;
+  position: absolute;
+  z-index: 9999;
+}
+
+.dialpad-btn{
+  display: grid;
+  place-items: center;
+  background: #e3edf7;
+  padding: 1.4em;
+  border-radius: 50px !important;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.dialpad-btn:hover {
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 35px;
+
+}
+
+.dialpad-btn:active {
+  transform: scale(0.95);
+}
+
+.dialpad-btn .icon {
+  transition: transform 0.5s;
+}
+
+.dialpad-btn:hover .icon {
+  transform: scale(0.9);
+  fill: #333333;
+}
+
+
+.call-btn {
+  display: grid;
+  place-items: center;
+  background: #e3edf7;
+  padding: 1em;
+  border-radius: 50px !important;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.5s;
+  height: 30px;
+  width: 20px;
+}
+
+
+.call-btn:hover {
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 27px;
+  width: 30px;
+
+}
+.end_btn{
+  height: 50px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+  background: red;
+  padding: 1em;
+  border-radius: 50px !important;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+.end_btn:hover{
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+  inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+  -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+  0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+border: 1px solid rgba(0, 0, 0, 0.1);
+height: 50px;
+width: 50px;
+}
+
+.end_btnSmall{
+  height: 30px;
+  width: 30px;
+  display: grid;
+  place-items: center;
+  background: red;
+  padding: 1em;
+  border-radius: 50px !important;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+.end_btnSmall:hover{
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+  inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+  -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+  0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+border: 1px solid rgba(0, 0, 0, 0.1);
+height: 30px;
+width: 30px;
+}
+.call-btn:active {
+  transform: scale(0.95);
+}
+
+.call-btn .icon {
+  transition: transform 0.5s;
+}
+
+.call-btn:hover .icon {
+  transform: scale(0.9);
+  fill: #333333;
+}
+
+.dialpad-card {
+  background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+  box-shadow: 0px 0px 18px 1px #aaaaaa;
+  width: 18rem;
+}
+
+.dialpad_main {
+  bottom: 1rem;
+  position: fixed;
+  right: 20px;
+  /* left: 935px; */
+}
+
+.draggable_main{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialpadNavbar_main{
+  bottom: 1rem;
+  position: absolute;
+  right: 20px;
+  z-index: 999;
+  /* left: 935px; */
+}
+
+.dialpadNavbar-card {
+  background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
+  box-shadow: 0px 0px 18px 1px #aaaaaa;
+  width: 18rem;
+}
+
+.answer_draggable{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+  background-color: #2ea55e !important;
+}
+
+/* Light Mode Styles */
+.dashboardMode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Dark Mode Styles */
+.dashboardMode.dark-mode {
+  background-color: #36454F;
+  color: #ffffff;
+}
+
+.sidebarMode {
+  background-color: 
+  #0b3363;
+  color: #000000;
+}
+
+.sidebarMode.dark-mode {
+  background-color: #36454F;
+  color: #ffffff;
+}
+
+.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0.5px 3px !important;
+  border-radius: 5px;
+  font: inherit;
+  letter-spacing: inherit;
+  /* color: currentColor; */
+  padding: 4px 0 5px;
+  border: 0;
+  box-sizing: content-box;
+  background: #FAF9F6 !important;
+  /* height: 1.5rem !important; */
+  margin: 1px !important;
+  /* -webkit-tap-highlight-color: transparent; */
+  display: block;
+  min-width: 0;
+  width: 100%;
+  -webkit-animation-name: mui-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-animation-duration: 10ms;
+  animation-duration: 10ms;
+  padding-top: 1px;
+  padding: 8.5px 14px;
+}
+
+/* .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
+  color: inherit !important;
+} */
+
+.aside_left{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+ 
+}
+
+/* .aside_left .logo-aside {
+  margin-bottom: 2.2rem;
+  padding: 13px;
+} */
+
+.sidebar_hover:hover{
+  background-color: rebeccapurple;
+  color: blue;
+  width: 50px;
+
+  /* padding: 10px; */
+}
+
+
+.logo-aside {
+  position: fixed; /* Keep the icon position fixed */
+}
+
+.logo-aside:hover .MuiSvgIcon-root {
+  background-color: blue; /* Change background color when hovered over */
+}
+
+.stickyy_agentt{
+  margin-top: 70px !important;
+}
+
+
