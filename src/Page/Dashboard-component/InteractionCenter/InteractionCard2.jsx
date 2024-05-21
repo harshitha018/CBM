@@ -195,32 +195,95 @@ const InteractionCard2 = (props) => {
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
           // sx={{ height: "95vh" }}
-          sx={{ height: "22vh" }}
+          sx={{ height: "25vh" }}
         >
           <Box>
-            <Stack direction="row">
-              <Notebook size={20} className="mt-1 ms-3" />
+            <Stack direction="row align-item-center justify-content-between">
+              <Grid className="d-flex">
+
+              <Notebook size={15} className="mt-1 ms-3" />
               <Typography
                 className="ms-2 mt-1"
                 color="primary"
-                sx={{ fontSize: 15 }}
+                sx={{ fontSize: 12 }}
                 gutterBottom
               >
                 Lead/Delinquent Details
               </Typography>
+              </Grid>
+              <Grid className="d-flex ms-auto">
+                <Grid
+                  item
+                  // xs={1.5}
+                  // sm={2}
+                  // md={1.5}
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                >
+                  <Button
+                    variant="contained"
+                    className="ms-2"
+                    onClick={createUser}
+                    sx={{
+                      fontSize: "10px",
+                      height: "32px",
+                      // marginRight: "10px",
+                    }}
+                  >
+                    Schedule Now
+                  </Button>
+                </Grid>
+
+                <Grid
+                  item
+                  // xs={1.5}
+                  // sm={2}
+                  // md={1.5}
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                >
+                  <Button
+                    variant="contained"
+                    className="ms-2"
+                    onClick={createUser}
+                    sx={{
+                      fontSize: "10px",
+                      height: "32px",
+                      marginRight: "50px",
+                    }}
+                  >
+                    Create
+                  </Button>
+                </Grid>
+              </Grid>
             </Stack>
           </Box>
           {/* here the code  className="Customerdetails" */}
-          <Grid container className="Customerdetails">
-            <Grid item xs={4} sm={4} md={4}>
-              <Typography
-                variant="body1"
-                component="span"
-                className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
-              >
-                First Name
-              </Typography>
+          <Grid container className="Customerdetails" spacing={0.5}>
+            {/* <div className="row row-cols-6">
+              <div className="col">1</div>
+              <div className="col">2</div>
+              <div className="col">3</div>
+              <div className="col">4</div>
+              <div className="col">5</div>
+              <div className="col">6</div>
+
+            </div> */}
+            <Grid item xs={1.5} sm={1} md={1.5}>
+              <div>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  className="ms-2"
+                  sx={{ fontSize: "10px", display: "block" }}
+                >
+                  First Name
+                </Typography>
+              </div>
               <TextField
                 value={firstname}
                 variant="outlined"
@@ -228,18 +291,18 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 sx={{
                   fontSize: "12px",
-                  height: "20px",
+                  height: "25px",
                   color: props.darkMode ? "#ffffff" : "#000000",
                 }}
                 onChange={(e) => setFirstname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} sm={4} md={4}>
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Last Name
               </Typography>
@@ -252,14 +315,14 @@ const InteractionCard2 = (props) => {
                 onChange={(e) => setLastname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} sm={4} md={4}>
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
-                WhatsApp Number
+                WhatsApp No.
               </Typography>
               <TextField
                 variant="outlined"
@@ -268,12 +331,12 @@ const InteractionCard2 = (props) => {
                 sx={{ fontSize: "12px", height: "25px" }}
               />
             </Grid>
-            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Mobile Number
               </Typography>
@@ -286,14 +349,14 @@ const InteractionCard2 = (props) => {
                 onChange={(e) => setMobilenumber(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
-                Alt / Guarantor Number
+                Alt / Guarantor No.
               </Typography>
               <TextField
                 value={altguarantorNumber}
@@ -305,12 +368,12 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Email
               </Typography>
@@ -323,12 +386,13 @@ const InteractionCard2 = (props) => {
                 onChange={(e) => setEmailid(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+
+            <Grid item xs={1.5} sm={1} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 City
               </Typography>
@@ -341,12 +405,12 @@ const InteractionCard2 = (props) => {
                 onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Customer Address
               </Typography>
@@ -354,18 +418,18 @@ const InteractionCard2 = (props) => {
                 value={customeraddress}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "12px", height: "25px", width: "70%" }}
                 className="ms-2"
                 onChange={(e) => setCustomeraddress(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Customer category
               </Typography>
@@ -379,12 +443,12 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Due Amount
               </Typography>
@@ -398,12 +462,12 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Due Date
               </Typography>
@@ -414,7 +478,7 @@ const InteractionCard2 = (props) => {
                 size="small"
                 sx={{
                   "& input[type='date']": {
-                    fontSize: "12px",
+                    fontSize: "10px",
                     height: "25px",
                   },
                 }}
@@ -423,12 +487,12 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Aging
               </Typography>
@@ -436,18 +500,18 @@ const InteractionCard2 = (props) => {
                 value={aging}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setAging(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Delinquent Debt
               </Typography>
@@ -455,18 +519,18 @@ const InteractionCard2 = (props) => {
                 value={delinquentDebtAmount}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setDelinquentDebtAmount(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Disposition
               </Typography>
@@ -476,7 +540,7 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 style={{
                   height: "25px",
-                  fontSize: "12px",
+                  fontSize: "10px",
                 }}
               >
                 {dispositionlist.map((item) => (
@@ -490,16 +554,22 @@ const InteractionCard2 = (props) => {
               </Select>
             </Grid>
 
-            <Grid item xs={4} className="d-flex" sx={{ marginTop: "0px" }}>
+            <Grid
+              item
+              xs={1.5}
+              sm={2}
+              md={1.5}
+              className="d-flex"
+              sx={{ marginTop: "-18px" }}
+            >
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
                 sx={{
-                  fontSize: "12px",
+                  fontSize: "10px",
                   marginTop: "20px",
                   display: "block",
-                  marginBottom: "5px",
                 }}
               >
                 Sticky Agent
@@ -516,43 +586,24 @@ const InteractionCard2 = (props) => {
               </div>
             </Grid>
 
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+            <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Comments
               </Typography>
               <Textarea
                 aria-label="minimum height"
                 className="ms-2"
-                minRows={3}
-                placeholder="Write a notes here..."
+                minRows={1}
+                sx={{ fontSize: "10px", height: "15px" }}
+                placeholder="Write a notes..."
               />
             </Grid>
-
-            <Grid
-            container
-            p={1}
-            direction="row"
-            // className="ms-4 ms-auto"
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Button variant="contained" onClick={createUser}>
-              Schedule Now
-            </Button>
-            <Button className="ms-2" variant="contained" onClick={createUser}>
-              Create
-            </Button>
           </Grid>
-          </Grid>
-
-        
 
           {/* end the code  */}
         </Box>
