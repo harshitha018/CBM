@@ -409,7 +409,7 @@ const NavBar = (props) => {
       >
         <Box
           sx={{
-            backgroundColor: "#1e40af",
+            // backgroundColor: "#1e40af",
             padding: "16px",
             borderRadius: "4px 4px 0 0",
             width: "100%",

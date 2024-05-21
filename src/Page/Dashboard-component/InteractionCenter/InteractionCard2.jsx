@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import { setDarkMode } from "../../../redux/actions/action";
 import axios from "axios";
 import { BaseUrl } from "../../Constant/BaseUrl";
+import InteractionCard5 from "./InteractionCard5";
 
 const mapStateToProps = (state) => {
   return {
@@ -194,7 +195,7 @@ const InteractionCard2 = (props) => {
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
           // sx={{ height: "95vh" }}
-          sx={{height: "44vh"}}
+          sx={{ height: "25vh" }}
         >
           <Box>
             <Stack direction="row">
@@ -209,294 +210,354 @@ const InteractionCard2 = (props) => {
               </Typography>
             </Stack>
           </Box>
-          <Grid container spacing={1} className="Customerdetails">
-            <Grid item xs={6}>
-              <Stack
-                container
-                direction="column"
-                spacing={2}
-                p={1}
-                className="mx-2"
+          {/* here the code  className="Customerdetails" */}
+          <Grid container className="Customerdetails">
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
               >
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  First Name
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Last Name
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  WhatsApp Number
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Mobile Number
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Alt / Guarantor Number
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Email
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  City
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Customer Address
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Customer category
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Due Amount
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Due Date
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Aging
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Delinquent Debt
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Comments
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  className="stickyy_agentt"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Sticky Agent
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{ fontSize: "12px" }}
-                >
-                  Disposition
-                </Typography>
-              </Stack>
+                First Name
+              </Typography>
+              <TextField
+                value={firstname}
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  height: "20px",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                onChange={(e) => setFirstname(e.target.value)}
+              />
             </Grid>
-            {/* Second Column - Inputs */}
-            {/* <ThemeProvider theme={theme}> */}
-            <Grid item xs={6}>
-              <Stack container direction="column" spacing={1.1} p={1}>
-                <TextField
-                  value={firstname}
-                  variant="outlined"
-                  size="small"
-                  sx={{
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Last Name
+              </Typography>
+              <TextField
+                value={lastname}
+                variant="outlined"
+                className="ms-2"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                onChange={(e) => setLastname(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                WhatsApp Number
+              </Typography>
+              <TextField
+                variant="outlined"
+                className="ms-2"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Mobile Number
+              </Typography>
+              <TextField
+                value={mobilenumber}
+                className="ms-2"
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                onChange={(e) => setMobilenumber(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Alt / Guarantor Number
+              </Typography>
+              <TextField
+                value={altguarantorNumber}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setAltguarantornumber(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Email
+              </Typography>
+              <TextField
+                value={emailId}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setEmailid(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                City
+              </Typography>
+              <TextField
+                value={city}
+                className="ms-2"
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Customer Address
+              </Typography>
+              <TextField
+                value={customeraddress}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setCustomeraddress(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Customer category
+              </Typography>
+              <TextField
+                value={segment}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setSegment(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Due Amount
+              </Typography>
+              <TextField
+                value={dueamount}
+                className="ms-2"
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                onChange={(e) => setDueamount(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Due Date
+              </Typography>
+              <TextField
+                value={duedate}
+                variant="outlined"
+                className="ms-2"
+                size="small"
+                sx={{
+                  "& input[type='date']": {
                     fontSize: "12px",
-                    height: "20px",
-                    color: props.darkMode ? "#ffffff" : "#000000",
-                  }}
-                  onChange={(e) => setFirstname(e.target.value)}
-                />
-
-                <TextField
-                  value={lastname}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setLastname(e.target.value)}
-                />
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                />
-                <TextField
-                  value={mobilenumber}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setMobilenumber(e.target.value)}
-                />
-                <TextField
-                  value={altguarantorNumber}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  className="my-3"
-                  onChange={(e) => setAltguarantornumber(e.target.value)}
-                />
-                <TextField
-                  value={emailId}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setEmailid(e.target.value)}
-                />
-                <TextField
-                  value={city}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setCity(e.target.value)}
-                />
-                <TextField
-                  value={customeraddress}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setCustomeraddress(e.target.value)}
-                />
-                <TextField
-                  value={segment}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setSegment(e.target.value)}
-                />
-                <TextField
-                  value={dueamount}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setDueamount(e.target.value)}
-                />
-                <TextField
-                  value={duedate}
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    "& input[type='date']": {
-                      fontSize: "12px",
-                      height: "25px",
-                    },
-                  }}
-                  type="date"
-                  onChange={(e) => setDuedate(e.target.value)}
-                />
-                <TextField
-                  value={aging}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setAging(e.target.value)}
-                />
-                <TextField
-                  value={delinquentDebtAmount}
-                  variant="outlined"
-                  size="small"
-                  sx={{ fontSize: "12px", height: "25px" }}
-                  onChange={(e) => setDelinquentDebtAmount(e.target.value)}
-                />
-                <Textarea
-                  aria-label="minimum height"
-                  minRows={3}
-                  placeholder="Write a notes here..."
-                />
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                    checked={stickyAgent}
-                    onClick={(e) => setStickyAgent(e.target.checked)}
-                  />
-                </div>
-
-                <Select
-                  value={dispositionReason}
-                  onChange={handleReasonChange}
-                  style={{
                     height: "25px",
-                    fontSize: "12px",
-                  }}
-                >
-                  {dispositionlist.map((item) => (
-                    <MenuItem
-                      sx={{ fontSize: "12px" }}
-                      value={item.dispositionName}
-                    >
-                      {item.dispositionName}
-                    </MenuItem>
-                  ))}
-                </Select>
-
-                <Grid
-                  container
-                  p={1}
-                  direction="row"
-                  // className="ms-4 ms-auto"
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  <Button variant="contained" onClick={createUser}>
-                    Schedule Now
-                  </Button>
-                  <Button variant="contained" onClick={createUser}>
-                    Create
-                  </Button>
-                </Grid>
-              </Stack>
+                  },
+                }}
+                type="date"
+                onChange={(e) => setDuedate(e.target.value)}
+              />
             </Grid>
-            {/* </ThemeProvider> */}
+
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Aging
+              </Typography>
+              <TextField
+                value={aging}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setAging(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Delinquent Debt
+              </Typography>
+              <TextField
+                value={delinquentDebtAmount}
+                variant="outlined"
+                size="small"
+                sx={{ fontSize: "12px", height: "25px" }}
+                className="ms-2"
+                onChange={(e) => setDelinquentDebtAmount(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sm={4} md={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Disposition
+              </Typography>
+              <Select
+                value={dispositionReason}
+                onChange={handleReasonChange}
+                className="ms-2"
+                style={{
+                  height: "25px",
+                  fontSize: "12px",
+                }}
+              >
+                {dispositionlist.map((item) => (
+                  <MenuItem
+                    sx={{ fontSize: "12px" }}
+                    value={item.dispositionName}
+                  >
+                    {item.dispositionName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+
+            <Grid item xs={4} className="d-flex" sx={{ marginTop: "0px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  marginTop: "20px",
+                  display: "block",
+                  marginBottom: "5px",
+                }}
+              >
+                Sticky Agent
+              </Typography>
+              <div className="form-check" style={{ marginTop: "20px" }}>
+                <input
+                  className="form-check-input mx-1"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  checked={stickyAgent}
+                  onChange={(e) => setStickyAgent(e.target.checked)}
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                Comments
+              </Typography>
+              <Textarea
+                aria-label="minimum height"
+                className="ms-2"
+                minRows={3}
+                placeholder="Write a notes here..."
+              />
+            </Grid>
+
+            <Grid
+            container
+            p={1}
+            direction="row"
+            // className="ms-4 ms-auto"
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button variant="contained" onClick={createUser}>
+              Schedule Now
+            </Button>
+            <Button className="ms-2" variant="contained" onClick={createUser}>
+              Create
+            </Button>
           </Grid>
+          </Grid>
+
+        
+
+          {/* end the code  */}
         </Box>
+
+        <InteractionCard5 />
       </Grid>
     </>
   );

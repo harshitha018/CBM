@@ -8,6 +8,7 @@ import {
   Box,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import {
   CalendarCheck,
@@ -55,12 +56,12 @@ const InteractionCard5 = (props) => {
 
   return (
     <>
-      <Grid xs={6}>
+      <Grid xs={12}>
         <Box
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1 mt-1`}
-          sx={{ height: "44vh" }}
+          sx={{ height: "24vh" }}
           p={1}
         >
           <Stack direction="row">
@@ -75,207 +76,304 @@ const InteractionCard5 = (props) => {
               Survey/Appointment/Call back Scheduling
             </Typography>
           </Stack>
-          <Grid container className="mt-1" direction={"row"} spacing={1}>
-            <Grid xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <div
-                  className="input-group flex-nowrap"
-                  style={{ height: "46px", fontSize: "12px" }}
+          <Grid
+            container
+            className="survey_schedule mt-1"
+            direction={"row"}
+            spacing={1}
+          >
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{ fontSize: "12px", display: "block", marginBottom: "5px" }}
+              >
+                First Name
+              </Typography>
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  height: "20px",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                  startAdornment: <User size={18} />,
+                  style: { height: "29px", width: "205px", background:"#faf9f6" },
+                }}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "12px",
+                    display: "block",
+                    marginTop: "7px",
+                  }}
+                ></Typography>
+                <Grid className="d-flex flex-column">
+                  <label style={{ fontSize: "12px" }}>
+                    <ProjectorScreenChart size={20} color="black" /> Project{" "}
+                  </label>
+                  <Select
+                    value={selectedProject}
+                    onChange={handleProjectChange}
+                    style={{
+                      marginLeft: "8px",
+                      width: "205px",
+                      height: "29px",
+                      fontSize: "12px",
+                      marginTop: "2px",
+                      background: "#faf9f6",
+                    }}
+                  >
+                    <MenuItem value={"Project"}>Project</MenuItem>
+                    <MenuItem value={"Survey"}>Survey</MenuItem>
+                    <MenuItem value={"Appointment"}>Appointment</MenuItem>
+                    <MenuItem value={"Call back"}>Call back</MenuItem>
+                  </Select>
+                </Grid>
+              </Stack>
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "12px",
+                    display: "block",
+                    marginTop: "7px",
+                  }}
+                ></Typography>
+                <Grid className="d-flex flex-column">
+                  <label style={{ fontSize: "12px" }}>
+                    <HourglassMedium size={20} color="black" /> Waiting List{" "}
+                  </label>
+                  <Select
+                    value={selectedWaitingList}
+                    onChange={handleWaitingListChange}
+                    style={{
+                      marginLeft: "8px",
+                      width: "205px",
+                      height: "29px",
+                      fontSize: "12px",
+                      marginTop: "2px",
+                      background:"#faf9f6",
+                    }}
+                  >
+                    <MenuItem value={"Waiting List"}>Waiting List</MenuItem>
+                    <MenuItem value={"Queue"}>Queue</MenuItem>
+                  </Select>
+                </Grid>
+              </Stack>
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}  sx={{
+                    marginTop: "20px",
+                  }}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  display: "block",
+                  marginBottom: "5px",
+                  marginTop: "7px",
+                }}
+              >
+                Phone Number
+              </Typography>
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  height: "10px",
+                  width: "50%",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                  startAdornment: <MdOutlineLocalPhone size={18} />,
+                  style: { height: "29px", width: "205px", background:"#faf9f6" },
+                }}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "12px",
+                    display: "block",
+                    marginTop: "2px",
+                  }}
+                ></Typography>
+                <Grid className="d-flex flex-column"  sx={{
+                    marginTop: "20px",
+                  }}>
+                  <label style={{ fontSize: "12px" }}>
+                    <MapPin size={15} color="black" /> Location{" "}
+                  </label>
+                  <Select
+                    value={selectedLocation}
+                    onChange={handleLoactionChange}
+                    style={{
+                      marginLeft: "8px",
+                      width: "205px",
+                      height: "29px",
+                      fontSize: "12px",
+                      marginTop: "10px",
+                      background:"#faf9f6",
+                    }}
+                  >
+                    <MenuItem value={"Location"}>Location</MenuItem>
+                    <MenuItem value={"Location"}>Location</MenuItem>
+                  </Select>
+                </Grid>
+              </Stack>
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "12px",
+                    display: "block",
+                    marginTop: "7px",
+                  }}
+                ></Typography>
+                <Grid className="d-flex flex-column"  
+                 sx={{
+                    marginTop: "20px",
+                  }}>
+                  <label style={{ fontSize: "12px" }}>
+                    <MapPin size={15} color="black" /> Availability{" "}
+                  </label>
+                  <Select
+                    value={selectedAvailablity}
+                    onChange={handleAvailablityChange}
+                    style={{
+                      marginLeft: "8px",
+                      width: "205px",
+                      height: "29px",
+                      fontSize: "12px",
+                      marginTop: "7px",
+                      background:"#faf9f6",
+                    }}
+                  >
+                    <MenuItem value={"Availability"}> Availability</MenuItem>
+                    <MenuItem value={"Ready"}> Ready</MenuItem>
+                    <MenuItem value={"Not Ready"}>Not Ready</MenuItem>
+                  </Select>
+                </Grid>
+              </Stack>
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  display: "block",
+                  marginBottom: "5px",
+                  marginTop: "20px",
+                }}
+              >
+                Enter Email
+              </Typography>
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  height: "10px",
+                  width: "50%",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                  startAdornment: <EnvelopeSimple size={18} />,
+
+                  style: { height: "29px", width: "205px", background:"#faf9f6" },
+                }}
+              />
+            </Grid>
+            <Grid item xs={4} sm={4} md={4}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "12px",
+                    display: "block",
+                    marginTop: "20px",
+                  }}
+                ></Typography>
+                <Grid
+                  className="d-flex flex-column"
+                  sx={{
+                    marginTop: "20px",
+                  }}
                 >
-                  <span className="input-group-text" id="addon-wrapping">
-                    <User size={20} />
-                  </span>
+                  <label style={{ fontSize: "12px" }} className="ms-2">
+                    <CalendarCheck size={15} color="black" /> Date{" "}
+                  </label>
                   <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Full Name"
-                    aria-label="Full Name"
-                    aria-describedby="addon-wrapping"
-                    style={{ fontSize: "12px" }}
+                    type="Date"
+                    className="mt-1"
+                    style={{
+                      marginLeft: "8px",
+                      width: "205px",
+                      height: "29px",
+                      fontSize: "12px",
+                       background:"#faf9f6",
+                    }}
                   />
-                </div>
-              </Box>
+                </Grid>
+              </Stack>
             </Grid>
 
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <Box className="card" p={1}>
-                  <Stack direction={"row"} alignItems={"center"}>
-                    <ProjectorScreenChart size={20} color="black" />
-
-                    <Select
-                      value={selectedProject}
-                      onChange={handleProjectChange}
-                      style={{
-                        marginLeft: "8px",
-                        width: "146px",
-                        height: "29px",
-                        fontSize: "12px",
-                      }}
-                    >
-                      <MenuItem value={"Project"}>Project</MenuItem>
-                      <MenuItem value={"Survey"}>Survey</MenuItem>
-                      <MenuItem value={"Appointment"}>Appointment</MenuItem>
-                      <MenuItem value={"Call back"}>Call back</MenuItem>
-                    </Select>
-                  </Stack>
-                </Box>
-              </Box>
+            <Grid item xs={4} sm={4} md={4}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  display: "block",
+                  marginBottom: "5px",
+                  marginTop: "20px",
+                }}
+              >
+                Sticky Agent
+              </Typography>
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "12px",
+                  width: "205px",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                  startAdornment: <User size={18} />,
+                  style: { height: "29px", width: "205px" , background:"#faf9f6"},
+                }}
+              />
             </Grid>
-
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <Box className="card" p={1}>
-                  <Stack direction={"row"} alignItems={"center"}>
-                    <HourglassMedium size={20} color="black" />
-
-                    <Select
-                      value={selectedWaitingList}
-                      onChange={handleWaitingListChange}
-                      style={{
-                        marginLeft: "8px",
-                        width: "146px",
-                        height: "29px",
-                        fontSize: "12px",
-                      }}
-                    >
-                      <MenuItem value={"Waiting List"}>Waiting List</MenuItem>
-                      <MenuItem value={"Queue"}>Queue</MenuItem>
-                    </Select>
-                  </Stack>
-                </Box>
-              </Box>
-            </Grid>
-
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <div
-                  className="input-group flex-nowrap"
-                  style={{ height: "46px", fontSize: "12px" }}
-                >
-                  <span className="input-group-text" id="addon-wrapping">
-                    {/* <Phone  /> */}
-                    <MdOutlineLocalPhone size={20} color="black" />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Phone number"
-                    aria-label="Phone number"
-                    aria-describedby="addon-wrapping"
-                    style={{ fontSize: "12px" }}
-                  />
-                </div>
-              </Box>
-            </Grid>
-
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <Box className="card" p={1}>
-                  <Stack direction={"row"} alignItems={"center"}>
-                    <MapPin size={20} color="black" />
-
-                    <Select
-                      value={selectedLocation}
-                      onChange={handleLoactionChange}
-                      style={{
-                        marginLeft: "8px",
-                        width: "146px",
-                        height: "29px",
-                        fontSize: "12px",
-                      }}
-                    >
-                      <MenuItem value={"Location"}>Location</MenuItem>
-                      <MenuItem value={"Location"}>Location</MenuItem>
-                    </Select>
-                  </Stack>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <Box className="card" p={1}>
-                  <Stack direction={"row"} alignItems={"center"}>
-                    <MapPin size={20} color="black" />
-
-                    <Select
-                      value={selectedAvailablity}
-                      onChange={handleAvailablityChange}
-                      style={{
-                        marginLeft: "8px",
-                        width: "146px",
-                        height: "29px",
-                        fontSize: "12px",
-                      }}
-                    >
-                      <MenuItem value={"Availability"}> Availability</MenuItem>
-                      <MenuItem value={"Ready"}> Ready</MenuItem>
-                      <MenuItem value={"Not Ready"}>Not Ready</MenuItem>
-                    </Select>
-                  </Stack>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <div
-                  className="input-group flex-nowrap"
-                  style={{ height: "46px", fontSize: "12px" }}
-                >
-                  <span className="input-group-text" id="addon-wrapping">
-                    <EnvelopeSimple size={18} color="black" />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter email.."
-                    aria-label="Enter email.."
-                    aria-describedby="addon-wrapping"
-                    style={{ fontSize: "12px" }}
-                  />
-                </div>
-              </Box>
-            </Grid>
-            <Grid Item xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <Box className="card" p={1}>
-                  <Stack direction={"row"} alignItems={"center"}>
-                    <CalendarCheck size={20} color="black" />
-
-                    <input
-                      type="Date"
-                      style={{
-                        marginLeft: "8px",
-                        width: "146px",
-                        height: "29px",
-                        fontSize: "12px",
-                      }}
-                    />
-                  </Stack>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid xs={4} sm={4} md={4}>
-              <Box p={0.4}>
-                <div
-                  className="input-group flex-nowrap"
-                  style={{ height: "46px", fontSize: "12px" }}
-                >
-                  <span className="input-group-text" id="addon-wrapping">
-                    <User size={20} />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Sticky Agent"
-                    aria-label="Sticky Agent"
-                    aria-describedby="addon-wrapping"
-                    style={{ fontSize: "12px" }}
-                  />
-                </div>
-              </Box>
-            </Grid>
-            <Grid p={1} className="ms-4 ms-auto">
+            <Grid p={2} className="ms-1 ms-auto">
               <Button variant="contained">Schedule now</Button>
             </Grid>
           </Grid>
