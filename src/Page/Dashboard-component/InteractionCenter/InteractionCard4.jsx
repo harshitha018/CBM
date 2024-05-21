@@ -403,7 +403,7 @@ const InteractionCard4 = (props) => {
                     aria-describedby={id}
                     onClick={handleClick}
                     sx={{
-                      marginLeft: "39%",
+                      marginLeft: "49%",
                       marginRight: "10px",
                       fontSize: "10px",
                       height: "32px",
@@ -897,7 +897,7 @@ const InteractionCard4 = (props) => {
                     aria-describedby={id}
                     onClick={handleClick}
                     sx={{
-                      marginLeft: "39%",
+                      marginLeft: "49%",
                       marginRight: "10px",
                       fontSize: "10px",
                       height: "32px",

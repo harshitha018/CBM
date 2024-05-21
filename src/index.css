@@ -52,6 +52,15 @@ body {
   display: none;
 }
 
+.survey_schedule{
+  overflow: scroll;
+  height: 87%;
+}
+
+.survey_schedule::-webkit-scrollbar {
+  display: none;
+}
+
 .interactioncard_collapse::-webkit-scrollbar {
   display: none;
 }
@@ -409,4 +418,10 @@ width: 30px;
   margin-top: 70px !important;
 }
 
+.survery_inputs{
+width: 50%;
+height: 30px !important;
+                 
+         
 
+}
