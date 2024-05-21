@@ -195,7 +195,7 @@ const InteractionCard2 = (props) => {
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
           // sx={{ height: "95vh" }}
-          sx={{ height: "25vh" }}
+          sx={{ height: "22vh" }}
         >
           <Box>
             <Stack direction="row">

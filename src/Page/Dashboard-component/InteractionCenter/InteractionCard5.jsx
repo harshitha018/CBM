@@ -61,7 +61,7 @@ const InteractionCard5 = (props) => {
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1 mt-1`}
-          sx={{ height: "24vh" }}
+          sx={{ height: "21vh" }}
           p={1}
         >
           <Stack direction="row">
