@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Tooltip from "@mui/material/Tooltip";
 import moment from "moment";
 import {
   Button,
@@ -17,7 +16,25 @@ import {
   Tab,
   Tabs,
   TextField,
+  List as ListIcon,
+  Paper
 } from "@mui/material";
+import ReorderIcon from '@mui/icons-material/Reorder';
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import PhonePausedIcon from '@mui/icons-material/PhonePaused';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CallEndIcon from '@mui/icons-material/CallEnd';
+import CallEndRoundedIcon from '@mui/icons-material/CallEndRounded';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 import {
   Alarm,
   ArrowsLeftRight,
@@ -25,8 +42,6 @@ import {
   ChatDots,
   DotsThree,
   EnvelopeSimple,
-  List,
-  Microphone,
   Pen,
   PhoneCall,
   PhoneDisconnect,
@@ -38,7 +53,13 @@ import {
 } from "@phosphor-icons/react";
 import { connect } from "react-redux";
 import { setDarkMode } from "../../../redux/actions/action";
+import CustomButton from "../../../Component/shared-components/liveInteractionButton/Button";
 
+const Buttontheme = createTheme({
+  shape: {
+    borderRadius: 8,
+  },
+});
 const mapStateToProps = (state) => {
   return {
     darkMode: state.data.darkMode,
@@ -130,15 +151,14 @@ const InteractionCard = (props) => {
 
   return (
     <>
-      <Grid xs={12}>
-        <Box
+        <div
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
-          sx={{ height: "44vh", marginTop: "4px" }}
+          style={{ height: "44vh", marginTop: "4px" }}
         >
-          {!closeCard && (
-            <Card
+     {!closeCard && (
+            <Box
               className={` dashboardMode ${
                 props.darkMode ? "dark-mode" : "light-mode"
               } `}
@@ -149,6 +169,7 @@ const InteractionCard = (props) => {
                 spacing={2}
                 alignItems="center"
                 justifyContent="space-between"
+                marginX={2}
               >
                 <Typography
                   variant="body1"
@@ -156,8 +177,11 @@ const InteractionCard = (props) => {
                   sx={{ fontSize: 14 }}
                   gutterBottom
                 >
-                  <List size={16} />
+                  <ReorderIcon sx={{fontSize:16}} color="lightgray" />
                 </Typography>
+                <Typography sx={{ fontSize: 13, fontWeight:700}} gutterBottom>
+                    Live interaction
+                  </Typography>
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
@@ -167,22 +191,63 @@ const InteractionCard = (props) => {
                   <ArrowsOutSimple size={16} />
                 </ExpandMore>
               </Stack>
-
-              <CardContent>
-                <Stack
+              {/* <Paper elevation={5}> */}
+              <Box sx={{marginX:"15px", border:"0.5px solid lightgray", borderRadius:"10px"}}>
+              <Box sx={{borderTopLeftRadius:"10%", borderTopRightRadius:"10%" , paddingX:"5px"}}>
+                <Stack direction="row"  justifyContent="space-between" sx={{paddingTop:"4px"}}>
+                <Stack direction="row" spacing={4}>
+                  <Box sx={{display:'flex',alignItems:"center", justifyContent:"center"}}>
+                  <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
+                  </Box>
+                  <Box>
+                  <Typography  sx={{ fontSize: 20, fontWeight:600}} >Aarumugaselvan</Typography>
+                  <Typography variant="caption" display={"block"} >+91-8300756165</Typography>
+                  <Typography variant="caption" display={"block"}>(Basic queue)</Typography>
+                  <Typography variant="subtitle2" display="block">
+                  <Box
+                    component="span"
+                    sx={{
+                      padding: "3px",
+                      backgroundColor: "#FC3D3D",
+                      borderRadius: "100%",
+                      height: "5px",
+                      width: "5px",
+                      display: "inline-block",
+                      marginRight: "4px" // Added for better spacing
+                    }}
+                  />
+                  on call
+                </Typography>
+                  </Box>
+                  <Box>
+                  </Box>
+                </Stack>
+                <Stack direction="column-reverse" justifyContent="space-between"  alignItems="center" spacing={2}>
+                  <Box>
+                  <p style={{fontSize:"25px",fontWeight:700,color:"#FC3D3D"}}>05:00</p>
+                  </Box>
+                  <Stack
                   direction="row"
                   alignItems="center"
-                  justifyContent="space-between"
+                  justifyContent="flex-end"
                   spacing={1}
                 >
                   <PhoneCall size={16} />
-                  <Typography sx={{ fontSize: 14 }} gutterBottom>
-                    INTERACTIONS
-                  </Typography>
                   <Pen size={16} />
                 </Stack>
 
-                <Stack direction="row">
+                </Stack>
+                </Stack>
+                {/* <Stack>
+                  <Box>
+                  <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
+                  </Box>
+                  <Box>
+
+                  </Box>
+                </Stack> */}
+              
+                {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {props.displayExtNum}
                   </Typography>
@@ -191,55 +256,70 @@ const InteractionCard = (props) => {
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {props.callStatus}
                   </Typography>
-                </Stack>
-                <Stack direction="row">
+                </Stack> */}
+                {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {/* {moment(props.callActivity.createdDate).format('MMMM Do YYYY, h:mm:ss a')} */}
-                    {moment(props.callActivity.createdDate).format(
+                    {/* {moment(props.callActivity.createdDate).format(
                       "MMMM Do YYYY"
                     )}
                   </Typography>
-                </Stack>
-              </CardContent>
-
-              <CardActions
+                </Stack> */} 
+              </Box>
+              <Divider />
+              <Box
                 className={` dashboardMode ${
                   props.darkMode ? "dark-mode" : "light-mode"
                 } `}
                 sx={{
-                  backgroundColor: "#ECEAEA",
+                  backgroundColor: "#F1F1F1",
+                  border:'0.5px solid lightgray',
+                  // borderTopColor: "lightgray",
                   display: "flex",
-                  justifyContent: "space-between",
+                  paddingY:"7px",
+                  borderBottomLeftRadius:'10px',
+                  borderBottomRightRadius:"10px"
                 }}
               >
-                <Stack direction="row" spacing={5.5} alignItems="center">
-                  <Microphone size={16} />
-                  <PhonePlus size={16} />
-                  <UserPlus size={16} />
+              <Stack direction="row"
+              justifyContent="space-evenly"
+              alignItems="center"
+              spacing={3}
+              sx={{marginLeft:2}}
+              >
+                <CustomButton >
+                  <KeyboardVoiceIcon sx={{fontSize:30}}/>
+                </CustomButton>
+                <CustomButton>
+                  <PhonePausedIcon sx={{fontSize:30}}/>
+                </CustomButton>
+                <CustomButton>
+                  <PersonAddAlt1Icon sx={{fontSize:30}}/>
+                </CustomButton>
                   {/* <ArrowsLeftRight size={16} /> */}
-                  <button
-                    type="button"
-                    className="btn btn-light"
+                  <CustomButton
                     onClick={() => {
                       handleinteractionTransfer();
                     }}
                   >
-                    <ArrowsLeftRight size={20} />
-                  </button>
-                  <DotsThree size={25} />
-                  <button
-                    type="button"
-                    className="btn btn-light"
-                    // style={{
-                    //   marginLeft: "115px",
-                    // }}
+                    <SyncAltIcon  sx={{fontSize:30}}/>
+                  </CustomButton>
+                  <CustomButton>
+                  <MoreVertIcon sx={{fontSize:30}}/>
+                  </CustomButton>
+                  <ThemeProvider theme={Buttontheme}>
+                  <CustomButton
+                  backgroundColor="#FC3D3D"
+                  borderRadius="100%"
                     onClick={() => endCall()}
                   >
-                    <PhoneDisconnect size={16} color="red" />
-                  </button>
-                </Stack>
-              </CardActions>
-
+                    <CallEndRoundedIcon  style={{ fill: 'white',"&:hover": { color: "red" }  }} sx={{fontSize:30}}/>
+                  </CustomButton>
+                  </ThemeProvider>
+              </Stack>
+              </Box>
+              </Box>
+              {/* </Paper> */}
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent
                   className="interactioncard_collapse"
@@ -271,8 +351,9 @@ const InteractionCard = (props) => {
                   </Typography>
                 </CardContent>
               </Collapse>
-            </Card>
+            </Box>
           )}
+     
           {/* Tabs content */}
           {alarmTab === 0 && (
             <>
@@ -334,7 +415,7 @@ const InteractionCard = (props) => {
             </>
           )}
 
-          <Stack
+          {/* <Stack
             direction="row"
             display="flex"
             spacing={2.5}
@@ -369,9 +450,9 @@ const InteractionCard = (props) => {
                 icon={<WhatsappLogo size={16} color="green" />}
               />
             </Tabs>
-          </Stack>
-        </Box>
-      </Grid>
+          </Stack> */}
+        </div>
+
 
       {/*interaction Transfer dialer */}
       {props.interactiontransferdialer && (

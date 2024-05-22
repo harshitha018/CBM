@@ -26,6 +26,9 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Modal from "@mui/joy/Modal";
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import DialpadOutlinedIcon from '@mui/icons-material/DialpadOutlined';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
   BookOpenText,
   ChatDots,
@@ -54,7 +57,7 @@ import moment from "moment";
 import axios from "axios";
 import { BaseUrl } from "../Page/Constant/BaseUrl";
 import MissedcallComp from "./MissedcallComp";
-
+import PhoneIcon from '@mui/icons-material/Phone';
 const mapStateToProps = (state) => {
   return {
     darkMode: state.data.darkMode,
@@ -106,9 +109,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
+  width: 50,
+  height: 30,
+  padding: 8,
   "& .MuiSwitch-switchBase": {
     margin: 1,
     padding: 0,
@@ -117,7 +120,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       color: "#fff",
       transform: "translateX(22px)",
       "& .MuiSwitch-thumb:before": {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="10" width="10" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           "#fff"
         )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
       },
@@ -129,15 +132,16 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-thumb": {
     backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
-    width: 32,
-    height: 32,
+    width: 23,
+    height: 23,
+    marginTop:2,
     "&::before": {
       content: "''",
       position: "absolute",
       width: "100%",
       height: "100%",
       left: 0,
-      top: 0,
+      top: 1,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
@@ -169,11 +173,14 @@ const NavBar = (props) => {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+ 
   const [isOpen, setIsOpen] = useState(false);
   const [isSubOpen, setIsSubOpen] = useState(false);
   const [showExtraDropdown, setShowExtraDropdown] = useState(false);
-
+  const [anchorElCampaign, setAnchorElCampaign] = useState(null);
+  const openCampaign = Boolean(anchorElCampaign);
   const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
 
   const [startTime, setStartTime] = useState(null); // Initialize startTime as null
@@ -409,7 +416,7 @@ const NavBar = (props) => {
       >
         <Box
           sx={{
-            // backgroundColor: "#1e40af",
+            backgroundColor: "#1e40af",
             padding: "16px",
             borderRadius: "4px 4px 0 0",
             width: "100%",
@@ -523,9 +530,17 @@ const NavBar = (props) => {
     </Menu>
   );
 
+  const handleClickCampaign = (event) => {
+    setAnchorElCampaign(event.currentTarget);
+  };
+  const handleCloseCampaign = () => {
+    setAnchorElCampaign(null);
+  };
+
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+    <Stack sx={{}}>
+      <Box sx={{ flexGrow: 1,backgroundColor:"#EEF7FF" }} >
         <AppBar position="static">
           <Toolbar
             className={`sidebarMode ${
@@ -536,7 +551,7 @@ const NavBar = (props) => {
               control={<MaterialUISwitch sx={{ m: 1 }} onClick={handleMode} />}
             />
 
-            <Search sx={{ color: "white" }}>
+            <Search sx={{ height:"37px",backgroundColor:"white"}}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -546,7 +561,10 @@ const NavBar = (props) => {
               />
             </Search>
 
-            <div className="dropdown mx-2">
+
+            <div style={{display:"flex", height: "37px", backgroundColor:"white", padding:"4px", borderRadius:"5px"}}>
+            {/* <div className="dropdown mx-2" style={{   display:"flex",
+                  alignItems:"center"}}>
               <button
                 className="btn btn-light dropdown-toggle campine-dropdwn"
                 type="button"
@@ -554,14 +572,15 @@ const NavBar = (props) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
                 style={{
-                  height: "37px",
+                  height: "20px",
                   fontSize: "10px",
                   borderRadius: "8px",
+                  display:"flex",
+                  alignItems:"center"
                 }}
               >
                 <span style={{ fontSize: "12px" }}>Campaign</span>
               </button>
- 
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <a class="dropdown-item" href="#">
@@ -574,16 +593,49 @@ const NavBar = (props) => {
                   </a>
                 </li>
               </ul>
-            </div>
-
+            </div> */}
+            <div> 
+              <Button
+                // id="basic-button"
+                // aria-controls={open ? 'basic-menu' : undefined}
+                // aria-haspopup="true"
+                // aria-expanded={open ? 'true' : undefined}
+                onClick={handleClickCampaign}
+                sx={{
+                  fontSize:"10px",
+                  color:"white",
+                  backgroundColor:"lightgray",
+                  padding:0,
+                  borderRadius:"5px",
+                  paddingLeft:"2px",
+                  height: "20px",
+                  '&:hover': {
+                    color: "black"
+                  }
+                  }}
+              >
+                Campaign  <span className="p-0"><ArrowDropDownIcon/></span>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorElCampaign}
+                open={openCampaign}
+                onClose={handleCloseCampaign}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem >Inbound</MenuItem>
+                <MenuItem >Outbound</MenuItem>
+              </Menu> 
+             </div>
+          
             <div
-              className="card navbarCard"
-              style={{ height: "37px", borderRadius: "8px" }}
+              style={{ borderRadius: "8px" }}
             >
               <div className="card-body">
                 <div
                   className="d-flex justify-content-between align-items-center"
-                  style={{ marginTop: "-12px" }}
                 >
                   <div>
                     {/* Status */}
@@ -594,10 +646,12 @@ const NavBar = (props) => {
                       variant="contained"
                       size="small"
                       sx={{
-                        fontSize: "6px",
-                        borderRadius: "8px",
+                        fontSize: "9px",
+                        borderRadius: "5px",
                         width: "auto",
                         height: "20px",
+                        marginLeft:'5px'
+              
                       }}
                       color={props.status == "Ready" ? "success" : "error"}
                     >
@@ -623,7 +677,7 @@ const NavBar = (props) => {
                           {/* ready */}
                           <div className="d-flex w-100 justify-content-between">
                             <div
-                              style={{ fontSize: "12px", fontWeight: "bold" }}
+                              style={{ fontSize: "12px" }}
                             >
                               Ready
                             </div>
@@ -683,10 +737,10 @@ const NavBar = (props) => {
                       {props.status !== "Not Ready" && (
                         <MenuItem onClick={handleSubmenuClick}>
                           <div className="d-flex w-100 justify-content-between">
-                            <div
-                              style={{ fontSize: "11px", fontWeight: "bold" }}
-                            >
+                            <div>
+                            <span style={{ fontSize: "12px"}}>
                               Not Ready
+                            </span>
                             </div>
                             <div
                               className="my-auto mx-2"
@@ -766,17 +820,18 @@ const NavBar = (props) => {
                 </div>
               </div>
             </div>
+            </div>
 
             <Box
               className="card mx-2"
-              sx={{ height: "37px", borderRadius: "8px" }}
+              sx={{ height: "37px", borderRadius: "8px", border:"none" }}
             >
               <Stack direction="row" alignItems="center">
-                <Box>
+                <Box sx={{display:'flex', justifyContent:"center", alignItems:"center"}}>
                   <img
                     src={photo}
                     alt=""
-                    style={{ width: "40px", height: "35px", marginTop: "-7px" }}
+                    style={{ width: "30px", height: "30px", marginLeft:"5px"}}
                   />
                 </Box>
                 <Box className="ms-3">
@@ -801,7 +856,7 @@ const NavBar = (props) => {
                       variant="caption"
                       gutterBottom
                       sx={{
-                        fontSize: "11px",
+                        fontSize: "8px",
                         color: "black",
                         marginLeft: "1px",
                       }}
@@ -817,16 +872,25 @@ const NavBar = (props) => {
             <Box sx={{ flexGrow: 1 }} />
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Box className="me-2" sx={{ marginTop: "10px" }}>
-                <MdDialpad
+              <Tooltip  title="Dial">
+                {/* <MdDialpad
                   className="icon"
                   size={20}
                   color="white"
                   onClick={makecallDialpad}
-                />
-              </Box>
+                /> */}
+                <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  onClick={makecallDialpad}
+                >
+                  <Badge >
+                    <DialpadOutlinedIcon />
+                  </Badge>
+                </IconButton>
+            </Tooltip>
 
-              <Tooltip title="Whatsapp" arrow placement="bottom">
+              {/* <Tooltip title="Whatsapp" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -837,7 +901,7 @@ const NavBar = (props) => {
                     <WhatsappLogo size={25} weight="fill" />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
               {showWhatsapp && (
                 <Box className="Whatsappnotification_toggle">
@@ -877,7 +941,7 @@ const NavBar = (props) => {
                   </Grid>
                 </Box>
               )}
-
+{/* 
               <Tooltip title="Message" arrow placement="bottom">
                 <IconButton
                   size="large"
@@ -889,7 +953,7 @@ const NavBar = (props) => {
                     <ChatDots size={25} weight="fill" />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
               {showMessages && (
                 <Box className="Interaction_toggle">
                   <Grid
@@ -929,7 +993,7 @@ const NavBar = (props) => {
                 </Box>
               )}
 
-              <Tooltip title="Missed Call" arrow placement="bottom">
+              {/* <Tooltip title="Missed Call" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -940,7 +1004,7 @@ const NavBar = (props) => {
                     <Phone size={25} weight="fill" />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
               {showMissedcalls && (
                 <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
@@ -1013,7 +1077,7 @@ const NavBar = (props) => {
                 </Box>
               )}
 
-              <Tooltip title="Email" arrow placement="bottom">
+              {/* <Tooltip title="Email" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -1024,9 +1088,9 @@ const NavBar = (props) => {
                     <MailIcon />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
-              {showEmailNotification && (
+              {/* {showEmailNotification && (
                 <Box className="Email_toggle">
                   <Grid
                     container
@@ -1063,17 +1127,32 @@ const NavBar = (props) => {
                     )}
                   </Grid>
                 </Box>
-              )}
-
+              )} */}
+              <Tooltip  title="Missed Call">
+                {/* <MdDialpad
+                  className="icon"
+                  size={20}
+                  color="white"
+                  onClick={makecallDialpad}
+                /> */}
+                <IconButton 
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  // onClick={makecallDialpad}
+                >
+                  <Badge badgeContent={17} color="error">
+                    <PhoneIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Notification" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 17 new notifications"
-                  sx={{ color: "white" }}
                   onClick={toggleNotification}
                 >
                   <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
+                    <NotificationsNoneOutlinedIcon />
                   </Badge>
                 </IconButton>
               </Tooltip>
@@ -1116,7 +1195,7 @@ const NavBar = (props) => {
                   </Grid>
                 </Box>
               )}
-              <Tooltip title="Rotary phone" arrow placement="bottom">
+              {/* <Tooltip title="Rotary phone" arrow placement="bottom">
                 <IconButton
                   size="large"
                   edge="end"
@@ -1128,7 +1207,7 @@ const NavBar = (props) => {
                     <GiRotaryPhone />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
               <Tooltip title="Power" arrow placement="bottom">
                 <IconButton
@@ -1138,7 +1217,6 @@ const NavBar = (props) => {
                   aria-controls={powerDetailId}
                   aria-haspopup="true"
                   onClick={handlePowerDetailsOpen}
-                  style={{ color: "white" }}
                 >
                   <Power size={25} />
                 </IconButton>
@@ -1162,6 +1240,7 @@ const NavBar = (props) => {
         {renderPowerDetails}
         {renderMenu}
       </Box>
+      </Stack>
 
       {/* Makecall dialer pad */}
       <Snackbar

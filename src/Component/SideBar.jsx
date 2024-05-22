@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Stack } from "@mui/material";
+import { Badge, Button, IconButton, Stack } from "@mui/material";
 import { SquaresFour } from "@phosphor-icons/react";
 import Tooltip from "@mui/material/Tooltip";
 import cbm_image from "../assests/cbm_assests/images/Inaipi_Logo-1.2.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setDarkMode } from "../redux/actions/action";
+import HomeIcon from '@mui/icons-material/Home';
+import {Phone} from "@phosphor-icons/react";
 
 const mapStateToProps = (state) => {
   return {
@@ -43,7 +45,7 @@ const SideBar = (props) => {
       >
         <Stack
           alignItems={"center"}
-          sx={{ height: "100%", width: "100%", marginTop: "0px" }}
+          sx={{ height: "100%", width: "100%", marginTop: "0px",backgroundColor:"white" }}
           spacing={2}
         >
           <img
@@ -51,8 +53,8 @@ const SideBar = (props) => {
             alt="image"
             style={{
               marginTop: "4px",
-              height: "41px",
-              width: "43px",
+              height: "60px",
+              width: "60px",
               padding: "3px",
             }}
           />
@@ -61,34 +63,52 @@ const SideBar = (props) => {
             <Stack className="">
               <Link>
                 <Tooltip title="Dashboard" arrow placement="right-start">
-                  <SquaresFour
-                    size={25}
+                <IconButton>
+                  <HomeIcon
+                  sx={{ fontSize: 30}}
                     color="white"
                     onClick={() => handleIconClick(0)}
                     style={{
-                      backgroundColor: activeIndex === 0 ? "#0000ff" : "",
+                      backgroundColor: activeIndex === 0 ? "#EEF7FF" : "",
                     }}
-                  ></SquaresFour>
+                  />
+              </IconButton>
                 </Tooltip>
               </Link>
             </Stack>
             <span className="border-top"></span>
-            <Stack>
+            {/* <Stack>
               <Link to="/sdk">
                 <Tooltip title="sdk" arrow placement="right-start">
+                <Button> 
                   <SquaresFour
-                    size={25}
+                    size={28}
                     color="white"
                     onClick={() => handleIconClick(1)}
                     style={{
-                      backgroundColor: activeIndex === 1 ? "#0000ff" : "",
+                      backgroundColor: activeIndex === 1 ? "#0000ff" : "lightgray",
                     }}
                   ></SquaresFour>
+              </Button> 
                 </Tooltip>
               </Link>
-            </Stack>
+            </Stack>  */}
+            <Stack>
+            <Tooltip title="Missed Call" arrow placement="bottom">
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  sx={{ color: "lightgray" }}
+                  // onClick={toggleMissedCalls}
+                >
+                  <Badge badgeContent={4} color="error">
+                    <Phone size={25} weight="fill" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              </Stack>
 
-            <span className="border-top"></span>
+            {/* <span className="border-top"></span>
             <Stack className="">
               <SquaresFour size={25} color="white" />
             </Stack>
@@ -96,7 +116,7 @@ const SideBar = (props) => {
             <Stack>
               <SquaresFour size={25} color="white" />
             </Stack>
-            <span className="border-top"></span>
+            <span className="border-top"></span> */}
           </Stack>
         </Stack>
       </Toolbar>
