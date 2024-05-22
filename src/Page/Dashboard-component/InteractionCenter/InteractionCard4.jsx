@@ -360,6 +360,8 @@ const InteractionCard4 = (props) => {
     }
   }, [globalsearch]);
 
+  
+
   return (
     <>
       <Grid xs={12}>
@@ -367,20 +369,21 @@ const InteractionCard4 = (props) => {
           className={`card dashboardMode agentSummary  ms-1 mt-1 ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1 mt-1`}
-          sx={{ height: "44vh" }}
+          sx={{ height: "40vh" }}
         >
           <Tabs
             value={AgentSummaryTab}
             onChange={handleAgentTabChange}
             aria-label="tabs"
             variant="fullWidth"
+           
           >
-            <Tab label="Outbound" value="Outbound" />
-            <Tab label="Inbound" value="Inbound" />
+            <Tab label="Outbound" value="Outbound" sx={{fontSize:"12px"}}/>
+            <Tab label="Inbound" value="Inbound" sx={{fontSize:"12px"}}/>
           </Tabs>
 
           <Box
-            className="agentSummary ms-1 mt-1"
+            className="agentSummary ms-1"
             sx={{ height: "44vh", overflow: "scroll" }}
             p={1}
           >
@@ -391,7 +394,7 @@ const InteractionCard4 = (props) => {
                   <Typography
                     className="ms-2 mt-1"
                     color="primary"
-                    sx={{ fontSize: 15 }}
+                    sx={{ fontSize: 11 }}
                     gutterBottom
                   >
                     Agent Interaction Summary
@@ -562,9 +565,9 @@ const InteractionCard4 = (props) => {
                   <TableContainer>
                     <Table>
                       <TableHead>
-                        <TableRow>
-                          <TableCell
-                            className={`dashboardMode ${
+                        <TableRow > 
+                          <TableCell 
+                            className={` dashboardMode  ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
@@ -670,10 +673,10 @@ const InteractionCard4 = (props) => {
                               <TableRow
                                 hover
                                 role="checkbox"
-                                className={`dashboardMode ${
+                                className={`dashboardMode  ${
                                   props.darkMode ? "dark-mode" : "light-mode"
                                 }`}
-                                key={item.id} // Ensure each TableRow has a unique key
+                                key={item.id} 
                               >
                                 <>
                                   <TableCell
@@ -887,7 +890,10 @@ const InteractionCard4 = (props) => {
                   <Typography
                     className="ms-2 mt-1"
                     color="primary"
-                    sx={{ fontSize: 15 }}
+                    sx={{ fontSize: 11 }}
+                    
+                    
+                    
                     gutterBottom
                   >
                     Agent Interaction Summary

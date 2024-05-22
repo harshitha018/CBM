@@ -195,21 +195,20 @@ const InteractionCard2 = (props) => {
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
           // sx={{ height: "95vh" }}
-          sx={{ height: "25vh" }}
+          sx={{ height: "32vh" }}
         >
           <Box>
             <Stack direction="row align-item-center justify-content-between">
               <Grid className="d-flex">
-
-              <Notebook size={15} className="mt-1 ms-3" />
-              <Typography
-                className="ms-2 mt-1"
-                color="primary"
-                sx={{ fontSize: 12 }}
-                gutterBottom
-              >
-                Lead/Delinquent Details
-              </Typography>
+                <Notebook size={15} className="mt-1 ms-3" />
+                <Typography
+                  className="ms-2 mt-1"
+                  color="primary"
+                  sx={{ fontSize: 12 }}
+                  gutterBottom
+                >
+                  Lead/Delinquent Details
+                </Typography>
               </Grid>
               <Grid className="d-flex ms-auto">
                 {/* <Grid
@@ -263,9 +262,8 @@ const InteractionCard2 = (props) => {
             </Stack>
           </Box>
           {/* here the code  className="Customerdetails" */}
-          <Grid container className="Customerdetails mt-2" spacing={0.5}>
-          
-            <Grid item xs={1.5} sm={1} md={1.5}>
+          <Grid container className="Customerdetails" spacing={0.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <div>
                 <Typography
                   variant="body1"
@@ -282,14 +280,14 @@ const InteractionCard2 = (props) => {
                 size="small"
                 className="ms-2"
                 sx={{
-                  fontSize: "12px",
+                  fontSize: "10px",
                   height: "25px",
                   color: props.darkMode ? "#ffffff" : "#000000",
                 }}
                 onChange={(e) => setFirstname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -303,11 +301,11 @@ const InteractionCard2 = (props) => {
                 variant="outlined"
                 className="ms-2"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 onChange={(e) => setLastname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -320,10 +318,10 @@ const InteractionCard2 = (props) => {
                 variant="outlined"
                 className="ms-2"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
               />
             </Grid>
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -337,11 +335,11 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 onChange={(e) => setMobilenumber(e.target.value)}
               />
             </Grid>
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -354,13 +352,13 @@ const InteractionCard2 = (props) => {
                 value={altguarantorNumber}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setAltguarantornumber(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -373,13 +371,13 @@ const InteractionCard2 = (props) => {
                 value={emailId}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setEmailid(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={1} md={1.5}>
+            <Grid item xs={2.3} sm={1} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -393,11 +391,11 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -410,13 +408,13 @@ const InteractionCard2 = (props) => {
                 value={customeraddress}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px", width: "70%" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setCustomeraddress(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -429,13 +427,13 @@ const InteractionCard2 = (props) => {
                 value={segment}
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 className="ms-2"
                 onChange={(e) => setSegment(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -449,17 +447,17 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 variant="outlined"
                 size="small"
-                sx={{ fontSize: "12px", height: "25px" }}
+                sx={{ fontSize: "10px", height: "25px" }}
                 onChange={(e) => setDueamount(e.target.value)}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "10px", display: "block" }}
+                sx={{ fontSize: "10px", display: "block", width: "100%" }}
               >
                 Due Date
               </Typography>
@@ -472,6 +470,7 @@ const InteractionCard2 = (props) => {
                   "& input[type='date']": {
                     fontSize: "10px",
                     height: "25px",
+                    width: "146px",
                   },
                 }}
                 type="date"
@@ -479,7 +478,7 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -498,7 +497,7 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
@@ -517,12 +516,16 @@ const InteractionCard2 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "10px", display: "block" }}
+                sx={{
+                  fontSize: "10px",
+                  display: "block",
+                  marginBottom: "-3px",
+                }}
               >
                 Disposition
               </Typography>
@@ -533,11 +536,13 @@ const InteractionCard2 = (props) => {
                 style={{
                   height: "25px",
                   fontSize: "10px",
+                  width: "156px",
+                  background: "#faf9f6",
                 }}
               >
                 {dispositionlist.map((item) => (
                   <MenuItem
-                    sx={{ fontSize: "12px" }}
+                    sx={{ fontSize: "10px" }}
                     value={item.dispositionName}
                   >
                     {item.dispositionName}
@@ -546,39 +551,51 @@ const InteractionCard2 = (props) => {
               </Select>
             </Grid>
 
-            <Grid
-              item
-              xs={1.5}
-              sm={2}
-              md={1.5}
-              className="d-flex"
-              sx={{ marginTop: "-18px" }}
-            >
+            <Grid item xs={2.3} sm={2} md={2.3}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
                 sx={{
                   fontSize: "10px",
-                  marginTop: "20px",
+                  marginBottom: "-3px",
                   display: "block",
                 }}
               >
                 Sticky Agent
               </Typography>
-              <div className="form-check" style={{ marginTop: "20px" }}>
-                <input
-                  className="form-check-input mx-1"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                  checked={stickyAgent}
-                  onChange={(e) => setStickyAgent(e.target.checked)}
-                />
-              </div>
+
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "10px",
+                  height: "25px",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <div className="form-check" style={{marginRight:"-15px"}}>
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        checked={stickyAgent}
+                        onChange={(e) => setStickyAgent(e.target.checked)}
+                      />
+                    </div>
+                  ),
+                  style: {
+                    height: "25px",
+                    background: "#faf9f6",
+                  },
+                }}
+              />
             </Grid>
 
-            <Grid item xs={1.5} sm={2} md={1.5}>
+            {/* <Grid item xs={1.5} sm={2} md={1.5}>
               <Typography
                 variant="body1"
                 component="span"
@@ -594,7 +611,7 @@ const InteractionCard2 = (props) => {
                 sx={{ fontSize: "10px", height: "15px" }}
                 placeholder="Write a notes..."
               />
-            </Grid>
+            </Grid> */}
           </Grid>
 
           {/* end the code  */}
