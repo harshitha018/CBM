@@ -17,6 +17,7 @@ import {
   MapPin,
   NotePencil,
   ProjectorScreenChart,
+  Timer,
   User,
 } from "@phosphor-icons/react";
 
@@ -37,6 +38,8 @@ const InteractionCard5 = (props) => {
   const [selectedLocation, setSelectedLocation] = useState("Location");
   const [selectedAvailablity, setSelectedAvailablity] =
     useState("Availability");
+  const [stickyAgent, setStickyAgent] = useState(false);
+
 
   const handleProjectChange = (e) => {
     setSelectedProject(e.target.value);
@@ -64,7 +67,8 @@ const InteractionCard5 = (props) => {
           sx={{ height: "18vh" }}
           p={1}
         >
-          <Stack direction="row">
+          <Stack direction="row align-item-center justify-content-between">
+            <Grid className="d-flex">
             <NotePencil size={15} />
 
             <Typography
@@ -73,23 +77,89 @@ const InteractionCard5 = (props) => {
               sx={{ fontSize: 12 }}
               gutterBottom
             >
-              Survey/Appointment/Call back Scheduling
+              Schedule Callback / Survey / Remainders
             </Typography>
+
+            </Grid>
+        
+            <Grid className="d-flex ms-auto">
+                <Grid
+                  item
+                  // xs={1.5}
+                  // sm={2}
+                  // md={1.5}
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                >
+                  <Button
+                    variant="contained"
+                    className="ms-2"
+                    sx={{
+                      fontSize: "10px",
+                      height: "25px",
+                      // marginRight: "10px",
+                    }}
+                  >
+                    Schedule Now
+                  </Button>
+                </Grid>
+
+                
+              </Grid>
+           
           </Stack>
           <Grid
             container
-            className="survey_schedule"
+            className="survey_schedule mt-2"
             direction={"row"}
             spacing={1}
           >
+     
             <Grid item xs={1.5} sm={4} md={1.5}>
+              <Stack direction="row" alignItems="center">
+                <Typography
+                  variant="body1"
+                  component="span"
+                  sx={{
+                    fontSize: "10px",
+                    display: "block",
+                  }}
+                ></Typography>
+                <Grid
+                  className="d-flex flex-column"
+                  
+                >
+                  <label style={{ fontSize: "10px" }} >
+                     Date{" "}
+                  </label>
+                
+                    <TextField
+                // value={duedate}
+                variant="outlined"
+                // className="ms-2"
+                size="small"
+                sx={{
+                  "& input[type='date']": {
+                    fontSize: "10px",
+                    height: "25px",
+                  },
+                }}
+                type="date"
+                // onChange={(e) => setDuedate(e.target.value)}
+              />
+                </Grid>
+              </Stack>
+            </Grid>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"-8px"}}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
                 sx={{ fontSize: "10px", display: "block"}}
               >
-                First Name
+                Time
               </Typography>
               <TextField
                 variant="outlined"
@@ -101,7 +171,7 @@ const InteractionCard5 = (props) => {
                   color: props.darkMode ? "#ffffff" : "#000000",
                 }}
                 InputProps={{
-                  startAdornment: <User size={18} />,
+                  startAdornment: <Timer size={18} />,
                   style: {
                     height: "29px",
                     background: "#faf9f6",
@@ -109,7 +179,8 @@ const InteractionCard5 = (props) => {
                 }}
               />
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}>
+
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"6px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -122,7 +193,7 @@ const InteractionCard5 = (props) => {
                 ></Typography>
                 <Grid className="d-flex flex-column" sx={{marginTop:"-2px"}}>
                   <label  style={{ fontSize: "10px" }}>
-                     Project{" "}
+                     Type{" "}
                   </label>
                   <Select
                     value={selectedProject}
@@ -134,7 +205,7 @@ const InteractionCard5 = (props) => {
                       background: "#faf9f6",
                     }}
                   >
-                    <MenuItem value={"Project"}>Project</MenuItem>
+                    <MenuItem value={"Project"}>Type</MenuItem>
                     <MenuItem value={"Survey"}>Survey</MenuItem>
                     <MenuItem value={"Appointment"}>Appointment</MenuItem>
                     <MenuItem value={"Call back"}>Call back</MenuItem>
@@ -142,7 +213,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"-12px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"-20px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -155,7 +226,7 @@ const InteractionCard5 = (props) => {
                 ></Typography>
                 <Grid className="d-flex flex-column" sx={{marginTop:"-2px"}}>
                   <label  style={{ fontSize: "10px" }}>
-                    Waiting List{" "}
+                    Digital Notification{" "}
                   </label>
                   <Select
                     value={selectedWaitingList}
@@ -173,40 +244,8 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}
-            sx={{marginLeft:"-12px"}}
-            >
-              <Typography
-                variant="body1"
-                component="span"
-                className="ms-4"
-                sx={{
-                  fontSize: "10px",
-                  display: "block",
-                  
-                }}
-              >
-                Phone Number
-              </Typography>
-              <TextField
-                variant="outlined"
-                size="small"
-                className="ms-4"
-                sx={{
-                  fontSize: "10px",
-                  height: "10px",
-                  color: props.darkMode ? "#ffffff" : "#000000",
-                }}
-                InputProps={{
-                  startAdornment: <MdOutlineLocalPhone size={18} />,
-                  style: {
-                    height: "29px",
-                    background: "#faf9f6",
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}>
+         
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"20px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -221,7 +260,7 @@ const InteractionCard5 = (props) => {
                
                 >
                   <label style={{ fontSize: "10px" }}>
-                    Location{" "}
+                    Dial Plan / Queue{" "}
                   </label>
                   <Select
                     value={selectedLocation}
@@ -239,7 +278,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"5px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -254,7 +293,7 @@ const InteractionCard5 = (props) => {
                 
                 >
                   <label style={{ fontSize: "10px" }}>
-                     Availability{" "}
+                     Assign Campaign{" "}
                   </label>
                   <Select
                     value={selectedAvailablity}
@@ -273,69 +312,10 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}>
-              <Typography
-                variant="body1"
-                component="span"
-                className="ms-2"
-                sx={{
-                  fontSize: "10px",
-                  display: "block",
-                
-                }}
-              >
-                Enter Email
-              </Typography>
-              <TextField
-                variant="outlined"
-                size="small"
-                className="ms-2"
-                sx={{
-                  fontSize: "10px",
-                  height: "10px",
-                  color: props.darkMode ? "#ffffff" : "#000000",
-                }}
-                InputProps={{
-                  startAdornment: <EnvelopeSimple size={18} />,
+         
+            
 
-                  style: {
-                    height: "29px",
-                    background: "#faf9f6",
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5}>
-              <Stack direction="row" alignItems="center">
-                <Typography
-                  variant="body1"
-                  component="span"
-                  sx={{
-                    fontSize: "10px",
-                    display: "block",
-                  }}
-                ></Typography>
-                <Grid
-                  className="d-flex flex-column"
-                  
-                >
-                  <label style={{ fontSize: "10px" }} className="ms-2">
-                     Date{" "}
-                  </label>
-                  <input
-                    type="Date"
-                    style={{
-                     
-                      height: "29px",
-                      fontSize: "10px",
-                      background: "#faf9f6",
-                    }}
-                  />
-                </Grid>
-              </Stack>
-            </Grid>
-
-            <Grid item xs={1.5} sm={4} md={1.5}>
+            <Grid item xs={1.5} sm={4} md={1.5} className="d-flex">
               <Typography
                 variant="body1"
                 component="span"
@@ -348,55 +328,23 @@ const InteractionCard5 = (props) => {
               >
                 Sticky Agent
               </Typography>
-              <TextField
-                variant="outlined"
-                size="small"
-                className="ms-2"
-                sx={{
-                  fontSize: "10px",
-                  color: props.darkMode ? "#ffffff" : "#000000",
-                }}
-                InputProps={{
-                  startAdornment: <User size={18} />,
-                  style: {
-                    height: "29px",
-                    background: "#faf9f6",
-                  },
-                }}
-              />
+            
+               <div className="form-check" style={{ marginTop: "10px", marginLeft:"5px" }}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  checked={stickyAgent}
+                  onChange={(e) => setStickyAgent(e.target.checked)}
+                />
+              </div>
             </Grid>
 
-            {/* <Grid p={2} className="ms-1 ms-auto">
-              <Button variant="contained">Schedule now</Button>
-            </Grid> */}
+        
             
 
-            <Grid className="d-flex ms-auto">
-                <Grid
-                  item
-                  // xs={1.5}
-                  // sm={2}
-                  // md={1.5}
-                  container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                >
-                  <Button
-                    variant="contained"
-                    className="ms-2"
-                    sx={{
-                      fontSize: "10px",
-                      height: "32px",
-                      // marginRight: "10px",
-                    }}
-                  >
-                    Schedule Now
-                  </Button>
-                </Grid>
-
-                
-              </Grid>
+         
           </Grid>
         </Box>
       </Grid>

@@ -212,7 +212,7 @@ const InteractionCard2 = (props) => {
               </Typography>
               </Grid>
               <Grid className="d-flex ms-auto">
-                <Grid
+                {/* <Grid
                   item
                   // xs={1.5}
                   // sm={2}
@@ -234,7 +234,7 @@ const InteractionCard2 = (props) => {
                   >
                     Schedule Now
                   </Button>
-                </Grid>
+                </Grid> */}
 
                 <Grid
                   item
@@ -248,12 +248,12 @@ const InteractionCard2 = (props) => {
                 >
                   <Button
                     variant="contained"
-                    className="ms-2"
+                    className="ms-2 mt-1"
                     onClick={createUser}
                     sx={{
                       fontSize: "10px",
-                      height: "32px",
-                      marginRight: "50px",
+                      height: "25px",
+                      marginRight: "10px",
                     }}
                   >
                     Create
@@ -263,16 +263,8 @@ const InteractionCard2 = (props) => {
             </Stack>
           </Box>
           {/* here the code  className="Customerdetails" */}
-          <Grid container className="Customerdetails" spacing={0.5}>
-            {/* <div className="row row-cols-6">
-              <div className="col">1</div>
-              <div className="col">2</div>
-              <div className="col">3</div>
-              <div className="col">4</div>
-              <div className="col">5</div>
-              <div className="col">6</div>
-
-            </div> */}
+          <Grid container className="Customerdetails mt-2" spacing={0.5}>
+          
             <Grid item xs={1.5} sm={1} md={1.5}>
               <div>
                 <Typography
