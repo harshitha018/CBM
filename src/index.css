@@ -421,7 +421,9 @@ width: 30px;
 .survery_inputs{
 width: 50%;
 height: 30px !important;
-                 
-         
+}
+
+.fs-12{
+  font-size: 12px !important;
 
 }

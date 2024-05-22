@@ -64,7 +64,7 @@ const InteractionCard5 = (props) => {
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1 mt-1`}
-          sx={{ height: "18vh" }}
+          sx={{ height: "15vh" }}
           p={1}
         >
           <Stack direction="row align-item-center justify-content-between">
@@ -112,7 +112,7 @@ const InteractionCard5 = (props) => {
           </Stack>
           <Grid
             container
-            className="survey_schedule mt-2"
+            className="survey_schedule "
             direction={"row"}
             spacing={1}
           >
@@ -315,7 +315,7 @@ const InteractionCard5 = (props) => {
          
             
 
-            <Grid item xs={1.5} sm={4} md={1.5} className="d-flex">
+            {/* <Grid item xs={1.5} sm={4} md={1.5} className="d-flex">
               <Typography
                 variant="body1"
                 component="span"
@@ -339,9 +339,53 @@ const InteractionCard5 = (props) => {
                   onChange={(e) => setStickyAgent(e.target.checked)}
                 />
               </div>
-            </Grid>
+            </Grid> */}
 
-        
+<Grid item xs={2.3} sm={2} md={2.3}>
+              <Typography
+                variant="body1"
+                component="span"
+                className="ms-2"
+                sx={{
+                  fontSize: "10px",
+                  marginBottom: "-3px",
+                  display: "block",
+                }}
+              >
+                Sticky Agent
+              </Typography>
+
+              <TextField
+                variant="outlined"
+                size="small"
+                className="ms-2"
+                sx={{
+                  fontSize: "10px",
+                  height: "32px",
+                  width: "70%",
+                  color: props.darkMode ? "#ffffff" : "#000000",
+                }}
+                InputProps={{
+                 
+                  endAdornment: (
+                    <div className="form-check" style={{marginRight:"-15px"}}>
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        checked={stickyAgent}
+                        onChange={(e) => setStickyAgent(e.target.checked)}
+                      />
+                    </div>
+                  ),
+                  style: {
+                    height: "29px",
+                    background: "#faf9f6",
+                  },
+                }}
+              />
+            </Grid>
             
 
          

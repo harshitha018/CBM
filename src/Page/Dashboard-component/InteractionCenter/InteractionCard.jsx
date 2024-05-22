@@ -135,7 +135,7 @@ const InteractionCard = (props) => {
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           } ms-1`}
-          sx={{ height: "44vh", marginTop: "4px" }}
+          sx={{ height: "47vh", marginTop: "6px" }}
         >
           {!closeCard && (
             <Card
