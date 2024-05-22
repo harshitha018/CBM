@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Box, Button, Card } from "@mui/material";
+import { Grid, Box, Button, Card, Stack, Paper } from "@mui/material";
 import InteractionCard from "./InteractionCenter/InteractionCard";
 import InteractionCard2 from "./InteractionCenter/InteractionCard2";
 import InteractionCard3 from "./InteractionCenter/InteractionCard3";
@@ -81,9 +81,9 @@ const DashBoard = (props) => {
 
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
-      <Grid container spacing={0.5}>
+      <Grid container >
         <Grid xs={3} md={4}>
-          <Grid container spacing={0.5} direction={"column"}>
+          {/* <Grid container spacing={0.5} direction={"column"}> */}
             <InteractionCard
               callActivity={props.callActivity}
               endCall={endCall}
@@ -91,14 +91,15 @@ const DashBoard = (props) => {
               setinteractiontransferdialer={setinteractiontransferdialer}
               dialedNumber={dialedNumber}
               setDialedNumber={setDialedNumber}
-              attendedTransfer={attendedTransfer  }
+              attendedTransfer={attendedTransfer}
             />
-          </Grid>
+          
+          {/* </Grid> */}
         </Grid>
         <Grid container xs={7.5} md={8} >
           <InteractionCard2 />
         </Grid>
-        <Grid xs={12} md={12}>
+        <Grid xs={12} md={12} >
           <InteractionCard4 
           makeCall={makeCall}
           dialedNumber={dialedNumber}

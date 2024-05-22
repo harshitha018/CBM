@@ -151,13 +151,14 @@ const InteractionCard = (props) => {
 
   return (
     <>
+      <Paper elevation={10} sx={{marginRight:"5px"}}>       
         <div
-          className={`card dashboardMode ${
+          className={` ${
             props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1`}
-          sx={{ height: "47vh", marginTop: "6px" }}
+          } `}
+          style={{ height: "49vh" }}
         >
-     {!closeCard && (
+          {!closeCard && (
             <Box
               className={` dashboardMode ${
                 props.darkMode ? "dark-mode" : "light-mode"
@@ -195,9 +196,9 @@ const InteractionCard = (props) => {
               <Box sx={{marginX:"15px", border:"0.5px solid lightgray", borderRadius:"10px"}}>
               <Box sx={{borderTopLeftRadius:"10%", borderTopRightRadius:"10%" , paddingX:"5px"}}>
                 <Stack direction="row"  justifyContent="space-between" sx={{paddingTop:"4px"}}>
-                <Stack direction="row" spacing={4}>
+                <Stack direction="row" spacing={3}>
                   <Box sx={{display:'flex',alignItems:"center", justifyContent:"center"}}>
-                  <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
+                  <Avatar alt="Remy Sharp" sx={{ width: 45, height: 45 }}><AccountCircleSharpIcon/></Avatar>
                   </Box>
                   <Box>
                   <Typography  sx={{ fontSize: 20, fontWeight:600}} >Aarumugaselvan</Typography>
@@ -285,7 +286,7 @@ const InteractionCard = (props) => {
               justifyContent="space-evenly"
               alignItems="center"
               spacing={3}
-              sx={{marginLeft:2}}
+              // sx={{marginLeft:2}}
               >
                 <CustomButton >
                   <KeyboardVoiceIcon sx={{fontSize:30}}/>
@@ -325,11 +326,11 @@ const InteractionCard = (props) => {
                   className="interactioncard_collapse"
                   sx={{
                     fontSize: "12px",
-                    height: "70%",
+                    height: "13vh",
                     overflowY: "scroll",
                     background: "whitesmoke",
                     zIndex: 999,
-                    position: "relative",
+                    // position: "relative",
                   }}
                 >
                   <Typography
@@ -452,8 +453,6 @@ const InteractionCard = (props) => {
             </Tabs>
           </Stack> */}
         </div>
-
-
       {/*interaction Transfer dialer */}
       {props.interactiontransferdialer && (
         <Box className="dialpad_main" sx={{zIndex: 9999}}>
@@ -531,6 +530,7 @@ const InteractionCard = (props) => {
           </Card>
         </Box>
       )}
+      </Paper>
     </>
   );
 };

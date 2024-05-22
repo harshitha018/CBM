@@ -43,6 +43,7 @@ body {
   height: 100vh;
   width: 207vh !important
 }
+
 .agentSummary::-webkit-scrollbar {
   display: none;
 }

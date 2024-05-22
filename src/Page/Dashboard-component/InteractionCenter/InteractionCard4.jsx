@@ -24,6 +24,7 @@ import {
   Popover,
   Card,
   Divider,
+  Paper,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -64,6 +65,36 @@ const mapStateToProps = (state) => {
     darkMode: state.data.darkMode,
   };
 };
+
+const tableStyles = {
+  table: {
+    fontSize: "10px",
+    paddingX: "5px",
+  },
+  tableHeader: {
+    backgroundColor: "#FC3D3D",
+  },
+  tableRow: {
+    // padding: "5px",
+  },
+  tableHeaderCell: {
+    fontSize: "11px",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    // border: "1px solid #d0d0d0",
+    // padding: "5px",
+  },
+  tableCell: {
+    fontSize: "10px",
+    //color: '#6b6969',
+    paddingY: "5px",
+    paddingX:"0px",
+    color: "#525050",
+    textAlign:"center"
+    // border: "1px solid #d0d0d0",
+  },
+};
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -364,38 +395,37 @@ const InteractionCard4 = (props) => {
 
   return (
     <>
-      <Grid xs={12}>
+        <Paper elevation={10}>
         <Box
-          className={`card dashboardMode agentSummary  ms-1 mt-1 ${
+          className={` ${
             props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1 mt-1`}
-          sx={{ height: "40vh" }}
+          } `}
+          // sx={{ height: "40vh", width:"100vw" }}
         >
           <Tabs
             value={AgentSummaryTab}
             onChange={handleAgentTabChange}
             aria-label="tabs"
             variant="fullWidth"
-           
           >
             <Tab label="Outbound" value="Outbound" sx={{fontSize:"12px"}}/>
             <Tab label="Inbound" value="Inbound" sx={{fontSize:"12px"}}/>
           </Tabs>
-
-          <Box
-            className="agentSummary ms-1"
-            sx={{ height: "44vh", overflow: "scroll" }}
-            p={1}
-          >
+          {/* <Box
+            // className="agentSummary ms-1"
+            // sx={{ height: "44vh", overflow: "scroll" }}
+            sx={{width:"full"}}
+          > */}
+          <div className="w-full">
             {AgentSummaryTab === "Outbound" && (
               <>
-                <Stack direction="row">
+                <Stack direction="row" sx={{marginY:"4px"}}>
                   <IntersectThree size={20} />
                   <Typography
-                    className="ms-2 mt-1"
+                    className=""
                     color="primary"
-                    sx={{ fontSize: 11 }}
-                    gutterBottom
+                    sx={{ fontSize: 11,  whiteSpace: 'nowrap'}}
+                    // gutterBottom
                   >
                     Agent Interaction Summary
                   </Typography>
@@ -561,12 +591,13 @@ const InteractionCard4 = (props) => {
                     }}
                   />
                 </Stack>
-                <Box sx={{ width: "100vw" }}>
+                <Box sx={{height:"20vh",overflow: "scroll" , overflowX: "hidden" }}>
                   <TableContainer>
                     <Table>
-                      <TableHead>
-                        <TableRow > 
-                          <TableCell 
+                    <TableHead style={tableStyles.tableHeader}>
+                        <TableRow> 
+                        <TableCell sx={tableStyles.tableHeaderCell}
+                        style={{width:"30px"}}
                             className={` dashboardMode  ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -574,43 +605,43 @@ const InteractionCard4 = (props) => {
                             Flag
                           </TableCell>
 
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             ANI No
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
-                          ></TableCell>
-                          <TableCell
+                          >Type</TableCell>
+                            {/* <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
-                          ></TableCell>
+                          ></TableCell> */}
                           {/* <TableCell
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           ></TableCell> */}
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Caller Num
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Date
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -618,35 +649,36 @@ const InteractionCard4 = (props) => {
                             Arrival Time
                           </TableCell>
 
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Channel
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Call status
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
+                            style={{width:"30px"}}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Duration
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Disposition
                           </TableCell>
-                          <TableCell
+                          <TableCell sx={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -655,7 +687,7 @@ const InteractionCard4 = (props) => {
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody>
+                      <TableBody style={tableStyles.tableBody}>
                         {interaction.map((item) => {
                           const connectedTime = item.connectedTime;
                           const disconnectedTime = item.disconnectedTime;
@@ -679,27 +711,37 @@ const InteractionCard4 = (props) => {
                                 key={item.id} 
                               >
                                 <>
-                                  <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
                                         : "light-mode"
                                     }`}
                                   >
+                                                                     
                                     {flag ? (
+                                      <>
+                                      <button>  
                                       <Flag
                                         weight="bold"
                                         onClick={handelFlag}
                                       />
+                                        </button>
+                                        </>
                                     ) : (
+                                      <>
+                                        <button>
                                       <Flag
                                         weight="fill"
                                         color="red"
                                         onClick={handelFlag}
                                       />
+                                        </button>
+                                      </>
                                     )}
+                                  
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -708,7 +750,7 @@ const InteractionCard4 = (props) => {
                                   >
                                     {item.aniNumber}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -732,7 +774,7 @@ const InteractionCard4 = (props) => {
                                       <PhoneOutgoing size={15} color="blue" />
                                     </button>
                                   </TableCell>
-                                  <TableCell
+                                  {/* <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -740,17 +782,17 @@ const InteractionCard4 = (props) => {
                                     }`}
                                   >
                                     <ChatCircleDots size={15} color="green" />
-                                  </TableCell>
-                                  <TableCell
+                                  </TableCell> */}
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
                                         : "light-mode"
                                     }`}
                                   >
-                                    {item.callerNumber}
+                                    {item.callerNumber? item.callerNumber : "NA"}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -761,7 +803,7 @@ const InteractionCard4 = (props) => {
                                       "DD/MM/YY"
                                     )}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -772,7 +814,7 @@ const InteractionCard4 = (props) => {
                                       "HH:MM:SS.sss"
                                     )}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -781,7 +823,7 @@ const InteractionCard4 = (props) => {
                                   >
                                     {item.channel}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -790,7 +832,7 @@ const InteractionCard4 = (props) => {
                                   >
                                     {item.callStatus}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -799,7 +841,7 @@ const InteractionCard4 = (props) => {
                                   >
                                     {item.duration}
                                   </TableCell>
-                                  <TableCell
+                                  <TableCell sx={tableStyles.tableCell}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -808,15 +850,15 @@ const InteractionCard4 = (props) => {
                                   >
                                     {item.disposition}
                                   </TableCell>
-                                  <TableCell
-                                    sx={{ display: "flex" }}
+                                  <TableCell sx={tableStyles.tableCell}
+                                    // sx={{ display: "flex" }}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
                                         : "light-mode"
                                     }`}
                                   >
-                                    <div>
+                                  <div className="flex">
                                       {item.recording && (
                                         <>
                                           {audioStates[item.id]?.pause ? (
@@ -856,7 +898,7 @@ const InteractionCard4 = (props) => {
                                         className="mx-1"
                                         color="red"
                                       />
-                                    </div>
+                                         </div>
                                   </TableCell>
                                 </>
                               </TableRow>
@@ -872,7 +914,7 @@ const InteractionCard4 = (props) => {
                     className={`dashboardMode ${
                       props.darkMode ? "dark-mode" : "light-mode"
                     }`}
-                    rowsPerPageOptions={[10, 25, 100]}
+                    rowsPerPageOptions={[5,10,15, 25, 100]}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}
@@ -885,12 +927,12 @@ const InteractionCard4 = (props) => {
             )}
             {AgentSummaryTab === "Inbound" && (
               <>
-                <Stack direction="row">
+              <Stack direction="row" sx={{marginY:"4px"}}>
                   <IntersectThree size={20} />
                   <Typography
                     className="ms-2 mt-1"
                     color="primary"
-                    sx={{ fontSize: 11 }}
+                    sx={{ fontSize: 11,whiteSpace:"nowrap" }}
                     
                     
                     
@@ -1055,12 +1097,12 @@ const InteractionCard4 = (props) => {
                     }}
                   />
                 </Stack>
-                <Box sx={{ width: "100vw" }}>
+                <Box sx={{height:"20vh",overflow: "scroll",overflowX: "hidden" }}>
                   <TableContainer>
                     <Table>
-                      <TableHead>
+                      <TableHead style={tableStyles.tableHeader}>
                         <TableRow>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -1068,43 +1110,43 @@ const InteractionCard4 = (props) => {
                             Flag
                           </TableCell>
 
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             ANI No
                           </TableCell>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
-                          ></TableCell>
-                          <TableCell
-                            className={`dashboardMode ${
-                              props.darkMode ? "dark-mode" : "light-mode"
-                            }`}
-                          ></TableCell>
+                          >Type</TableCell>
                           {/* <TableCell
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           ></TableCell> */}
-                          <TableCell
+                          {/* <TableCell
+                            className={`dashboardMode ${
+                              props.darkMode ? "dark-mode" : "light-mode"
+                            }`}
+                          ></TableCell> */}
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Caller Num
                           </TableCell>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Date
                           </TableCell>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -1112,21 +1154,21 @@ const InteractionCard4 = (props) => {
                             Time
                           </TableCell>
 
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Channel
                           </TableCell>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
                           >
                             Call status
                           </TableCell>
-                          <TableCell
+                          <TableCell style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -1134,7 +1176,7 @@ const InteractionCard4 = (props) => {
                             Duration
                           </TableCell>
 
-                          <TableCell
+                          <TableCell  style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -1142,7 +1184,7 @@ const InteractionCard4 = (props) => {
                             Disposition
                           </TableCell>
 
-                          <TableCell
+                          <TableCell  style={tableStyles.tableHeaderCell}
                             className={`dashboardMode ${
                               props.darkMode ? "dark-mode" : "light-mode"
                             }`}
@@ -1174,7 +1216,7 @@ const InteractionCard4 = (props) => {
                               }`}
                             >
                               <>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
@@ -1189,7 +1231,7 @@ const InteractionCard4 = (props) => {
                                     />
                                   )}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
@@ -1197,7 +1239,7 @@ const InteractionCard4 = (props) => {
                                   {item.aniNumber}
                                 </TableCell>
 
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
@@ -1222,28 +1264,28 @@ const InteractionCard4 = (props) => {
                                     <PhoneOutgoing size={15} color="blue" />
                                   </button>
                                 </TableCell>
-                                <TableCell
+                                {/* <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   <ChatCircleDots size={15} color="green" />
-                                </TableCell>
-                                <TableCell
+                                </TableCell> */}
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
-                                  {item.callerNumber}
+                                  {item.callerNumber?item.callerNumber :"NA" }
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {moment(item.arrivalTime).format("DD/MM/YY")}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
@@ -1252,41 +1294,40 @@ const InteractionCard4 = (props) => {
                                     "HH:MM:SS.sss"
                                   )}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {item.channel}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {item.callStatus}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {item.duration}
                                 </TableCell>
-                                <TableCell
+                                <TableCell sx={tableStyles.tableCell}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {item.disposition}
                                 </TableCell>
-                                <TableCell
-                                  sx={{ display: "flex" }}
+                                <TableCell sx={{...tableStyles.tableCell,display: "flex"}}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
-                                  <div>
+                                  <div className="flex">
                                     {pause1 ? (
                                       <PlayCircleIcon
                                         className="mx-1"
@@ -1346,10 +1387,10 @@ const InteractionCard4 = (props) => {
                 </Box>
               </>
             )}
+            </div>
           </Box>
-        </Box>
-      </Grid>
-
+        {/* </Box> */}
+        </Paper>
       {/* outbound filter */}
       <Dialog
         open={openOutboundFilter}

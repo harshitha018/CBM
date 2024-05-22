@@ -59,11 +59,10 @@ const InteractionCard5 = (props) => {
 
   return (
     <>
-      <Grid xs={12}>
         <Box
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1 mt-1`}
+          }`}
           sx={{ height: "15vh" }}
           p={1}
         >
@@ -391,7 +390,6 @@ const InteractionCard5 = (props) => {
          
           </Grid>
         </Box>
-      </Grid>
     </>
   );
 };

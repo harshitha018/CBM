@@ -993,21 +993,21 @@ const NavBar = (props) => {
                 </Box>
               )}
 
-              {/* <Tooltip title="Missed Call" arrow placement="bottom">
+              <Tooltip title="Missed Call" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
-                  sx={{ color: "white" }}
                   onClick={toggleMissedCalls}
                 >
                   <Badge badgeContent={4} color="error">
-                    <Phone size={25} weight="fill" />
+                    {/* <Phone size={25} weight="fill" /> */}
+                    <PhoneIcon />
                   </Badge>
                 </IconButton>
-              </Tooltip> */}
-
+              </Tooltip>
+            
               {showMissedcalls && (
-                <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
+                <Box className="MissedCalls_toggle">
                   <Grid
                     container
                     alignItems="center"
@@ -1046,7 +1046,6 @@ const NavBar = (props) => {
                   </Grid>
                 </Box>
               )}
-
               {props.opensurvey && (
                 <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
                   <Grid
@@ -1128,14 +1127,14 @@ const NavBar = (props) => {
                   </Grid>
                 </Box>
               )} */}
-              <Tooltip  title="Missed Call">
+              {/* <Tooltip  title="Missed Call"> */}
                 {/* <MdDialpad
                   className="icon"
                   size={20}
                   color="white"
                   onClick={makecallDialpad}
                 /> */}
-                <IconButton 
+                {/* <IconButton 
                   size="large"
                   aria-label="show 17 new notifications"
                   // onClick={makecallDialpad}
@@ -1143,8 +1142,8 @@ const NavBar = (props) => {
                   <Badge badgeContent={17} color="error">
                     <PhoneIcon />
                   </Badge>
-                </IconButton>
-              </Tooltip>
+                </IconButton> */}
+              {/* </Tooltip> */}
               <Tooltip title="Notification" arrow placement="bottom">
                 <IconButton
                   size="large"

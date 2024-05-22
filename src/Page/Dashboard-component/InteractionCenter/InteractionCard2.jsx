@@ -11,6 +11,7 @@ import {
   TextField,
   Tabs,
   Tab,
+  Paper,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -189,11 +190,13 @@ const InteractionCard2 = (props) => {
 
   return (
     <>
-      <Grid xs={12}>
+
+        {/* <Stack direction="column" spacing={2}> */}
+        <Paper elevation={10}>
         <Box
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1`}
+          }`}
           // sx={{ height: "95vh" }}
           sx={{ height: "32vh" }}
         >
@@ -616,9 +619,12 @@ const InteractionCard2 = (props) => {
 
           {/* end the code  */}
         </Box>
-
+        </Paper>
+        <Paper elevation={10} sx={{marginY:"10px"}}>
         <InteractionCard5 />
-      </Grid>
+        </Paper>
+        {/* </Stack> */}
+
     </>
   );
 };
