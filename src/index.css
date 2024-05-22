@@ -352,14 +352,14 @@ width: 30px;
   color: #ffffff;
 }
 
-/* .sidebarMode {
+.sidebarMode {
   background-color:#0b3363;
   color: #000000;
-} */
-.sidebarMode{
+}
+/* .sidebarMode{
   background-color: #0b3363 !important;
   color: #000000;
-}
+} */
 .sidebarMode .MuiStack-root{
   background-color: #0b3363;
   color: #ffffff;

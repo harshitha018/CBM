@@ -82,7 +82,7 @@ const DashBoard = (props) => {
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
       <Grid container >
-        <Grid xs={3} md={4}>
+        <Grid xs={12} md={4} className="mb-2 sm:mb-0">
           {/* <Grid container spacing={0.5} direction={"column"}> */}
             <InteractionCard
               callActivity={props.callActivity}
@@ -96,7 +96,7 @@ const DashBoard = (props) => {
           
           {/* </Grid> */}
         </Grid>
-        <Grid container xs={7.5} md={8} >
+        <Grid container xs={12} md={8} >
           <InteractionCard2 />
         </Grid>
         <Grid xs={12} md={12} >

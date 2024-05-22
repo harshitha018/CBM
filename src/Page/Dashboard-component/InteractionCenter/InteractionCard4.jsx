@@ -80,7 +80,10 @@ const tableStyles = {
   tableHeaderCell: {
     fontSize: "11px",
     fontWeight: "bold",
+    padding:"5px",
     textTransform: "uppercase",
+    textAlign:"center",
+    backgroundColor: "#F1F1F1",
     // border: "1px solid #d0d0d0",
     // padding: "5px",
   },
@@ -711,7 +714,7 @@ const InteractionCard4 = (props) => {
                                 key={item.id} 
                               >
                                 <>
-                                <TableCell sx={tableStyles.tableCell}
+                                <TableCell sx={{...tableStyles.tableCell, fontSize:"13px"}}
                                     className={`dashboardMode ${
                                       props.darkMode
                                         ? "dark-mode"
@@ -724,6 +727,7 @@ const InteractionCard4 = (props) => {
                                       <button>  
                                       <Flag
                                         weight="bold"
+                                        // sx={{fontSize:"13px"}}
                                         onClick={handelFlag}
                                       />
                                         </button>
@@ -858,7 +862,7 @@ const InteractionCard4 = (props) => {
                                         : "light-mode"
                                     }`}
                                   >
-                                  <div className="flex">
+                                  <div className="flex justify-center">
                                       {item.recording && (
                                         <>
                                           {audioStates[item.id]?.pause ? (
@@ -1216,19 +1220,27 @@ const InteractionCard4 = (props) => {
                               }`}
                             >
                               <>
-                                <TableCell sx={tableStyles.tableCell}
+                              <TableCell sx={{...tableStyles.tableCell, fontSize:"13px"}}
                                   className={`dashboardMode ${
                                     props.darkMode ? "dark-mode" : "light-mode"
                                   }`}
                                 >
                                   {flag ? (
+                                    <>
+                                      <button>
                                     <Flag weight="bold" onClick={handelFlag} />
+                                      </button>
+                                    </>
                                   ) : (
+                                    <>
+                                      <button>
                                     <Flag
                                       weight="fill"
                                       color="red"
                                       onClick={handelFlag}
                                     />
+                                      </button>
+                                    </>
                                   )}
                                 </TableCell>
                                 <TableCell sx={tableStyles.tableCell}

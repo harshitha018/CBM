@@ -33,7 +33,8 @@ const SideBar = (props) => {
   }, []);
 
   return (
-    <AppBar position="static" color="" className={` sidebarMode ${
+    // <AppBar position="static" color="" className={` sidebarMode ${
+      <AppBar position="static" color="" className={` ${
       props.darkMode ? "dark-mode" : "#2ea55e"
     }`} >
       <Toolbar

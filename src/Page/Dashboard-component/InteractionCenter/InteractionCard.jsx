@@ -156,7 +156,7 @@ const InteractionCard = (props) => {
           className={` ${
             props.darkMode ? "dark-mode" : "light-mode"
           } `}
-          style={{ height: "49vh" }}
+          style={{ height: "52vh" }}
         >
           {!closeCard && (
             <Box
@@ -201,9 +201,9 @@ const InteractionCard = (props) => {
                   <Avatar alt="Remy Sharp" sx={{ width: 45, height: 45 }}><AccountCircleSharpIcon/></Avatar>
                   </Box>
                   <Box>
-                  <Typography  sx={{ fontSize: 20, fontWeight:600}} >Aarumugaselvan</Typography>
-                  <Typography variant="caption" display={"block"} >+91-8300756165</Typography>
-                  <Typography variant="caption" display={"block"}>(Basic queue)</Typography>
+                  <Typography  sx={{ fontSize: 17, fontWeight:500}} >Aarumugaselvan</Typography>
+                  <Typography variant="caption"  sx={{ fontSize: 13}} display={"block"} >+91-8300756165</Typography>
+                  <Typography variant="caption" sx={{ fontSize: 13}} display={"block"}>(Basic queue)</Typography>
                   <Typography variant="subtitle2" display="block">
                   <Box
                     component="span"
@@ -303,10 +303,10 @@ const InteractionCard = (props) => {
                       handleinteractionTransfer();
                     }}
                   >
-                    <SyncAltIcon sx={{ fontSize: 20 }} />
+                    <SyncAltIcon sx={{ fontSize: 30 }} />
                   </CustomButton>
                   <CustomButton>
-                    <MoreVertIcon sx={{ fontSize: 20}} />
+                    <MoreVertIcon sx={{ fontSize: 30}} />
                   </CustomButton>
                   <ThemeProvider theme={Buttontheme}>
                     <CustomButton
@@ -316,7 +316,7 @@ const InteractionCard = (props) => {
                     >
                       <CallEndRoundedIcon
                         style={{ fill: "white", "&:hover": { color: "red" } }}
-                        sx={{ fontSize: 20 }}
+                        sx={{ fontSize: 30 }}
                       />
                     </CustomButton>
                   </ThemeProvider>
