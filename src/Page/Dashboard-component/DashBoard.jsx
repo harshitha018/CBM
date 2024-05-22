@@ -81,8 +81,8 @@ const DashBoard = (props) => {
 
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
-      <Grid container spacing={0.5} direction={"row"}>
-        <Grid xs={3.5}>
+      <Grid container spacing={0.5}>
+        <Grid xs={3} md={4}>
           <Grid container spacing={0.5} direction={"column"}>
             <InteractionCard
               callActivity={props.callActivity}
@@ -91,20 +91,19 @@ const DashBoard = (props) => {
               setinteractiontransferdialer={setinteractiontransferdialer}
               dialedNumber={dialedNumber}
               setDialedNumber={setDialedNumber}
-              attendedTransfer={attendedTransfer}
+              attendedTransfer={attendedTransfer  }
             />
-           
           </Grid>
-          <Grid xs={9}>
+        </Grid>
+        <Grid container xs={7.5} md={8} >
+          <InteractionCard2 />
+        </Grid>
+        <Grid xs={12} md={12}>
           <InteractionCard4 
           makeCall={makeCall}
           dialedNumber={dialedNumber}
           callActivitiesApi={callActivitiesApi}
           />
-          </Grid>
-        </Grid>
-        <Grid xs={8.5}>
-          <InteractionCard2 />
         </Grid>
 
         {props.incomingCall && (
