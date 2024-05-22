@@ -1,0 +1,1 @@
+export const BaseUrl = "https://gway.release.inaipi.ae/cbmv2";

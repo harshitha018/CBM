@@ -1,0 +1,162 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --header-height: 3rem;
+  --nav-width: 68px;
+  --first-color: $Primary_2;
+  --first-color-light: #AFA5D9;
+  --white-color: #F7F6FB;
+  --body-font: "Poppins", sans-serif;
+  --normal-font-size: 1rem;
+  --z-fixed: 100;
+}
+:root a {
+  text-decoration: none;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  background: #c9c9c9;
+}
+
+.vh-46 {
+  height: 46vh !important;
+}
+
+.vh-51 {
+  height: 51vh !important;
+}
+
+.vhm-52 {
+  max-height: 52vh !important;
+}
+
+.vhm-53 {
+  max-height: 53vh !important;
+}
+
+.vhm-54 {
+  max-height: 54vh !important;
+}
+
+.vh-55 {
+  height: 55vh !important;
+}
+
+.vh-60 {
+  height: 60vh !important;
+}
+
+.vhm-61 {
+  max-height: 61vh !important;
+}
+
+.vh-62 {
+  max-height: 62vh !important;
+}
+
+.vh-63 {
+  max-height: 63vh !important;
+}
+
+.vh-64 {
+  height: 64dvh !important;
+}
+
+.vh-65 {
+  height: 65dvh !important;
+}
+
+.vh-66 {
+  height: 66dvh !important;
+}
+
+.vh-68 {
+  height: 68dvh !important;
+}
+
+.vhm-65 {
+  max-height: 65dvh !important;
+}
+
+.vhm-68 {
+  max-height: 68dvh !important;
+}
+
+.vh-73 {
+  height: 73dvh !important;
+}
+
+.vh-74 {
+  height: 74dvh !important;
+}
+
+.vh-75 {
+  height: 75dvh !important;
+}
+
+.vh-76 {
+  height: 76dvh !important;
+}
+
+.vh-77 {
+  height: 77dvh !important;
+}
+
+.vh-78 {
+  height: 78dvh !important;
+}
+
+.vh-79 {
+  height: 79dvh !important;
+}
+
+.vh-85 {
+  height: 85dvh !important;
+}
+
+/* table fixed start  */
+.fixed-table-card {
+  border: unset !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+.table-fixed thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 99;
+  font-size: 13px;
+  vertical-align: top !important;
+  color: #0b3363;
+}
+.table-fixed tbody {
+  font-size: 13px;
+}
+.table-fixed button:not(:disabled),
+.table-fixed [type=button]:not(:disabled) {
+  border: none;
+}
+.table-fixed p {
+  font-size: 13px;
+}
+.table-fixed .btn:active,
+.table-fixed .btn:focus {
+  outline: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* table fixed start end *//*# sourceMappingURL=style.css.map */
