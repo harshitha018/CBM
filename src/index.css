@@ -8,6 +8,8 @@
 }
 body {
   overflow: hidden;
+  background: #d6eaf5 !important;
+
 }
 .callInteraction {
   overflow: auto;
@@ -349,12 +351,30 @@ width: 30px;
   color: #ffffff;
 }
 
-.sidebarMode {
+/* .sidebarMode {
+  background-color:#0b3363;
+  color: #000000;
+} */
+.sidebarMode{
+  background-color: #0b3363 !important;
+  color: #000000;
+}
+.sidebarMode .MuiStack-root{
+  background-color: #0b3363;
+  color: #ffffff;
+}
+
+.dark-mode .MuiStack-root{
+  background-color: #36454F;
+  color: #ffffff;
+}
+
+.navbarmode{
   background-color:#F4F7FA;
   color: #000000;
 }
 
-.sidebarMode.dark-mode {
+.navbarmode.dark-mode {
   background-color: #36454F;
   color: #ffffff;
 }
@@ -429,4 +449,20 @@ height: 30px !important;
 .fs-12{
   font-size: 12px !important;
 
+}
+
+.aside_left .nav-item .active {
+  background: var(--secondary-color);
+  color: white !important;
+  height: 50px;
+  padding: unset !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 6px -3px inset;
+}
+.side_btn .MuiButtonBase-root .active {
+  background: red !important;
 }

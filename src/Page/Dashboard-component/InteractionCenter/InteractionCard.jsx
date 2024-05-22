@@ -17,24 +17,24 @@ import {
   Tabs,
   TextField,
   List as ListIcon,
-  Paper
+  Paper,
 } from "@mui/material";
-import ReorderIcon from '@mui/icons-material/Reorder';
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-import PhonePausedIcon from '@mui/icons-material/PhonePaused';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CallEndIcon from '@mui/icons-material/CallEnd';
-import CallEndRoundedIcon from '@mui/icons-material/CallEndRounded';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import ReorderIcon from "@mui/icons-material/Reorder";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import PhonePausedIcon from "@mui/icons-material/PhonePaused";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CallEndIcon from "@mui/icons-material/CallEnd";
+import CallEndRoundedIcon from "@mui/icons-material/CallEndRounded";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import {
   Alarm,
   ArrowsLeftRight,
@@ -151,92 +151,136 @@ const InteractionCard = (props) => {
 
   return (
     <>
-        <div
-          className={`card dashboardMode ${
-            props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1`}
-          sx={{ height: "47vh", marginTop: "6px" }}
-        >
-     {!closeCard && (
-            <Box
-              className={` dashboardMode ${
-                props.darkMode ? "dark-mode" : "light-mode"
-              } `}
-              sx={{ minWidth: 275 }}
-            >
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                justifyContent="space-between"
-                marginX={2}
-              >
-                <Typography
-                  variant="body1"
-                  className="ms-1"
-                  sx={{ fontSize: 14 }}
-                  gutterBottom
-                >
-                  <ReorderIcon sx={{fontSize:16}} color="lightgray" />
-                </Typography>
-                <Typography sx={{ fontSize: 13, fontWeight:700}} gutterBottom>
-                    Live interaction
-                  </Typography>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ArrowsOutSimple size={16} />
-                </ExpandMore>
-              </Stack>
-              {/* <Paper elevation={5}> */}
-              <Box sx={{marginX:"15px", border:"0.5px solid lightgray", borderRadius:"10px"}}>
-              <Box sx={{borderTopLeftRadius:"10%", borderTopRightRadius:"10%" , paddingX:"5px"}}>
-                <Stack direction="row"  justifyContent="space-between" sx={{paddingTop:"4px"}}>
-                <Stack direction="row" spacing={4}>
-                  <Box sx={{display:'flex',alignItems:"center", justifyContent:"center"}}>
-                  <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
-                  </Box>
-                  <Box>
-                  <Typography  sx={{ fontSize: 20, fontWeight:600}} >Aarumugaselvan</Typography>
-                  <Typography variant="caption" display={"block"} >+91-8300756165</Typography>
-                  <Typography variant="caption" display={"block"}>(Basic queue)</Typography>
-                  <Typography variant="subtitle2" display="block">
-                  <Box
-                    component="span"
-                    sx={{
-                      padding: "3px",
-                      backgroundColor: "#FC3D3D",
-                      borderRadius: "100%",
-                      height: "5px",
-                      width: "5px",
-                      display: "inline-block",
-                      marginRight: "4px" // Added for better spacing
-                    }}
-                  />
-                  on call
-                </Typography>
-                  </Box>
-                  <Box>
-                  </Box>
-                </Stack>
-                <Stack direction="column-reverse" justifyContent="space-between"  alignItems="center" spacing={2}>
-                  <Box>
-                  <p style={{fontSize:"25px",fontWeight:700,color:"#FC3D3D"}}>05:00</p>
-                  </Box>
-                  <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  spacing={1}
-                >
-                  <PhoneCall size={16} />
-                  <Pen size={16} />
-                </Stack>
+      <div
+        className={`card dashboardMode ${
+          props.darkMode ? "dark-mode" : "light-mode"
+        } ms-2 mt-1`}
+        sx={{ height: "47vh" }}
 
-                </Stack>
+      >
+        {!closeCard && (
+          <Box
+            className={` dashboardMode ${
+              props.darkMode ? "dark-mode" : "light-mode"
+            } `}
+            sx={{ minWidth: 275, height: "277px"}}
+          >
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+              justifyContent="space-between"
+              marginX={2}
+            >
+              <Typography
+                variant="body1"
+                className="ms-1"
+                sx={{ fontSize: 12 }}
+                gutterBottom
+              >
+                <ReorderIcon sx={{ fontSize: 16 }} color="lightgray" />
+              </Typography>
+              <Typography color="primary" sx={{ fontSize: 12, fontWeight: 500 }} gutterBottom>
+                Live interaction
+              </Typography>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ArrowsOutSimple size={15} />
+              </ExpandMore>
+            </Stack>
+            {/* <Paper elevation={5}> */}
+            <Box
+              sx={{
+                marginX: "15px",
+                border: "0.5px solid lightgray",
+                borderRadius: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  borderTopLeftRadius: "10%",
+                  borderTopRightRadius: "10%",
+                  paddingX: "5px",
+                }}
+              >
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ paddingTop: "4px" }}
+                >
+                  <Stack direction="row" spacing={4}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={<AccountCircleSharpIcon />}
+                      />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: 12, fontWeight: 600 }}>
+                        Aarumugaselvan
+                      </Typography>
+                      <Typography variant="caption" display={"block"} sx={{fontSize: "10px" }}>
+                        +91-8300756165
+                      </Typography>
+                      <Typography variant="caption" display={"block"} sx={{fontSize: "10px" }}>
+                        (Basic queue)
+                      </Typography>
+                      <Typography variant="subtitle2" display="block" sx={{fontSize: "10px" }}>
+                        <Box
+                          component="span"
+                          sx={{
+                            padding: "3px",
+                            backgroundColor: "#FC3D3D",
+                            borderRadius: "100%",
+                            height: "5px",
+                            width: "5px",
+                            display: "inline-block",
+                            marginRight: "4px",
+                            fontSize: "10px" 
+                          }}
+                        />
+                        on call
+                      </Typography>
+                    </Box>
+                    <Box></Box>
+                  </Stack>
+                  <Stack
+                    direction="column-reverse"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={2}
+                  >
+                    <Box>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: 700,
+                          color: "#FC3D3D",
+                        }}
+                      >
+                        05:00
+                      </p>
+                    </Box>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="flex-end"
+                      spacing={1}
+                    >
+                      <PhoneCall size={16} />
+                      <Pen size={16} />
+                    </Stack>
+                  </Stack>
                 </Stack>
                 {/* <Stack>
                   <Box>
@@ -246,7 +290,7 @@ const InteractionCard = (props) => {
 
                   </Box>
                 </Stack> */}
-              
+
                 {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {props.displayExtNum}
@@ -260,11 +304,11 @@ const InteractionCard = (props) => {
                 {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {/* {moment(props.callActivity.createdDate).format('MMMM Do YYYY, h:mm:ss a')} */}
-                    {/* {moment(props.callActivity.createdDate).format(
+                {/* {moment(props.callActivity.createdDate).format(
                       "MMMM Do YYYY"
                     )}
                   </Typography>
-                </Stack> */} 
+                </Stack> */}
               </Box>
               <Divider />
               <Box
@@ -273,149 +317,149 @@ const InteractionCard = (props) => {
                 } `}
                 sx={{
                   backgroundColor: "#F1F1F1",
-                  border:'0.5px solid lightgray',
+                  border: "0.5px solid lightgray",
                   // borderTopColor: "lightgray",
                   display: "flex",
-                  paddingY:"7px",
-                  borderBottomLeftRadius:'10px',
-                  borderBottomRightRadius:"10px"
+                  paddingY: "7px",
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
                 }}
               >
-              <Stack direction="row"
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={3}
-              sx={{marginLeft:2}}
-              >
-                <CustomButton >
-                  <KeyboardVoiceIcon sx={{fontSize:30}}/>
-                </CustomButton>
-                <CustomButton>
-                  <PhonePausedIcon sx={{fontSize:30}}/>
-                </CustomButton>
-                <CustomButton>
-                  <PersonAddAlt1Icon sx={{fontSize:30}}/>
-                </CustomButton>
+                <Stack
+                  direction="row"
+                  justifyContent="space-evenly"
+                  alignItems="center"
+                  spacing={3}
+                  sx={{ marginLeft: 2 }}
+                >
+                  <CustomButton>
+                    <KeyboardVoiceIcon sx={{ fontSize: 20 }} />
+                  </CustomButton>
+                  <CustomButton>
+                    <PhonePausedIcon sx={{ fontSize: 20 }} />
+                  </CustomButton>
+                  <CustomButton>
+                    <PersonAddAlt1Icon sx={{ fontSize: 20 }} />
+                  </CustomButton>
                   {/* <ArrowsLeftRight size={16} /> */}
                   <CustomButton
                     onClick={() => {
                       handleinteractionTransfer();
                     }}
                   >
-                    <SyncAltIcon  sx={{fontSize:30}}/>
+                    <SyncAltIcon sx={{ fontSize: 20 }} />
                   </CustomButton>
                   <CustomButton>
-                  <MoreVertIcon sx={{fontSize:30}}/>
+                    <MoreVertIcon sx={{ fontSize: 20}} />
                   </CustomButton>
                   <ThemeProvider theme={Buttontheme}>
-                  <CustomButton
-                  backgroundColor="#FC3D3D"
-                  borderRadius="100%"
-                    onClick={() => endCall()}
-                  >
-                    <CallEndRoundedIcon  style={{ fill: 'white',"&:hover": { color: "red" }  }} sx={{fontSize:30}}/>
-                  </CustomButton>
+                    <CustomButton
+                      backgroundColor="#FC3D3D"
+                      borderRadius="100%"
+                      onClick={() => endCall()}
+                    >
+                      <CallEndRoundedIcon
+                        style={{ fill: "white", "&:hover": { color: "red" } }}
+                        sx={{ fontSize: 20 }}
+                      />
+                    </CustomButton>
                   </ThemeProvider>
-              </Stack>
+                </Stack>
               </Box>
-              </Box>
-              {/* </Paper> */}
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent
-                  className="interactioncard_collapse"
-                  sx={{
-                    fontSize: "12px",
-                    height: "70%",
-                    overflowY: "scroll",
-                    background: "whitesmoke",
-                    zIndex: 999,
-                    position: "relative",
-                  }}
-                >
-                  <Typography
-                    paragraph
-                    className={`dashboardMode ${
-                      props.darkMode ? "dark-mode" : "light-mode"
-                    } `}
-                    sx={{ fontSize: "12px" }}
-                  >
-                    Heat oil in a (14- to 16-inch) paella pan or a large, deep
-                    skillet over medium-high heat. Add chicken, shrimp and
-                    chorizo, and cook, stirring occasionally until lightly
-                    browned, 6 to 8 minutes. Transfer shrimp to a large plate
-                    and set aside, leaving chicken and chorizo in the pan. Add
-                    pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                    pepper, and cook, stirring often until thickened and
-                    fragrant, about 10 minutes. Add saffron broth and remaining
-                    4 1/2 cups chicken broth; bring to a boil.
-                  </Typography>
-                </CardContent>
-              </Collapse>
             </Box>
-          )}
-     
-          {/* Tabs content */}
-          {alarmTab === 0 && (
-            <>
-              <Grid
-                container
-                alignItems="center"
-                justifyContent="space-between"
+            {/* </Paper> */}
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent
+                className="interactioncard_collapse"
+                sx={{
+                  fontSize: "10px",
+                  height: "100%",
+                  overflowY: "scroll",
+                  background: "whitesmoke",
+                  zIndex: 999,
+                  position: "relative",
+                }}
               >
-                <Grid item>
-                  <Box m={1}>
-                    <Typography variant="body1" sx={{ fontSize: "12px" }}>
-                      Channel Name:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontSize: "12px" }}>
-                      Arrived call:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontSize: "12px" }}>
-                      Call attended by:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontSize: "12px" }}>
-                      Call attended by:
-                    </Typography>
-                    <Typography variant="body1" sx={{ fontSize: "12px" }}>
-                      Disposition:
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item p={1} sx={{ marginBottom: "70px" }}>
-                  <X size={16} onClick={handleOpenCard} />
-                </Grid>
-              </Grid>
-            </>
-          )}
-          {alarmTab === 1 && (
-            <>
-              <Grid alignItems="center" justifyContent="space-between">
-                <Grid item p={1} sx={{ marginBottom: "70px" }}>
-                  <X size={16} onClick={handleOpenCard} />
-                </Grid>
-              </Grid>
-            </>
-          )}
-          {alarmTab === 2 && (
-            <>
-              <Grid alignItems="center" justifyContent="space-between">
-                <Grid item p={1} sx={{ marginBottom: "70px" }}>
-                  <X size={16} onClick={handleOpenCard} />
-                </Grid>
-              </Grid>
-            </>
-          )}
-          {alarmTab === 3 && (
-            <>
-              <Grid alignItems="center" justifyContent="space-between">
-                <Grid item p={1} sx={{ marginBottom: "70px" }}>
-                  <X size={16} onClick={handleOpenCard} />
-                </Grid>
-              </Grid>
-            </>
-          )}
+                <Typography
+                  paragraph
+                  className={`dashboardMode ${
+                    props.darkMode ? "dark-mode" : "light-mode"
+                  } `}
+                  sx={{ fontSize: "10px" }}
+                >
+                  Heat oil in a (14- to 16-inch) paella pan or a large, deep
+                  skillet over medium-high heat. Add chicken, shrimp and
+                  chorizo, and cook, stirring occasionally until lightly
+                  browned, 6 to 8 minutes. Transfer shrimp to a large plate and
+                  set aside, leaving chicken and chorizo in the pan. Add
+                  pimentón, bay leaves, garlic, tomatoes, onion, salt and
+                  pepper, and cook, stirring often until thickened and fragrant,
+                  about 10 minutes. Add saffron broth and remaining 4 1/2 cups
+                  chicken broth; bring to a boil.
+                </Typography>
+              </CardContent>
+            </Collapse>
+          </Box>
+        )}
 
-          {/* <Stack
+        {/* Tabs content */}
+        {alarmTab === 0 && (
+          <>
+            <Grid container alignItems="center" justifyContent="space-between">
+              <Grid item>
+                <Box m={1}>
+                  <Typography variant="body1" sx={{ fontSize: "12px" }}>
+                    Channel Name:
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontSize: "12px" }}>
+                    Arrived call:
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontSize: "12px" }}>
+                    Call attended by:
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontSize: "12px" }}>
+                    Call attended by:
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontSize: "12px" }}>
+                    Disposition:
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item p={1} sx={{ marginBottom: "70px" }}>
+                <X size={16} onClick={handleOpenCard} />
+              </Grid>
+            </Grid>
+          </>
+        )}
+        {alarmTab === 1 && (
+          <>
+            <Grid alignItems="center" justifyContent="space-between">
+              <Grid item p={1} sx={{ marginBottom: "50px" }}>
+                <X size={16} onClick={handleOpenCard} />
+              </Grid>
+            </Grid>
+          </>
+        )}
+        {alarmTab === 2 && (
+          <>
+            <Grid alignItems="center" justifyContent="space-between">
+              <Grid item p={1} sx={{ marginBottom: "70px" }}>
+                <X size={16} onClick={handleOpenCard} />
+              </Grid>
+            </Grid>
+          </>
+        )}
+        {alarmTab === 3 && (
+          <>
+            <Grid alignItems="center" justifyContent="space-between">
+              <Grid item p={1} sx={{ marginBottom: "70px" }}>
+                <X size={16} onClick={handleOpenCard} />
+              </Grid>
+            </Grid>
+          </>
+        )}
+
+        {/* <Stack
             direction="row"
             display="flex"
             spacing={2.5}
@@ -451,12 +495,11 @@ const InteractionCard = (props) => {
               />
             </Tabs>
           </Stack> */}
-        </div>
-
+      </div>
 
       {/*interaction Transfer dialer */}
       {props.interactiontransferdialer && (
-        <Box className="dialpad_main" sx={{zIndex: 9999}}>
+        <Box className="dialpad_main" sx={{ zIndex: 999 }}>
           <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
             <TextField
               value={props.dialedNumber}
@@ -520,7 +563,7 @@ const InteractionCard = (props) => {
                     "TransferdialedNumber",
                     props.dialedNumber
                   );
-                  console.log("TransferdialedNumber",props.dialedNumber)
+                  console.log("TransferdialedNumber", props.dialedNumber);
                 }}
                 style={{ color: "white", background: "green" }}
                 fullWidth

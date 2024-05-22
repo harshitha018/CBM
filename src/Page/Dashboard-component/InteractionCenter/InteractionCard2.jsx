@@ -457,7 +457,7 @@ const InteractionCard2 = (props) => {
                 variant="body1"
                 component="span"
                 className="ms-2"
-                sx={{ fontSize: "10px", display: "block", width: "100%" }}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Due Date
               </Typography>
@@ -470,7 +470,7 @@ const InteractionCard2 = (props) => {
                   "& input[type='date']": {
                     fontSize: "10px",
                     height: "25px",
-                    width: "146px",
+                    width: "136px",
                   },
                 }}
                 type="date"
@@ -536,7 +536,7 @@ const InteractionCard2 = (props) => {
                 style={{
                   height: "25px",
                   fontSize: "10px",
-                  width: "156px",
+                  width: "146px",
                   background: "#faf9f6",
                 }}
               >
@@ -558,7 +558,7 @@ const InteractionCard2 = (props) => {
                 className="ms-2"
                 sx={{
                   fontSize: "10px",
-                  marginBottom: "-3px",
+                  marginBottom: "-1px",
                   display: "block",
                 }}
               >

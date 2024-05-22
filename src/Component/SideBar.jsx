@@ -33,7 +33,9 @@ const SideBar = (props) => {
   }, []);
 
   return (
-    <AppBar position="static" color="">
+    <AppBar position="static" color="" className={` sidebarMode ${
+      props.darkMode ? "dark-mode" : "#2ea55e"
+    }`} >
       <Toolbar
         sx={{
           "@media screen and (min-width: 600px)": {
@@ -41,7 +43,8 @@ const SideBar = (props) => {
           },
           height: "100vh",
         }}
-        className={`sidebarMode ${props.darkMode ? "dark-mode" : "#2ea55e"}`}
+      
+        // style={{background:"red"}}
       >
         <Stack
           alignItems={"center"}
@@ -59,7 +62,7 @@ const SideBar = (props) => {
             }}
           />
 
-          <Stack spacing={1.8} className="">
+          <Stack spacing={1.8} className="side_btn">
             <Stack className="">
               <Link>
                 <Tooltip title="Dashboard" arrow placement="right-start">
@@ -69,7 +72,7 @@ const SideBar = (props) => {
                     color="white"
                     onClick={() => handleIconClick(0)}
                     style={{
-                      backgroundColor: activeIndex === 0 ? "#EEF7FF" : "",
+                      fill: activeIndex === 0 ? "white" : "",
                     }}
                   />
               </IconButton>
