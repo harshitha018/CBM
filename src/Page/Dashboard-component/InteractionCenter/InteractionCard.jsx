@@ -17,24 +17,24 @@ import {
   Tabs,
   TextField,
   List as ListIcon,
-  Paper
+  Paper,
 } from "@mui/material";
-import ReorderIcon from '@mui/icons-material/Reorder';
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-import PhonePausedIcon from '@mui/icons-material/PhonePaused';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CallEndIcon from '@mui/icons-material/CallEnd';
-import CallEndRoundedIcon from '@mui/icons-material/CallEndRounded';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import ReorderIcon from "@mui/icons-material/Reorder";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import PhonePausedIcon from "@mui/icons-material/PhonePaused";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CallEndIcon from "@mui/icons-material/CallEnd";
+import CallEndRoundedIcon from "@mui/icons-material/CallEndRounded";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import {
   Alarm,
   ArrowsLeftRight,
@@ -247,7 +247,7 @@ const InteractionCard = (props) => {
 
                   </Box>
                 </Stack> */}
-              
+
                 {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {props.displayExtNum}
@@ -261,11 +261,11 @@ const InteractionCard = (props) => {
                 {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {/* {moment(props.callActivity.createdDate).format('MMMM Do YYYY, h:mm:ss a')} */}
-                    {/* {moment(props.callActivity.createdDate).format(
+                {/* {moment(props.callActivity.createdDate).format(
                       "MMMM Do YYYY"
                     )}
                   </Typography>
-                </Stack> */} 
+                </Stack> */}
               </Box>
               <Divider />
               <Box
@@ -274,12 +274,12 @@ const InteractionCard = (props) => {
                 } `}
                 sx={{
                   backgroundColor: "#F1F1F1",
-                  border:'0.5px solid lightgray',
+                  border: "0.5px solid lightgray",
                   // borderTopColor: "lightgray",
                   display: "flex",
-                  paddingY:"7px",
-                  borderBottomLeftRadius:'10px',
-                  borderBottomRightRadius:"10px"
+                  paddingY: "7px",
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
                 }}
               >
               <Stack direction="row"
@@ -303,21 +303,24 @@ const InteractionCard = (props) => {
                       handleinteractionTransfer();
                     }}
                   >
-                    <SyncAltIcon  sx={{fontSize:30}}/>
+                    <SyncAltIcon sx={{ fontSize: 20 }} />
                   </CustomButton>
                   <CustomButton>
-                  <MoreVertIcon sx={{fontSize:30}}/>
+                    <MoreVertIcon sx={{ fontSize: 20}} />
                   </CustomButton>
                   <ThemeProvider theme={Buttontheme}>
-                  <CustomButton
-                  backgroundColor="#FC3D3D"
-                  borderRadius="100%"
-                    onClick={() => endCall()}
-                  >
-                    <CallEndRoundedIcon  style={{ fill: 'white',"&:hover": { color: "red" }  }} sx={{fontSize:30}}/>
-                  </CustomButton>
+                    <CustomButton
+                      backgroundColor="#FC3D3D"
+                      borderRadius="100%"
+                      onClick={() => endCall()}
+                    >
+                      <CallEndRoundedIcon
+                        style={{ fill: "white", "&:hover": { color: "red" } }}
+                        sx={{ fontSize: 20 }}
+                      />
+                    </CustomButton>
                   </ThemeProvider>
-              </Stack>
+                </Stack>
               </Box>
               </Box>
               {/* </Paper> */}
@@ -416,7 +419,7 @@ const InteractionCard = (props) => {
             </>
           )}
 
-          {/* <Stack
+        {/* <Stack
             direction="row"
             display="flex"
             spacing={2.5}
@@ -455,7 +458,7 @@ const InteractionCard = (props) => {
         </div>
       {/*interaction Transfer dialer */}
       {props.interactiontransferdialer && (
-        <Box className="dialpad_main" sx={{zIndex: 9999}}>
+        <Box className="dialpad_main" sx={{ zIndex: 999 }}>
           <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
             <TextField
               value={props.dialedNumber}
@@ -519,7 +522,7 @@ const InteractionCard = (props) => {
                     "TransferdialedNumber",
                     props.dialedNumber
                   );
-                  console.log("TransferdialedNumber",props.dialedNumber)
+                  console.log("TransferdialedNumber", props.dialedNumber);
                 }}
                 style={{ color: "white", background: "green" }}
                 fullWidth

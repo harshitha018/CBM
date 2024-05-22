@@ -151,11 +151,10 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"-8px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} className="ms-1">
               <Typography
                 variant="body1"
                 component="span"
-                className="ms-2"
                 sx={{ fontSize: "10px", display: "block"}}
               >
                 Time
@@ -163,7 +162,6 @@ const InteractionCard5 = (props) => {
               <TextField
                 variant="outlined"
                 size="small"
-                className="ms-2"
                 sx={{
                   fontSize: "10px",
                   height: "20px",
@@ -179,7 +177,7 @@ const InteractionCard5 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"6px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"1px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -244,7 +242,7 @@ const InteractionCard5 = (props) => {
               </Stack>
             </Grid>
          
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"20px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"18px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -277,7 +275,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"5px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"1px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -340,14 +338,13 @@ const InteractionCard5 = (props) => {
               </div>
             </Grid> */}
 
-<Grid item xs={2.3} sm={2} md={2.3}>
+<Grid item xs={2.3} sm={2} md={2.3} sx={{marginLeft:"5px"}}>
               <Typography
                 variant="body1"
                 component="span"
                 className="ms-2"
                 sx={{
                   fontSize: "10px",
-                  marginBottom: "-3px",
                   display: "block",
                 }}
               >

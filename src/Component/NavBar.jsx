@@ -543,7 +543,7 @@ const NavBar = (props) => {
       <Box sx={{ flexGrow: 1,backgroundColor:"#EEF7FF" }} >
         <AppBar position="static">
           <Toolbar
-            className={`sidebarMode ${
+            className={`navbarmode ${
               props.darkMode ? "dark-mode" : "#2ea55e"
             }`}
           >
