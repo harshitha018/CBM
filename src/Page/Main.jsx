@@ -65,7 +65,6 @@ const mapStateToProps = (state) => {
 };
 
 const Main = (props) => {
-
   const userDetails = JSON.parse(localStorage.getItem("userinformation"));
 
   var someDate = new Date();
@@ -87,6 +86,7 @@ const Main = (props) => {
   const invitationRef = useRef(null);
   const localAudioRef = useRef(null);
   const remoteAudioRef = useRef(null);
+  const originalCallRef = useRef(null);
   const transferedRef = useRef(null);
   const sessionRef = useRef(null);
   const [isWebRTCConnected, setIsWebRTCConnected] = useState(true);
@@ -121,14 +121,12 @@ const Main = (props) => {
     setDialedNumber(event.target.value);
   };
 
-  
-
   // ACCEPT/DISCONNECT API //
   const callActivitiesApi = async (activitystatus, Callstatusvalue2) => {
     // if (callType) {
     // }
     const callerid = JSON.parse(localStorage.getItem("Callerid"));
-    console.log("vvvvvvvvvvvvvvvvvv",props.displayExtNum)
+    console.log("vvvvvvvvvvvvvvvvvv", props.displayExtNum);
 
     await axios
       .post(
@@ -225,83 +223,77 @@ const Main = (props) => {
 
   // MUTE/UNMUTE FUNTIONALITY //
 
-  // const muteBrowserAudio = () => {
-  //   const localAudioElement = localAudioRef.current;
-  //   const remoteAudioElement = remoteAudioRef.current;
+ 
 
-  //   // const remoteStream = remoteAudioElement.srcObject;
-
-  //   if (!localAudioElement || !remoteAudioElement) {
-  //     console.error("Audio elements not found.");
-  //     return;
-  //   }
-
-  //   const localStream = localAudioElement.srcObject;
-  //   const remoteStream = remoteAudioElement.srcObject;
-
-  //   console.log("localStream:", localStream);
-  //   console.log("remoteStream:", remoteStream);
-
-  //   if (!localStream || !remoteStream) {
-  //     console.error("Media streams not found.");
-  //     return;
-  //   }
-
-  //   const toggleMute = (stream, isMuted) => {
-  //     stream.getAudioTracks().forEach((track) => {
-  //       track.enabled = !isMuted;
-  //     });
-  //   };
-
-  //   const updateMuteStatus = (stream, isLocal) => {
-  //     const isMuted = stream.getAudioTracks().every((track) => !track.enabled);
-  //     console.log(`${isLocal ? "Local" : "Remote"} Stream Muted: ${isMuted}`);
-  //   };
-
-  //   toggleMute(localStream, !localStream.getAudioTracks()[0].enabled);
-  //   toggleMute(remoteStream, !remoteStream.getAudioTracks()[0].enabled);
-
-  //   const isMutedLocal = !localStream.getAudioTracks()[0].enabled;
-  //   const isMutedRemote = !remoteStream.getAudioTracks()[0].enabled;
-  //   const isMuted = isMutedLocal && isMutedRemote;
-
-  //   props.setShowMute(isMuted);
-
-  //   if (isMuted) {
-  //     muteUnmute("muted", "Mute");
-  //   } else {
-  //     muteUnmute("unmuted", "unMute");
-  //   }
-
-  //   updateMuteStatus(localStream, true);
-  //   updateMuteStatus(remoteStream, false);
-
-  //   localStream.getAudioTracks().forEach((track) => {
-  //     track.onmute = () => updateMuteStatus(localStream, true);
-  //     track.onunmute = () => updateMuteStatus(localStream, true);
-  //   });
-
-  //   remoteStream.getAudioTracks().forEach((track) => {
-  //     track.onmute = () => updateMuteStatus(remoteStream, false);
-  //     track.onunmute = () => updateMuteStatus(remoteStream, false);
-  //   });
+  // const toggleMute = () => {
+  //   props.setShowMute(!props.showMute);
   // };
 
-  // useEffect(() => {
-  //   const muteButton = document.getElementById("muteButton");
-  //   if (muteButton) {
-  //     muteButton.addEventListener("click", muteBrowserAudio);
-  //     return () => {
-  //       muteButton.removeEventListener("click", muteBrowserAudio);
-  //     };
-  //   } else {
-  //     console.error("Mute button not found.");
-  //   }
-  // }, []);
+  // MUTE/UNMUTE API //
+  const mediaElement = document.getElementById("localAudio");
+  const remoteAudioElement = document.getElementById("remoteAudio");
+  const remoteStream = new MediaStream();
+  let localStream;
 
-  const toggleMute = () => {
-    props.setShowMute(!props.showMute);
+
+
+  const muteUnmute = async (muteActivity, muteStatus) => {
+    console.log("mute unmute trigger");
+    console.log("localStreamMUTEFUNTION", localStream);
+
+    if (!localStream) {
+      console.error("Local stream is not initialized");
+      return;
+    }
+
+    try {
+      const OutgoingcallID = localStorage.getItem("outgoingcallID");
+      const dialedNumber = localStorage.getItem("dialedNumber");
+      const tenantId = localStorage.getItem("TenantId");
+      const userId = userDetails[0].userId;
+
+      const response = await axios.post(
+        BaseUrl + "/agent/activity",
+        {
+          agentId: userId,
+          sipId: OutgoingcallID,
+          callerNumber: dialedNumber,
+          callStatus: muteStatus,
+          activity: muteActivity,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            TenantID: tenantId,
+          },
+        }
+      );
+
+      console.log("muteAPIII", response.data);
+
+      if (response.data.status) {
+        if (muteStatus === "Mute") {
+          // Mute local audio
+          localStream
+            .getAudioTracks()
+            .forEach((track) => (track.enabled = false));
+          props.setShowMute(false);
+        } else {
+          // Unmute local audio
+          localStream
+            .getAudioTracks()
+            .forEach((track) => (track.enabled = true));
+          props.setShowMute(true);
+        }
+      } else {
+        console.log("muteeeeeerr");
+      }
+    } catch (error) {
+      console.error("Error muting/unmuting:", error);
+    }
   };
+
+ 
 
   // HOLD/UNHOLD API //
   const holdUnhold = async (holdActivity, holdStatus) => {
@@ -631,95 +623,10 @@ const Main = (props) => {
     initializeUserAgent();
   }, []);
 
-  // MUTE/UNMUTE API //
-  const mediaElement = document.getElementById("localAudio");
-  const remoteAudioElement = document.getElementById("remoteAudio");
-  const remoteStream = new MediaStream();
-  let localStream;
-
-  // Function to initialize the local stream
-  // const initializeLocalStream = async () => {
-  //   try {
-  //     localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  //     mediaElement.srcObject = localStream;
-  //     console.log("Local stream initialized", localStream);
-  //   } catch (error) {
-  //     console.error("Error accessing local audio stream:", error);
-  //   }
-  // };
-
-  // // Call the function to initialize the local stream
-  // initializeLocalStream();
-
-  const muteUnmute = async (muteActivity, muteStatus) => {
-    console.log("mute unmute trigger");
-    console.log("localStreamMUTEFUNTION", localStream);
-
-    if (!localStream) {
-      console.error("Local stream is not initialized");
-      return;
-    }
-
-    try {
-      const OutgoingcallID = localStorage.getItem("outgoingcallID");
-      const dialedNumber = localStorage.getItem("dialedNumber");
-      const tenantId = localStorage.getItem("TenantId");
-      const userId = userDetails[0].userId;
-
-      const response = await axios.post(
-        BaseUrl + "/agent/activity",
-        {
-          agentId: userId,
-          sipId: OutgoingcallID,
-          callerNumber: dialedNumber,
-          callStatus: muteStatus,
-          activity: muteActivity,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            TenantID: tenantId,
-          },
-        }
-      );
-
-      console.log("muteAPIII", response.data);
-
-      if (response.data.status) {
-        if (muteStatus === "Mute") {
-          // Mute local audio
-          localStream
-            .getAudioTracks()
-            .forEach((track) => (track.enabled = false));
-          props.setShowMute(false);
-        } else {
-          // Unmute local audio
-          localStream
-            .getAudioTracks()
-            .forEach((track) => (track.enabled = true));
-          props.setShowMute(true);
-        }
-      } else {
-        console.log("muteeeeeerr");
-      }
-    } catch (error) {
-      console.error("Error muting/unmuting:", error);
-    }
-  };
-
-  //  navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-  //    localStream = stream;
-  //    mediaElement.srcObject = localStream;
-  //  });
-
-  // Attach event listeners to buttons
-  // document.getElementById("muteButton").addEventListener("click", () => muteUnmute("muted", "Mute"));
-  // document.getElementById("unmuteButton").addEventListener("click", () => muteUnmute("unmuted", "Unmute"));
-
-
+  // WEBRTC //
 
   const makeCall = (dialedNumber) => {
-   localStorage.getItem("dialedNumber", dialedNumber);
+    localStorage.getItem("dialedNumber", dialedNumber);
     console.log("Dialed Number:", dialedNumber);
     const targetUri = `sip:${dialedNumber}@${domain}:${port}`;
     const target = UserAgent.makeURI(targetUri);
@@ -786,6 +693,13 @@ const Main = (props) => {
     }
   };
 
+  useEffect(() => {
+    // Assuming `userAgentRef.current` represents the original call session
+    if (userAgentRef.current) {
+      originalCallRef.current = userAgentRef.current;
+    }
+  }, [userAgentRef.current]);
+
   // Handle an Incoming REFER //
   const delegate = {
     onRefer: (referral) => {
@@ -835,8 +749,6 @@ const Main = (props) => {
       start();
     }
   };
-
-  // WEBRTC //
 
   const endCall = () => {
     if (
@@ -919,33 +831,45 @@ const Main = (props) => {
   // };
 
   const endCallTransfer = () => {
-    // alert("inside end transfer");
-    if (transferedRef.current && props.showTransferCall) {
-      transferedRef.current.bye();
+    if (invitationRef.current && props.showTransferCall) {
+      invitationRef.current.bye();
       props.setShowTransferCall(false);
+      props.setIncomingCallAccepted(false);
+
       reset();
       localStorage.removeItem("TransferdialedNumber");
     } else {
-      transferedRef.current.reject();
+      // transferedRef.current.reject();
+      invitationRef.current.bye();
+
       props.setShowTransferCall(false);
+      props.setIncomingCallAccepted(false);
       localStorage.removeItem("TransferdialedNumber");
     }
-    reset();
-   localStorage.removeItem("TransferdialedNumber");
+    invitationRef.current = null;
+  };
+
+  const completeTransfer = () => {
+    endCallTransfer(); // End the transferred call
+
+    // Additional logic to ensure the original call remains active
+    if (originalCallRef.current) {
+      // Check if the original call session exists
+      console.log("Original call remains active:", originalCallRef.current);
+      // Ensure original call session remains active
+      // Additional logic can be added here if needed to reinforce the original call state
+    } else {
+      console.warn("Original call session not found.");
+    }
   };
 
   if (userRole.length === 1) {
     return (
       <Grid container direction={"row"}>
-        {/* <audio ref={invitationRef} id="remoteAudio" />
-        <audio ref={localAudioRef} id="localAudio" /> */}
+        <audio ref={invitationRef} id="remoteAudio" />
+        <audio ref={localAudioRef} id="localAudio" />
 
-        <audio ref={invitationRef} id="remoteAudio" autoPlay />
-        <audio
-          ref={localAudioRef}
-          id="localAudio"
-          toggleMute={props.showMute}
-        />
+      
 
         <Snackbar
           open={snackbarOpen}
@@ -990,8 +914,9 @@ const Main = (props) => {
                 callActivitiesApi={callActivitiesApi}
                 // muteBrowserAudio={muteBrowserAudio}
                 callActivity={props.callActivity}
-                toggleMute={toggleMute}
+                // toggleMute={toggleMute}
                 endCallTransfer={endCallTransfer}
+                completeTransfer={completeTransfer}
                 voiceseconds={voiceseconds}
                 voiceminutes={voiceminutes}
                 voicehours={voicehours}

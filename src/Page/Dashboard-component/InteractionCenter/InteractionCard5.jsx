@@ -40,7 +40,6 @@ const InteractionCard5 = (props) => {
     useState("Availability");
   const [stickyAgent, setStickyAgent] = useState(false);
 
-
   const handleProjectChange = (e) => {
     setSelectedProject(e.target.value);
   };
@@ -68,46 +67,42 @@ const InteractionCard5 = (props) => {
         >
           <Stack direction="row align-item-center justify-content-between">
             <Grid className="d-flex">
-            <NotePencil size={15} />
+              <NotePencil size={15} />
 
-            <Typography
-              className="ms-2"
-              color="primary"
-              sx={{ fontSize: 12 }}
-              gutterBottom
-            >
-              Schedule Callback / Survey / Remainders
-            </Typography>
-
+              <Typography
+                className="ms-2"
+                color="primary"
+                sx={{ fontSize: 12 }}
+                gutterBottom
+              >
+                Schedule Callback / Survey / Remainders
+              </Typography>
             </Grid>
-        
-            <Grid className="d-flex ms-auto">
-                <Grid
-                  item
-                  // xs={1.5}
-                  // sm={2}
-                  // md={1.5}
-                  container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                >
-                  <Button
-                    variant="contained"
-                    className="ms-2"
-                    sx={{
-                      fontSize: "10px",
-                      height: "25px",
-                      // marginRight: "10px",
-                    }}
-                  >
-                    Schedule Now
-                  </Button>
-                </Grid>
 
-                
+            <Grid className="d-flex ms-auto">
+              <Grid
+                item
+                // xs={1.5}
+                // sm={2}
+                // md={1.5}
+                container
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+              >
+                <Button
+                  variant="contained"
+                  className="ms-2"
+                  sx={{
+                    fontSize: "10px",
+                    height: "25px",
+                    // marginRight: "10px",
+                  }}
+                >
+                  Schedule Now
+                </Button>
               </Grid>
-           
+            </Grid>
           </Stack>
           <Grid
             container
@@ -115,7 +110,6 @@ const InteractionCard5 = (props) => {
             direction={"row"}
             spacing={1}
           >
-     
             <Grid item xs={1.5} sm={4} md={1.5}>
               <Stack direction="row" alignItems="center">
                 <Typography
@@ -126,28 +120,23 @@ const InteractionCard5 = (props) => {
                     display: "block",
                   }}
                 ></Typography>
-                <Grid
-                  className="d-flex flex-column"
-                  
-                >
-                  <label style={{ fontSize: "10px" }} >
-                     Date{" "}
-                  </label>
-                
-                    <TextField
-                // value={duedate}
-                variant="outlined"
-                // className="ms-2"
-                size="small"
-                sx={{
-                  "& input[type='date']": {
-                    fontSize: "10px",
-                    height: "25px",
-                  },
-                }}
-                type="date"
-                // onChange={(e) => setDuedate(e.target.value)}
-              />
+                <Grid className="d-flex flex-column">
+                  <label style={{ fontSize: "10px" }}>Date </label>
+
+                  <TextField
+                    // value={duedate}
+                    variant="outlined"
+                    // className="ms-2"
+                    size="small"
+                    sx={{
+                      "& input[type='date']": {
+                        fontSize: "10px",
+                        height: "25px",
+                      },
+                    }}
+                    type="date"
+                    // onChange={(e) => setDuedate(e.target.value)}
+                  />
                 </Grid>
               </Stack>
             </Grid>
@@ -155,7 +144,7 @@ const InteractionCard5 = (props) => {
               <Typography
                 variant="body1"
                 component="span"
-                sx={{ fontSize: "10px", display: "block"}}
+                sx={{ fontSize: "10px", display: "block" }}
               >
                 Time
               </Typography>
@@ -177,7 +166,7 @@ const InteractionCard5 = (props) => {
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"1px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "1px" }}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -185,13 +174,10 @@ const InteractionCard5 = (props) => {
                   sx={{
                     fontSize: "10px",
                     display: "block",
-                    
                   }}
                 ></Typography>
-                <Grid className="d-flex flex-column" sx={{marginTop:"-2px"}}>
-                  <label  style={{ fontSize: "10px" }}>
-                     Type{" "}
-                  </label>
+                <Grid className="d-flex flex-column" sx={{ marginTop: "-2px" }}>
+                  <label style={{ fontSize: "10px" }}>Type </label>
                   <Select
                     value={selectedProject}
                     onChange={handleProjectChange}
@@ -210,7 +196,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"-20px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "-20px" }}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -221,8 +207,8 @@ const InteractionCard5 = (props) => {
                     marginTop: "7px",
                   }}
                 ></Typography>
-                <Grid className="d-flex flex-column" sx={{marginTop:"-2px"}}>
-                  <label  style={{ fontSize: "10px" }}>
+                <Grid className="d-flex flex-column" sx={{ marginTop: "-2px" }}>
+                  <label style={{ fontSize: "10px" }}>
                     Digital Notification{" "}
                   </label>
                   <Select
@@ -241,8 +227,8 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-         
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"18px"}}>
+
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "18px" }}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -252,18 +238,12 @@ const InteractionCard5 = (props) => {
                     display: "block",
                   }}
                 ></Typography>
-                <Grid
-                  className="d-flex flex-column"
-               
-                >
-                  <label style={{ fontSize: "10px" }}>
-                    Dial Plan / Queue{" "}
-                  </label>
+                <Grid className="d-flex flex-column">
+                  <label style={{ fontSize: "10px" }}>Dial Plan / Queue </label>
                   <Select
                     value={selectedLocation}
                     onChange={handleLoactionChange}
                     style={{
-                   
                       height: "29px",
                       fontSize: "12px",
                       background: "#faf9f6",
@@ -275,7 +255,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"1px"}}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "1px" }}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -285,18 +265,12 @@ const InteractionCard5 = (props) => {
                     display: "block",
                   }}
                 ></Typography>
-                <Grid
-                  className="d-flex flex-column"
-                
-                >
-                  <label style={{ fontSize: "10px" }}>
-                     Assign Campaign{" "}
-                  </label>
+                <Grid className="d-flex flex-column">
+                  <label style={{ fontSize: "10px" }}>Assign Campaign </label>
                   <Select
                     value={selectedAvailablity}
                     onChange={handleAvailablityChange}
                     style={{
-                    
                       height: "29px",
                       fontSize: "12px",
                       background: "#faf9f6",
@@ -309,8 +283,6 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-         
-            
 
             {/* <Grid item xs={1.5} sm={4} md={1.5} className="d-flex">
               <Typography
@@ -338,7 +310,7 @@ const InteractionCard5 = (props) => {
               </div>
             </Grid> */}
 
-<Grid item xs={2.3} sm={2} md={2.3} sx={{marginLeft:"5px"}}>
+            <Grid item xs={2.3} sm={2} md={2.3} sx={{ marginLeft: "5px" }}>
               <Typography
                 variant="body1"
                 component="span"
@@ -362,9 +334,11 @@ const InteractionCard5 = (props) => {
                   color: props.darkMode ? "#ffffff" : "#000000",
                 }}
                 InputProps={{
-                 
                   endAdornment: (
-                    <div className="form-check" style={{marginRight:"-15px"}}>
+                    <div
+                      className="form-check"
+                      style={{ marginRight: "-15px" }}
+                    >
                       <input
                         className="form-check-input"
                         type="checkbox"
@@ -382,9 +356,6 @@ const InteractionCard5 = (props) => {
                 }}
               />
             </Grid>
-            
-
-         
           </Grid>
         </Box>
     </>

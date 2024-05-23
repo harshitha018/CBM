@@ -22,6 +22,7 @@ import { setDarkMode } from "../../../redux/actions/action";
 import axios from "axios";
 import { BaseUrl } from "../../Constant/BaseUrl";
 import InteractionCard5 from "./InteractionCard5";
+import { ToastContainer, toast } from "react-toastify";
 
 const mapStateToProps = (state) => {
   return {
@@ -136,6 +137,9 @@ const InteractionCard2 = (props) => {
         setDelinquentDebtAmount("");
         setDispositionReason("");
         console.log(response);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error("Error fetching reason codes:", error);
@@ -190,9 +194,9 @@ const InteractionCard2 = (props) => {
 
   return (
     <>
-
-        {/* <Stack direction="column" spacing={2}> */}
-        <Paper elevation={10}>
+      <ToastContainer />
+      <Grid xs={12}>
+        <Paper>
         <Box
           className={`card dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
@@ -203,7 +207,7 @@ const InteractionCard2 = (props) => {
           <Box>
             <Stack direction="row align-item-center justify-content-between">
               <Grid className="d-flex">
-                <Notebook size={15} className="mt-1 ms-3" />
+                <Notebook size={18} className="mt-1 ms-3" />
                 <Typography
                   className="ms-2 mt-1"
                   color="primary"
@@ -213,31 +217,32 @@ const InteractionCard2 = (props) => {
                   Lead/Delinquent Details
                 </Typography>
               </Grid>
-              <Grid className="d-flex ms-auto">
-                {/* <Grid
-                  item
-                  // xs={1.5}
-                  // sm={2}
-                  // md={1.5}
-                  container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                >
-                  <Button
-                    variant="contained"
-                    className="ms-2"
-                    onClick={createUser}
-                    sx={{
-                      fontSize: "10px",
-                      height: "32px",
-                      // marginRight: "10px",
-                    }}
-                  >
-                    Schedule Now
-                  </Button>
-                </Grid> */}
 
+              <Grid
+                item
+                // xs={1.5}
+                // sm={2}
+                // md={1.5}
+                container
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+              >
+                <Button
+                  variant="contained"
+                  className=""
+                  onClick={createUser}
+                  sx={{
+                    fontSize: "10px",
+                    height: "25px",
+                    marginRight: "5px",
+                  }}
+                >
+                  Create
+                </Button>
+              </Grid>
+
+              <Grid className="d-flex ms-auto">
                 <Grid
                   item
                   // xs={1.5}
@@ -247,18 +252,19 @@ const InteractionCard2 = (props) => {
                   direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
+                  className="d-flex ms-auto"
                 >
                   <Button
                     variant="contained"
-                    className="ms-2 mt-1"
+                    className=""
                     onClick={createUser}
                     sx={{
                       fontSize: "10px",
                       height: "25px",
-                      marginRight: "10px",
+                      marginRight: "5px",
                     }}
                   >
-                    Create
+                    Update
                   </Button>
                 </Grid>
               </Grid>
@@ -579,7 +585,10 @@ const InteractionCard2 = (props) => {
                 }}
                 InputProps={{
                   endAdornment: (
-                    <div className="form-check" style={{marginRight:"-15px"}}>
+                    <div
+                      className="form-check"
+                      style={{ marginRight: "-15px" }}
+                    >
                       <input
                         className="form-check-input"
                         type="checkbox"
@@ -624,7 +633,7 @@ const InteractionCard2 = (props) => {
         <InteractionCard5 />
         </Paper>
         {/* </Stack> */}
-
+        </Grid>
     </>
   );
 };

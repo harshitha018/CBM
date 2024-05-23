@@ -66,6 +66,9 @@ const mapStateToProps = (state) => {
     displayExtNum: state.data.displayExtNum,
     callStatus: state.data.callStatus,
     callActivity: state.data.callActivity,
+    voiceseconds: state.data.voiceseconds,
+    voiceminutes: state.data.voiceminutes,
+    voicehours: state.data.voicehours,
   };
 };
 
