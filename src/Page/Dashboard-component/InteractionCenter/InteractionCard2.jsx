@@ -271,7 +271,7 @@ const InteractionCard2 = (props) => {
             </Stack>
           </Box>
           {/* here the code  className="Customerdetails" */}
-          <Grid container className="Customerdetails" spacing={0.5}>
+          <Grid container className="Customerdetails ms-2" spacing={0.5}>
             <Grid item xs={2.3} sm={1} md={2.3}>
               <div>
                 <Typography

@@ -15,7 +15,6 @@ import {
   setIncomingCallAccepted,
   setIncomingCallReject,
 } from "../../redux/actions/action.js";
-import { AndroidLogo } from "@phosphor-icons/react";
 
 const mapStateToProps = (state) => {
   return {
@@ -27,17 +26,13 @@ const mapStateToProps = (state) => {
 };
 
 const DashBoard = (props) => {
-  const [showInteractionCard3, setShowInteractionCard3] = useState(false); // State to manage InteractionCard3 visibility
-  const [open, setOpen] = useState(false);
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
 
   const handleDragStart = (event, info) => {
     setDragStartPos({ x: info.point.x, y: info.point.y });
   };
 
-  const toggleInteractionCard3 = () => {
-    setShowInteractionCard3((prevState) => !prevState);
-  };
+  
 
   const {
     acceptCall,
@@ -50,7 +45,6 @@ const DashBoard = (props) => {
     ConferenceCallApi,
     muteBrowserAudio,
     callActivity,
-    // toggleMute,
     endCallTransfer,
     completeTransfer,
     holdCall,
@@ -76,9 +70,7 @@ const DashBoard = (props) => {
     setIsTransferInitiated,
   } = props;
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
+
 
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
@@ -125,7 +117,6 @@ const DashBoard = (props) => {
           isTransferInitiated={props.isTransferInitiated}
           setIsTransferInitiated={props.setIsTransferInitiated}
           // muteBrowserAudio={muteBrowserAudio}
-          // toggleMute={toggleMute}
           endCallTransfer={endCallTransfer}
           completeTransfer={completeTransfer}
           holdCall={holdCall}
@@ -148,19 +139,10 @@ const DashBoard = (props) => {
           setOpenSmallscreenDialer={setOpenSmallscreenDialer}
         />
 
-        <Button
-          sx={{ position: "fixed", top: "50%", right: 0, zIndex: 999 }}
-          onClick={toggleDrawer(true)}
-        >
-          <AndroidLogo size={32} />
-        </Button>
+       
       </Grid>
 
-      <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
-        <Box sx={{ width: 400 }} role="presentation">
-          <InteractionCard3 show={showInteractionCard3} />
-        </Box>
-      </Drawer>
+    
     </Box>
   );
 };

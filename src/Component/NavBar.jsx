@@ -26,21 +26,36 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Modal from "@mui/joy/Modal";
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import DialpadOutlinedIcon from '@mui/icons-material/DialpadOutlined';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import DialpadOutlinedIcon from "@mui/icons-material/DialpadOutlined";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {
   BookOpenText,
   ChatDots,
   MagnifyingGlass,
+  Moon,
   Phone,
   Power,
+  Sun,
   WhatsappLogo,
   X,
 } from "@phosphor-icons/react";
 import CloseIcon from "@mui/icons-material/Close";
 import { GiRotaryPhone } from "react-icons/gi";
-import { Card, CardContent, Grid, Stack, Table, TableHead, TableRow, TableCell, TableBody,  TextField, Tooltip } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Grid,
+  Stack,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TextField,
+  Tooltip,
+  Drawer,
+} from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { connect } from "react-redux";
 import {
@@ -51,13 +66,18 @@ import {
   setChangestatus,
   setOpensurvey,
 } from "../redux/actions/action";
+import { AndroidLogo } from "@phosphor-icons/react";
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
+
 import { color } from "framer-motion";
 import AnswerCallScreen from "./DialerComponent/AnswerCallScreen";
 import moment from "moment";
 import axios from "axios";
 import { BaseUrl } from "../Page/Constant/BaseUrl";
 import MissedcallComp from "./MissedcallComp";
-import PhoneIcon from '@mui/icons-material/Phone';
+import PhoneIcon from "@mui/icons-material/Phone";
+import { DarkMode } from "@mui/icons-material";
+import InteractionCard3 from "../Page/Dashboard-component/InteractionCenter/InteractionCard3";
 const mapStateToProps = (state) => {
   return {
     darkMode: state.data.darkMode,
@@ -134,7 +154,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
     width: 23,
     height: 23,
-    marginTop:2,
+    marginTop: 2,
     "&::before": {
       content: "''",
       position: "absolute",
@@ -173,7 +193,6 @@ const NavBar = (props) => {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
- 
   const [isOpen, setIsOpen] = useState(false);
   const [isSubOpen, setIsSubOpen] = useState(false);
   const [showExtraDropdown, setShowExtraDropdown] = useState(false);
@@ -185,6 +204,8 @@ const NavBar = (props) => {
 
   const [startTime, setStartTime] = useState(null); // Initialize startTime as null
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [showInteractionCard3, setShowInteractionCard3] = useState(false);
+  const [openAssist, setOpenAssist] = useState(false);
 
   const [statuslist, setStatuslist] = useState([]);
   const [openRotary, setOpenRotary] = useState(false);
@@ -302,14 +323,20 @@ const NavBar = (props) => {
     setSubmenuAnchorEl(null);
   };
 
-  const handleStatusChange = (item) => {
-    console.log("item", item);
-    props.setChangestatus(item);
+  const handleMode = () => {
+    const newMode = !props.darkMode;
+    props.setDarkMode(newMode);
+    localStorage.setItem("darkMode", newMode);
   };
 
-  const handleMode = () => {
-    props.setDarkMode(!props.darkMode);
-  };
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode") === "true";
+    props.setDarkMode(savedMode);
+  }, [props]);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", props.darkMode);
+  }, [props.darkMode]);
 
   const isMenuOpen = Boolean(personDetails);
   const isPowerDetailsOpen = Boolean(powerDetails);
@@ -537,33 +564,69 @@ const NavBar = (props) => {
     setAnchorElCampaign(null);
   };
 
+  const toggleDrawer = (newOpen) => () => {
+    setOpenAssist(newOpen);
+  };
+
+  const toggleInteractionCard3 = () => {
+    setShowInteractionCard3((prevState) => !prevState);
+  };
+
   return (
     <>
-    <Stack sx={{}}>
-      <Box sx={{ flexGrow: 1,backgroundColor:"#EEF7FF" }} >
-        <AppBar position="static">
-          <Toolbar
-            className={`navbarmode ${
-              props.darkMode ? "dark-mode" : "#2ea55e"
-            }`}
-          >
-            <FormControlLabel
-              control={<MaterialUISwitch sx={{ m: 1 }} onClick={handleMode} />}
-            />
-
-            <Search sx={{ height:"37px",backgroundColor:"white"}}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
+      <Stack sx={{}}>
+        <Box sx={{ flexGrow: 1, backgroundColor: "#EEF7FF" }}>
+          <AppBar position="static">
+            <Toolbar
+              className={`navbarmode ${
+                props.darkMode ? "dark-mode" : "#2ea55e"
+              }`}
+            >
+              <FormControlLabel
+                control={
+                  <MaterialUISwitch sx={{ m: 1 }} onClick={handleMode} />
+                }
               />
-            </Search>
 
+              {/* <div className="container" style={{height:"10px",width:"10px"}}>
+                <label className="toggle">
+                  <input
+                    id="switch"
+                    className="input"
+                    type="checkbox"
+                    checked={props.darkMode}
+                    onChange={handleMode}
+                    readOnly
+                  />
+                  <div className="icon icon--moon">
+                    <Moon size={30} weight="fill" />
+                  </div>
+                  <div className="icon icon--sun">
+                    <Sun size={30} weight="fill" />
+                  </div>
+                </label>
+              </div> */}
 
-            <div style={{display:"flex", height: "37px", backgroundColor:"white", padding:"4px", borderRadius:"5px"}}>
-            {/* <div className="dropdown mx-2" style={{   display:"flex",
+              <Search sx={{ height: "37px", backgroundColor: "white" }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+
+              <div
+                style={{
+                  display: "flex",
+                  height: "37px",
+                  backgroundColor: "white",
+                  padding: "4px",
+                  borderRadius: "5px",
+                }}
+              >
+                {/* <div className="dropdown mx-2" style={{   display:"flex",
                   alignItems:"center"}}>
               <button
                 className="btn btn-light dropdown-toggle campine-dropdwn"
@@ -594,106 +657,100 @@ const NavBar = (props) => {
                 </li>
               </ul>
             </div> */}
-            <div> 
-              <Button
-                // id="basic-button"
-                // aria-controls={open ? 'basic-menu' : undefined}
-                // aria-haspopup="true"
-                // aria-expanded={open ? 'true' : undefined}
-                onClick={handleClickCampaign}
-                sx={{
-                  fontSize:"10px",
-                  color:"white",
-                  backgroundColor:"lightgray",
-                  padding:0,
-                  borderRadius:"5px",
-                  paddingLeft:"2px",
-                  height: "20px",
-                  '&:hover': {
-                    color: "black"
-                  }
-                  }}
-              >
-                Campaign  <span className="p-0"><ArrowDropDownIcon/></span>
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorElCampaign}
-                open={openCampaign}
-                onClose={handleCloseCampaign}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button',
-                }}
-              >
-                <MenuItem >Inbound</MenuItem>
-                <MenuItem >Outbound</MenuItem>
-              </Menu> 
-             </div>
-          
-            <div
-              style={{ borderRadius: "8px" }}
-            >
-              <div className="card-body">
-                <div
-                  className="d-flex justify-content-between align-items-center"
-                >
-                  <div>
-                    {/* Status */}
-                    <Button
-                      aria-controls="dropdown-menu"
-                      aria-haspopup="true"
-                      onClick={handleClick}
-                      variant="contained"
-                      size="small"
-                      sx={{
-                        fontSize: "9px",
-                        borderRadius: "5px",
-                        width: "auto",
-                        height: "20px",
-                        marginLeft:'5px'
-              
-                      }}
-                      color={props.status == "Ready" ? "success" : "error"}
-                    >
-                      {props.status}
-                    </Button>
- 
-                    <Menu
-                      id="dropdown-menu"
-                      anchorEl={anchorEl}
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        "aria-labelledby": "dropdown-button",
-                      }}
-                    >
-                      {props.status !== "Ready" && (
-                        <MenuItem
-                          onClick={() => {
-                            handleClose();
-                            handelUpdateStatus("Ready");
+                <div>
+                  <Button
+                    // id="basic-button"
+                    // aria-controls={open ? 'basic-menu' : undefined}
+                    // aria-haspopup="true"
+                    // aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClickCampaign}
+                    sx={{
+                      fontSize: "10px",
+                      color: "white",
+                      backgroundColor: "lightgray",
+                      padding: 0,
+                      borderRadius: "5px",
+                      paddingLeft: "2px",
+                      height: "20px",
+                      "&:hover": {
+                        color: "black",
+                      },
+                    }}
+                  >
+                    Campaign{" "}
+                    <span className="p-0">
+                      <ArrowDropDownIcon />
+                    </span>
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorElCampaign}
+                    open={openCampaign}
+                    onClose={handleCloseCampaign}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <MenuItem>Inbound</MenuItem>
+                    <MenuItem>Outbound</MenuItem>
+                  </Menu>
+                </div>
+
+                <div style={{ borderRadius: "8px" }}>
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div>
+                        {/* Status */}
+                        <Button
+                          aria-controls="dropdown-menu"
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                          variant="contained"
+                          size="small"
+                          sx={{
+                            fontSize: "9px",
+                            borderRadius: "5px",
+                            width: "auto",
+                            height: "20px",
+                            marginLeft: "5px",
+                          }}
+                          color={props.status == "Ready" ? "success" : "error"}
+                        >
+                          {props.status}
+                        </Button>
+
+                        <Menu
+                          id="dropdown-menu"
+                          anchorEl={anchorEl}
+                          open={Boolean(anchorEl)}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            "aria-labelledby": "dropdown-button",
                           }}
                         >
-                          {/* ready */}
-                          <div className="d-flex w-100 justify-content-between">
-                            <div
-                              style={{ fontSize: "12px" }}
-                            >
-                              Ready
-                            </div>
-                            <div
-                              className="my-auto mx-2"
-                              style={{
-                                height: "8px",
-                                width: "8px",
-                                borderRadius: "50%",
-                                backgroundColor: "green",
+                          {props.status !== "Ready" && (
+                            <MenuItem
+                              onClick={() => {
+                                handleClose();
+                                handelUpdateStatus("Ready");
                               }}
-                            ></div>
-                          </div>
-                        </MenuItem>
-                      )}
-                      {/* <MenuItem
+                            >
+                              {/* ready */}
+                              <div className="d-flex w-100 justify-content-between">
+                                <div style={{ fontSize: "12px" }}>Ready</div>
+                                <div
+                                  className="my-auto mx-2"
+                                  style={{
+                                    height: "8px",
+                                    width: "8px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "green",
+                                  }}
+                                ></div>
+                              </div>
+                            </MenuItem>
+                          )}
+                          {/* <MenuItem
                         onClick={() => {
                           handleClose();
                           handelUpdateStatus("Ready");
@@ -712,7 +769,7 @@ const NavBar = (props) => {
                           ></div>
                         </div>
                       </MenuItem> */}
-                      {/* <MenuItem
+                          {/* <MenuItem
                         onClick={() => {
                           handleClose();
                           handelUpdateStatus("Not Ready");
@@ -731,166 +788,193 @@ const NavBar = (props) => {
                           ></div>
                         </div>
                       </MenuItem> */}
-                      {/* <MenuItem onClick={handleSubmenuClick}>
+                          {/* <MenuItem onClick={handleSubmenuClick}>
                         Not Ready (Reason)
                       </MenuItem> */}
-                      {props.status !== "Not Ready" && (
-                        <MenuItem onClick={handleSubmenuClick}>
-                          <div className="d-flex w-100 justify-content-between">
-                            <div>
-                            <span style={{ fontSize: "12px"}}>
-                              Not Ready
-                            </span>
-                            </div>
-                            <div
-                              className="my-auto mx-2"
-                              style={{
-                                height: "8px",
-                                width: "8px",
-                                borderRadius: "50%",
-                                backgroundColor: "red",
-                              }}
-                            ></div>
-                          </div>
-                        </MenuItem>
-                      )}
-                    </Menu>
- 
-                    <Menu
-                      id="submenu"
-                      anchorEl={submenuAnchorEl}
-                      open={Boolean(submenuAnchorEl)}
-                      onClose={handleSubmenuClose}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                    >
-                      {statuslist.map((item) => {
-                        return (
-                          <MenuItem
-                            sx={{ width: "18vw" }}
-                            onClick={() => {
-                              handleSubmenuClose();
-                              handelUpdateStatus(item.statusName);
-                              handleClose();
-                            }}
-                          >
-                            <div className="d-flex w-100 justify-content-between">
-                              <div
-                                style={{ fontSize: "11px", fontWeight: "bold" }}
-                              >
-                                {item.statusName}
+                          {props.status !== "Not Ready" && (
+                            <MenuItem onClick={handleSubmenuClick}>
+                              <div className="d-flex w-100 justify-content-between">
+                                <div>
+                                  <span style={{ fontSize: "12px" }}>
+                                    Not Ready
+                                  </span>
+                                </div>
+                                <div
+                                  className="my-auto mx-2"
+                                  style={{
+                                    height: "8px",
+                                    width: "8px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "red",
+                                  }}
+                                ></div>
                               </div>
-                              <div
-                                className="my-auto"
-                                style={{
-                                  height: "8px",
-                                  width: "8px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "red",
+                            </MenuItem>
+                          )}
+                        </Menu>
+
+                        <Menu
+                          id="submenu"
+                          anchorEl={submenuAnchorEl}
+                          open={Boolean(submenuAnchorEl)}
+                          onClose={handleSubmenuClose}
+                          anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                          }}
+                        >
+                          {statuslist.map((item) => {
+                            return (
+                              <MenuItem
+                                sx={{ width: "18vw" }}
+                                onClick={() => {
+                                  handleSubmenuClose();
+                                  handelUpdateStatus(item.statusName);
+                                  handleClose();
                                 }}
-                              ></div>
-                            </div>
-                          </MenuItem>
-                        );
-                      })}
-                    </Menu>
+                              >
+                                <div className="d-flex w-100 justify-content-between">
+                                  <div
+                                    style={{
+                                      fontSize: "11px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {item.statusName}
+                                  </div>
+                                  <div
+                                    className="my-auto"
+                                    style={{
+                                      height: "8px",
+                                      width: "8px",
+                                      borderRadius: "50%",
+                                      backgroundColor: "red",
+                                    }}
+                                  ></div>
+                                </div>
+                              </MenuItem>
+                            );
+                          })}
+                        </Menu>
+                      </div>
+
+                      <span
+                        className="mx-2"
+                        style={{
+                          color: "black",
+                          fontSize: "12px",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {props.status == "Ready" && (
+                          <span>{formattedTimeforReady}</span>
+                        )}
+                        {props.status !== "Ready" && (
+                          <span>{formattedTimeforBreak}</span>
+                        )}
+                      </span>
+                    </div>
                   </div>
- 
-                  <span
-                    className="mx-2"
-                    style={{
-                      color: "black",
-                      fontSize: "12px",
-                      marginTop: "4px",
-                    }}
-                  >
-                    {props.status == "Ready" && (
-                      <span>{formattedTimeforReady}</span>
-                    )}
-                    {props.status !== "Ready" && (
-                      <span>{formattedTimeforBreak}</span>
-                    )}
-                  </span>
                 </div>
               </div>
-            </div>
-            </div>
 
-            <Box
-              className="card mx-2"
-              sx={{ height: "37px", borderRadius: "8px", border:"none" }}
-            >
-              <Stack direction="row" alignItems="center">
-                <Box sx={{display:'flex', justifyContent:"center", alignItems:"center"}}>
-                  <img
-                    src={photo}
-                    alt=""
-                    style={{ width: "30px", height: "30px", marginLeft:"5px"}}
-                  />
-                </Box>
-                <Box className="ms-3">
-                  <Stack direction="column" className="mx-2">
-                    <Typography
-                      variant="caption"
-                      className="d-inline-block text-truncate"
-                      sx={{
-                        fontSize: "12px",
-                        color: "black !important",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        width: "100px",
-                        marginTop: "0px",
-                        fontWeight: "bold",
+              <Box
+                className="card mx-2"
+                sx={{ height: "37px", borderRadius: "8px", border: "none" }}
+              >
+                <Stack direction="row" alignItems="center">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={photo}
+                      alt=""
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        marginLeft: "5px",
                       }}
-                    >
-                      {userDetails[0].firstName + " " + userDetails[0].lastName}
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      gutterBottom
-                      sx={{
-                        fontSize: "8px",
-                        color: "black",
-                        marginLeft: "1px",
-                      }}
-                    >
-                      Ext Number
-                    </Typography>
-                    {/* <Typography variant="body2">10:20</Typography> */}
-                  </Stack>
-                </Box>
-              </Stack>
-            </Box>
+                    />
+                  </Box>
+                  <Box className="ms-3">
+                    <Stack direction="column" className="mx-2">
+                      <Typography
+                        variant="caption"
+                        className="d-inline-block text-truncate"
+                        sx={{
+                          fontSize: "12px",
+                          color: "black !important",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          width: "100px",
+                          marginTop: "0px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userDetails[0].firstName +
+                          " " +
+                          userDetails[0].lastName}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        gutterBottom
+                        sx={{
+                          fontSize: "8px",
+                          color: "black",
+                          marginLeft: "1px",
+                        }}
+                      >
+                        Ext Number
+                      </Typography>
+                      {/* <Typography variant="body2">10:20</Typography> */}
+                    </Stack>
+                  </Box>
+                </Stack>
+              </Box>
 
-            <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{ flexGrow: 1 }} />
+<Box>
+<Tooltip title="assist">
+              <Button
+                sx={{color:"#707173"}}
+                onClick={toggleDrawer(true)}
+              >
+                {/* <AndroidLogo size={32} /> */}
+                <SmartToyOutlinedIcon size={30} />
+              </Button>
+</Tooltip>
+</Box>
 
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Tooltip  title="Dial">
-                {/* <MdDialpad
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Tooltip title="Dial">
+                  {/* <MdDialpad
                   className="icon"
                   size={20}
                   color="white"
                   onClick={makecallDialpad}
                 /> */}
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  onClick={makecallDialpad}
-                >
-                  <Badge >
-                    <DialpadOutlinedIcon />
-                  </Badge>
-                </IconButton>
-            </Tooltip>
 
-              {/* <Tooltip title="Whatsapp" arrow placement="bottom">
+                  <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    onClick={makecallDialpad}
+                  >
+                    <Badge>
+                      <DialpadOutlinedIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+
+                {/* <Tooltip title="Whatsapp" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -903,45 +987,45 @@ const NavBar = (props) => {
                 </IconButton>
               </Tooltip> */}
 
-              {showWhatsapp && (
-                <Box className="Whatsappnotification_toggle">
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      className="ms-2 mt-3"
-                      color="black"
-                      sx={{ fontSize: 15 }}
-                      gutterBottom
+                {showWhatsapp && (
+                  <Box className="Whatsappnotification_toggle">
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
                     >
-                      Whatsapp Notification
-                    </Typography>
-
-                    <Typography
-                      className="ms-2 "
-                      color="black"
-                      sx={{ fontSize: 13 }}
-                      gutterBottom
-                      onClick={toggleWhatsappNotify}
-                    >
-                      <X size={16} />
-                    </Typography>
-                    {!showWhatsapp && (
                       <Typography
-                        className="ms-2 mt-1"
-                        color="primary"
-                        sx={{ fontSize: 12 }}
+                        className="ms-2 mt-3"
+                        color="black"
+                        sx={{ fontSize: 15 }}
                         gutterBottom
                       >
-                        No Whatsapp Notification to display
+                        Whatsapp Notification
                       </Typography>
-                    )}
-                  </Grid>
-                </Box>
-              )}
-{/* 
+
+                      <Typography
+                        className="ms-2 "
+                        color="black"
+                        sx={{ fontSize: 13 }}
+                        gutterBottom
+                        onClick={toggleWhatsappNotify}
+                      >
+                        <X size={16} />
+                      </Typography>
+                      {!showWhatsapp && (
+                        <Typography
+                          className="ms-2 mt-1"
+                          color="primary"
+                          sx={{ fontSize: 12 }}
+                          gutterBottom
+                        >
+                          No Whatsapp Notification to display
+                        </Typography>
+                      )}
+                    </Grid>
+                  </Box>
+                )}
+                {/* 
               <Tooltip title="Message" arrow placement="bottom">
                 <IconButton
                   size="large"
@@ -954,129 +1038,129 @@ const NavBar = (props) => {
                   </Badge>
                 </IconButton>
               </Tooltip> */}
-              {showMessages && (
-                <Box className="Interaction_toggle">
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      className="ms-2 mt-3"
-                      color="black"
-                      sx={{ fontSize: 15 }}
-                      gutterBottom
+                {showMessages && (
+                  <Box className="Interaction_toggle">
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
                     >
-                      Interactions
-                    </Typography>
-
-                    <Typography
-                      className="ms-2"
-                      color="black"
-                      sx={{ fontSize: 13 }}
-                      gutterBottom
-                      onClick={toggleMessages}
-                    >
-                      <X size={16} />
-                    </Typography>
-                    {!showMessages && (
                       <Typography
-                        className="ms-2 mt-1"
-                        color="primary"
-                        sx={{ fontSize: 12 }}
+                        className="ms-2 mt-3"
+                        color="black"
+                        sx={{ fontSize: 15 }}
                         gutterBottom
                       >
-                        No Messages to display
+                        Interactions
                       </Typography>
-                    )}
-                  </Grid>
-                </Box>
-              )}
 
-              <Tooltip title="Missed Call" arrow placement="bottom">
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  onClick={toggleMissedCalls}
-                >
-                  <Badge badgeContent={4} color="error">
-                    {/* <Phone size={25} weight="fill" /> */}
-                    <PhoneIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-            
-              {showMissedcalls && (
-                <Box className="MissedCalls_toggle">
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      className="ms-2 mt-3"
-                      color="black"
-                      sx={{ fontSize: 15 }}
-                      gutterBottom
-                    >
-                      Missed Calls
-                    </Typography>
-
-                    <Typography
-                      className="ms-2 "
-                      color="black"
-                      sx={{ fontSize: 13 }}
-                      gutterBottom
-                      onClick={toggleMissedCalls}
-                    >
-                      <X size={16} />
-                    </Typography>
-                    <MissedcallComp />
-
-                    {!showMissedcalls && (
                       <Typography
-                        className="ms-2 mt-1"
-                        color="primary"
-                        sx={{ fontSize: 12 }}
+                        className="ms-2"
+                        color="black"
+                        sx={{ fontSize: 13 }}
+                        gutterBottom
+                        onClick={toggleMessages}
+                      >
+                        <X size={16} />
+                      </Typography>
+                      {!showMessages && (
+                        <Typography
+                          className="ms-2 mt-1"
+                          color="primary"
+                          sx={{ fontSize: 12 }}
+                          gutterBottom
+                        >
+                          No Messages to display
+                        </Typography>
+                      )}
+                    </Grid>
+                  </Box>
+                )}
+
+                <Tooltip title="Missed Call" arrow placement="bottom">
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    onClick={toggleMissedCalls}
+                  >
+                    <Badge badgeContent={4} color="error">
+                      {/* <Phone size={25} weight="fill" /> */}
+                      <PhoneIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+
+                {showMissedcalls && (
+                  <Box className="MissedCalls_toggle">
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography
+                        className="ms-2 mt-3"
+                        color="black"
+                        sx={{ fontSize: 15 }}
                         gutterBottom
                       >
-                        No Missed Calls to display
+                        Missed Calls
                       </Typography>
-                    )}
-                  </Grid>
-                </Box>
-              )}
-              {props.opensurvey && (
-                <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      className="ms-2 mt-3"
-                      color="black"
-                      sx={{ fontSize: 15 }}
-                      gutterBottom
-                    >
-                      Survey
-                    </Typography>
 
-                    <Typography
-                      className="ms-2 "
-                      color="black"
-                      sx={{ fontSize: 13 }}
-                      gutterBottom
-                      onClick={toggleSurveyNotification}
-                    >
-                      <X size={16} />
-                    </Typography>
-                    <MissedcallComp />
-                  </Grid>
-                </Box>
-              )}
+                      <Typography
+                        className="ms-2 "
+                        color="black"
+                        sx={{ fontSize: 13 }}
+                        gutterBottom
+                        onClick={toggleMissedCalls}
+                      >
+                        <X size={16} />
+                      </Typography>
+                      <MissedcallComp />
 
-              {/* <Tooltip title="Email" arrow placement="bottom">
+                      {!showMissedcalls && (
+                        <Typography
+                          className="ms-2 mt-1"
+                          color="primary"
+                          sx={{ fontSize: 12 }}
+                          gutterBottom
+                        >
+                          No Missed Calls to display
+                        </Typography>
+                      )}
+                    </Grid>
+                  </Box>
+                )}
+                {props.opensurvey && (
+                  <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography
+                        className="ms-2 mt-3"
+                        color="black"
+                        sx={{ fontSize: 15 }}
+                        gutterBottom
+                      >
+                        Survey
+                      </Typography>
+
+                      <Typography
+                        className="ms-2 "
+                        color="black"
+                        sx={{ fontSize: 13 }}
+                        gutterBottom
+                        onClick={toggleSurveyNotification}
+                      >
+                        <X size={16} />
+                      </Typography>
+                      <MissedcallComp />
+                    </Grid>
+                  </Box>
+                )}
+
+                {/* <Tooltip title="Email" arrow placement="bottom">
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -1089,7 +1173,7 @@ const NavBar = (props) => {
                 </IconButton>
               </Tooltip> */}
 
-              {/* {showEmailNotification && (
+                {/* {showEmailNotification && (
                 <Box className="Email_toggle">
                   <Grid
                     container
@@ -1127,7 +1211,7 @@ const NavBar = (props) => {
                   </Grid>
                 </Box>
               )} */}
-              {/* <Tooltip  title="Missed Call"> */}
+                {/* <Tooltip  title="Missed Call"> */}
                 {/* <MdDialpad
                   className="icon"
                   size={20}
@@ -1143,58 +1227,58 @@ const NavBar = (props) => {
                     <PhoneIcon />
                   </Badge>
                 </IconButton> */}
-              {/* </Tooltip> */}
-              <Tooltip title="Notification" arrow placement="bottom">
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  onClick={toggleNotification}
-                >
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsNoneOutlinedIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-
-              {showNotification && (
-                <Box className="notification_toggle">
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
+                {/* </Tooltip> */}
+                <Tooltip title="Notification" arrow placement="bottom">
+                  <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    onClick={toggleNotification}
                   >
-                    <Typography
-                      className="ms-2 mt-3"
-                      color="black"
-                      sx={{ fontSize: 15 }}
-                      gutterBottom
-                    >
-                      Notifications
-                    </Typography>
+                    <Badge badgeContent={17} color="error">
+                      <NotificationsNoneOutlinedIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
 
-                    <Typography
-                      className="ms-2 "
-                      color="black"
-                      sx={{ fontSize: 13 }}
-                      gutterBottom
-                      onClick={toggleNotification}
+                {showNotification && (
+                  <Box className="notification_toggle">
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
                     >
-                      <X size={16} />
-                    </Typography>
-                    {!showNotification && (
                       <Typography
-                        className="ms-2 mt-1"
-                        color="primary"
-                        sx={{ fontSize: 12 }}
+                        className="ms-2 mt-3"
+                        color="black"
+                        sx={{ fontSize: 15 }}
                         gutterBottom
                       >
-                        No notifications to display
+                        Notifications
                       </Typography>
-                    )}
-                  </Grid>
-                </Box>
-              )}
-              {/* <Tooltip title="Rotary phone" arrow placement="bottom">
+
+                      <Typography
+                        className="ms-2 "
+                        color="black"
+                        sx={{ fontSize: 13 }}
+                        gutterBottom
+                        onClick={toggleNotification}
+                      >
+                        <X size={16} />
+                      </Typography>
+                      {!showNotification && (
+                        <Typography
+                          className="ms-2 mt-1"
+                          color="primary"
+                          sx={{ fontSize: 12 }}
+                          gutterBottom
+                        >
+                          No notifications to display
+                        </Typography>
+                      )}
+                    </Grid>
+                  </Box>
+                )}
+                {/* <Tooltip title="Rotary phone" arrow placement="bottom">
                 <IconButton
                   size="large"
                   edge="end"
@@ -1208,20 +1292,20 @@ const NavBar = (props) => {
                 </IconButton>
               </Tooltip> */}
 
-              <Tooltip title="Power" arrow placement="bottom">
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={powerDetailId}
-                  aria-haspopup="true"
-                  onClick={handlePowerDetailsOpen}
-                >
-                  <Power size={25} />
-                </IconButton>
-              </Tooltip>
-            </Box>
-            {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <Tooltip title="Power" arrow placement="bottom">
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={powerDetailId}
+                    aria-haspopup="true"
+                    onClick={handlePowerDetailsOpen}
+                  >
+                    <Power size={25} />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="show more"
@@ -1233,12 +1317,21 @@ const NavBar = (props) => {
                 <MoreIcon />
               </IconButton>
             </Box> */}
-          </Toolbar>
-        </AppBar>
+            </Toolbar>
+          </AppBar>
 
-        {renderPowerDetails}
-        {renderMenu}
-      </Box>
+          {renderPowerDetails}
+          {renderMenu}
+          <Drawer
+            open={openAssist}
+            onClose={toggleDrawer(false)}
+            anchor="right"
+          >
+            <Box sx={{ width: 400 }} role="presentation">
+              <InteractionCard3 show={showInteractionCard3} />
+            </Box>
+          </Drawer>
+        </Box>
       </Stack>
 
       {/* Makecall dialer pad */}

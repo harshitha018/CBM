@@ -317,7 +317,6 @@ const AnswerCallScreen = (props) => {
                           onClick={() => {
                             props.muteUnmute("muted", "Mute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <Microphone color="black" size={20} />
@@ -330,7 +329,6 @@ const AnswerCallScreen = (props) => {
                           onClick={() => {
                             props.muteUnmute("unmuted", "unMute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <MicrophoneSlash color="black" size={20} />
@@ -659,7 +657,6 @@ const AnswerCallScreen = (props) => {
                           onClick={() => {
                             props.muteUnmute("muted", "Mute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <Microphone color="black" size={20} />
@@ -672,7 +669,6 @@ const AnswerCallScreen = (props) => {
                           onClick={() => {
                             props.muteUnmute("unmuted", "unMute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <MicrophoneSlash color="black" size={20} />

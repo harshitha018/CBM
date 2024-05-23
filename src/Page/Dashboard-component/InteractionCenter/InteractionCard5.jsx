@@ -11,17 +11,10 @@ import {
   TextField,
 } from "@mui/material";
 import {
-  CalendarCheck,
-  EnvelopeSimple,
-  HourglassMedium,
-  MapPin,
   NotePencil,
-  ProjectorScreenChart,
   Timer,
-  User,
 } from "@phosphor-icons/react";
 
-import { MdOutlineLocalPhone } from "react-icons/md";
 import { connect } from "react-redux";
 import { setDarkMode } from "../../../redux/actions/action";
 
@@ -104,13 +97,13 @@ const InteractionCard5 = (props) => {
               </Grid>
             </Grid>
           </Stack>
-          <Grid
+          <Grid 
             container
             className="survey_schedule "
             direction={"row"}
-            spacing={1}
-          >
-            <Grid item xs={1.5} sm={4} md={1.5}>
+            spacing={3}
+           >
+            <Grid item xs={1.6} sm={4} md={1.6} sx={{marginRight:"-10px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -140,7 +133,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} className="ms-1">
+            <Grid item xs={1.6} sm={4} md={1.6} sx={{marginRight:"-5px"}}>
               <Typography
                 variant="body1"
                 component="span"
@@ -161,12 +154,13 @@ const InteractionCard5 = (props) => {
                   style: {
                     height: "29px",
                     background: "#faf9f6",
+                    width:"18vh",
                   },
                 }}
               />
             </Grid>
 
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "1px" }}>
+            <Grid item xs={1.6} sm={4} md={1.6} sx={{marginTop:"-2px", marginLeft:"5px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -174,9 +168,10 @@ const InteractionCard5 = (props) => {
                   sx={{
                     fontSize: "10px",
                     display: "block",
+                    
                   }}
                 ></Typography>
-                <Grid className="d-flex flex-column" sx={{ marginTop: "-2px" }}>
+                <Grid className="d-flex flex-column">
                   <label style={{ fontSize: "10px" }}>Type </label>
                   <Select
                     value={selectedProject}
@@ -186,6 +181,7 @@ const InteractionCard5 = (props) => {
                       fontSize: "12px",
                       marginTop: "2px",
                       background: "#faf9f6",
+                      width:"18vh"
                     }}
                   >
                     <MenuItem value={"Project"}>Type</MenuItem>
@@ -196,7 +192,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "-20px" }}>
+            <Grid item xs={1.6} sm={4} md={1.6} sx={{marginLeft:"1px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -228,7 +224,7 @@ const InteractionCard5 = (props) => {
               </Stack>
             </Grid>
 
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "18px" }}>
+            <Grid item xs={1.6} sm={4} md={1.6} sx={{marginLeft:"5px"}}>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -247,6 +243,7 @@ const InteractionCard5 = (props) => {
                       height: "29px",
                       fontSize: "12px",
                       background: "#faf9f6",
+                      width:"20vh"
                     }}
                   >
                     <MenuItem value={"Location"}>Location</MenuItem>
@@ -255,7 +252,7 @@ const InteractionCard5 = (props) => {
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} sm={4} md={1.5} sx={{ marginLeft: "1px" }}>
+            <Grid item xs={1.5} sm={4} md={1.5} sx={{marginLeft:"14px"}} >
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="body1"
@@ -274,6 +271,7 @@ const InteractionCard5 = (props) => {
                       height: "29px",
                       fontSize: "12px",
                       background: "#faf9f6",
+                      width:"18vh"
                     }}
                   >
                     <MenuItem value={"Availability"}> Availability</MenuItem>
@@ -310,7 +308,7 @@ const InteractionCard5 = (props) => {
               </div>
             </Grid> */}
 
-            <Grid item xs={2.3} sm={2} md={2.3} sx={{ marginLeft: "5px" }}>
+            <Grid item xs={2.3} sm={2} md={2.3} >
               <Typography
                 variant="body1"
                 component="span"
@@ -330,7 +328,7 @@ const InteractionCard5 = (props) => {
                 sx={{
                   fontSize: "10px",
                   height: "32px",
-                  width: "70%",
+                  width: "90%",
                   color: props.darkMode ? "#ffffff" : "#000000",
                 }}
                 InputProps={{

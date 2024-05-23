@@ -223,28 +223,13 @@ const Main = (props) => {
 
   // MUTE/UNMUTE FUNTIONALITY //
 
- 
-
-  // const toggleMute = () => {
-  //   props.setShowMute(!props.showMute);
-  // };
-
   // MUTE/UNMUTE API //
   const mediaElement = document.getElementById("localAudio");
   const remoteAudioElement = document.getElementById("remoteAudio");
   const remoteStream = new MediaStream();
-  let localStream;
-
-
 
   const muteUnmute = async (muteActivity, muteStatus) => {
     console.log("mute unmute trigger");
-    console.log("localStreamMUTEFUNTION", localStream);
-
-    if (!localStream) {
-      console.error("Local stream is not initialized");
-      return;
-    }
 
     try {
       const OutgoingcallID = localStorage.getItem("outgoingcallID");
@@ -273,16 +258,8 @@ const Main = (props) => {
 
       if (response.data.status) {
         if (muteStatus === "Mute") {
-          // Mute local audio
-          localStream
-            .getAudioTracks()
-            .forEach((track) => (track.enabled = false));
           props.setShowMute(false);
         } else {
-          // Unmute local audio
-          localStream
-            .getAudioTracks()
-            .forEach((track) => (track.enabled = true));
           props.setShowMute(true);
         }
       } else {
@@ -292,8 +269,6 @@ const Main = (props) => {
       console.error("Error muting/unmuting:", error);
     }
   };
-
- 
 
   // HOLD/UNHOLD API //
   const holdUnhold = async (holdActivity, holdStatus) => {
@@ -869,8 +844,6 @@ const Main = (props) => {
         <audio ref={invitationRef} id="remoteAudio" />
         <audio ref={localAudioRef} id="localAudio" />
 
-      
-
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={6000}
@@ -914,7 +887,6 @@ const Main = (props) => {
                 callActivitiesApi={callActivitiesApi}
                 // muteBrowserAudio={muteBrowserAudio}
                 callActivity={props.callActivity}
-                // toggleMute={toggleMute}
                 endCallTransfer={endCallTransfer}
                 completeTransfer={completeTransfer}
                 voiceseconds={voiceseconds}
