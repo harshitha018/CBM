@@ -54,8 +54,9 @@ const DashBoard = (props) => {
     ConferenceCallApi,
     muteBrowserAudio,
     callActivity,
-    toggleMute,
+    // toggleMute,
     endCallTransfer,
+    completeTransfer,
     holdCall,
     unholdCall,
     handleMuteplay,
@@ -131,9 +132,10 @@ const DashBoard = (props) => {
           ConferenceCallApi={ConferenceCallApi}
           isTransferInitiated={props.isTransferInitiated}
           setIsTransferInitiated={props.setIsTransferInitiated}
-          muteBrowserAudio={muteBrowserAudio}
-          toggleMute={toggleMute}
+          // muteBrowserAudio={muteBrowserAudio}
+          // toggleMute={toggleMute}
           endCallTransfer={endCallTransfer}
+          completeTransfer={completeTransfer}
           holdCall={holdCall}
           unholdCall={unholdCall}
           handleMuteplay={handleMuteplay}

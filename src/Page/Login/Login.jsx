@@ -111,7 +111,7 @@ const Login = (props) => {
                   <div class="hero__caption inaipi-welcome animate__animated animate__bounceIn animate__slow position-relative">
                     <div class="w-100">
                       <div>
-                        <div class="logo animate__animated animate__fadeIn animate__slow mb-2">
+                        <div class="logo animate__animated animate__fadeIn animate__slow">
                           <img
                             width="50"
                             height="50"
@@ -126,7 +126,7 @@ const Login = (props) => {
                           Log in
                         </h3>
                       </div>
-                      <div class="form pl-9 pr-9">
+                      <div class="form">
                         <div class="form-group">
                           <input
                             type="text"

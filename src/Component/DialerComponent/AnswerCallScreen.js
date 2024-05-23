@@ -143,6 +143,9 @@ const AnswerCallScreen = (props) => {
     setDragStartPos({ x: info.point.x, y: info.point.y });
   };
 
+
+
+
   return (
     <>
       {/* Main answer screen after incoming */}
@@ -912,7 +915,10 @@ const AnswerCallScreen = (props) => {
               {props.isTransferInitiated ? (
                 <Button
                   className="dialpad-btn"
-                  onClick={props.attendedTransfer}
+                  // onClick={props.attendedTransfer}
+                  onClick={() => {
+                    props.completeTransfer();
+                  }}
                   style={{ color: "white", background: "red" }}
                   fullWidth
                 >
