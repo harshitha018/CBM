@@ -179,7 +179,7 @@ const SideBar = (props) => {
             },
             height: "100vh",
           }}
-          className={`sidebarMode ${props.darkMode ? "dark-mode" : "#2ea55e"}`}
+          className={`${props.darkMode ? "dark-mode" : "white"}`}
         >
           <Stack
             alignItems={"center"}
