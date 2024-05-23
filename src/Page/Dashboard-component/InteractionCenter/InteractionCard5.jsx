@@ -60,10 +60,10 @@ const InteractionCard5 = (props) => {
   return (
     <>
         <Box
-          className={`card dashboardMode ${
+          className={`${
             props.darkMode ? "dark-mode" : "light-mode"
           }`}
-          sx={{ height: "18vh" }}
+          sx={{ height: "16vh" }}
           p={1}
         >
           <Stack direction="row align-item-center justify-content-between">
@@ -101,17 +101,15 @@ const InteractionCard5 = (props) => {
                       // marginRight: "10px",
                     }}
                   >
-                    Schedule Now
+                    Schedule
                   </Button>
                 </Grid>
-
-                
-              </Grid>
+            </Grid>
            
           </Stack>
           <Grid
             container
-            className="survey_schedule "
+            // className="survey_schedule "
             direction={"row"}
             spacing={1}
           >
@@ -223,7 +221,7 @@ const InteractionCard5 = (props) => {
                 ></Typography>
                 <Grid className="d-flex flex-column" sx={{marginTop:"-2px"}}>
                   <label  style={{ fontSize: "10px" }}>
-                    Digital Notification{" "}
+                    Sms
                   </label>
                   <Select
                     value={selectedWaitingList}
@@ -270,7 +268,7 @@ const InteractionCard5 = (props) => {
                     }}
                   >
                     <MenuItem value={"Location"}>Location</MenuItem>
-                    <MenuItem value={"Location"}>Location</MenuItem>
+                    <MenuItem value={"Queue"}>Queue</MenuItem>
                   </Select>
                 </Grid>
               </Stack>

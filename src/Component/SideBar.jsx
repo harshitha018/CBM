@@ -69,11 +69,10 @@ const SideBar = (props) => {
                 <Tooltip title="Dashboard" arrow placement="right-start">
                 <IconButton>
                   <HomeIcon
-                  sx={{ fontSize: 30}}
-                    color="white"
+                  sx={{ fontSize: 30, color:"lightgray"}}
                     onClick={() => handleIconClick(0)}
                     style={{
-                      fill: activeIndex === 0 ? "white" : "",
+                      fill: activeIndex === 0 ? "lightgray" : "",
                     }}
                   />
               </IconButton>

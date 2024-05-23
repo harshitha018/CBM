@@ -160,7 +160,7 @@ const InteractionCard = (props) => {
         >
           {!closeCard && (
             <Box
-              className={` dashboardMode ${
+              className={` ${
                 props.darkMode ? "dark-mode" : "light-mode"
               } `}
               sx={{ minWidth: 275 }}
@@ -200,32 +200,17 @@ const InteractionCard = (props) => {
                   <Box sx={{display:'flex',alignItems:"center", justifyContent:"center"}}>
                   <Avatar alt="Remy Sharp" sx={{ width: 45, height: 45 }}><AccountCircleSharpIcon/></Avatar>
                   </Box>
-                  <Box>
+                  <div>
                   <Typography  sx={{ fontSize: 17, fontWeight:500}} >Aarumugaselvan</Typography>
                   <Typography variant="caption"  sx={{ fontSize: 13}} display={"block"} >+91-8300756165</Typography>
                   <Typography variant="caption" sx={{ fontSize: 13}} display={"block"}>(Basic queue)</Typography>
-                  <Typography variant="subtitle2" display="block">
-                  <Box
-                    component="span"
-                    sx={{
-                      padding: "3px",
-                      backgroundColor: "#FC3D3D",
-                      borderRadius: "100%",
-                      height: "5px",
-                      width: "5px",
-                      display: "inline-block",
-                      marginRight: "4px" // Added for better spacing
-                    }}
-                  />
-                  on call
-                </Typography>
-                  </Box>
+                  </div>
                   <Box>
                   </Box>
                 </Stack>
-                <Stack direction="column-reverse" justifyContent="space-between"  alignItems="center" spacing={2}>
+                <Stack direction="column-reverse" justifyContent="space-between"  alignItems="center" >
                   <Box>
-                  <p style={{fontSize:"25px",fontWeight:700,color:"#FC3D3D"}}>05:00</p>
+                  <p style={{fontSize:"40px", paddingY:"0px",fontWeight:700,color:"#FC3D3D"}}>05:00</p>
                   </Box>
                   <Stack
                   direction="row"
@@ -282,11 +267,12 @@ const InteractionCard = (props) => {
                   borderBottomRightRadius: "10px",
                 }}
               >
-              <Stack direction="row"
-              justifyContent="space-evenly"
+              <div className="flex justify-center items-center">
+              <Stack   direction="row"
+              justifyContent="center"
               alignItems="center"
               spacing={3}
-              // sx={{marginLeft:2}}
+              // sx={{marginLeft:1}}
               >
                 <CustomButton >
                   <KeyboardVoiceIcon sx={{fontSize:30}}/>
@@ -320,7 +306,8 @@ const InteractionCard = (props) => {
                       />
                     </CustomButton>
                   </ThemeProvider>
-                </Stack>
+              </Stack>
+              </div>
               </Box>
               </Box>
               {/* </Paper> */}

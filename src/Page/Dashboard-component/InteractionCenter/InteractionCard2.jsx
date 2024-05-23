@@ -194,26 +194,38 @@ const InteractionCard2 = (props) => {
         {/* <Stack direction="column" spacing={2}> */}
         <Paper elevation={10}>
         <Box
-          className={`card dashboardMode ${
+          className={`${
             props.darkMode ? "dark-mode" : "light-mode"
           }`}
           // sx={{ height: "95vh" }}
           sx={{ height: "32vh" }}
         >
-          <Box>
-            <Stack direction="row align-item-center justify-content-between">
-              <Grid className="d-flex">
-                <Notebook size={15} className="mt-1 ms-3" />
+            <Stack direction="row" justifyContent="space-between"
+  alignItems="center" sx={{marginX:"8px"}}>
+              <div className="flex gap-2">
+                <Notebook size={15} className="" />
                 <Typography
-                  className="ms-2 mt-1"
+                  className=""
                   color="primary"
                   sx={{ fontSize: 12 }}
                   gutterBottom
                 >
                   Lead/Delinquent Details
                 </Typography>
-              </Grid>
-              <Grid className="d-flex ms-auto">
+              </div>
+              <Button
+                    variant="contained"
+                    className="ms-2 mt-1"
+                    onClick={createUser}
+                    sx={{
+                      fontSize: "10px",
+                      height: "25px",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Create
+              </Button>
+              {/* <Grid className="d-flex ms-auto"> */}
                 {/* <Grid
                   item
                   // xs={1.5}
@@ -238,7 +250,7 @@ const InteractionCard2 = (props) => {
                   </Button>
                 </Grid> */}
 
-                <Grid
+                {/* <Grid
                   item
                   // xs={1.5}
                   // sm={2}
@@ -248,22 +260,11 @@ const InteractionCard2 = (props) => {
                   justifyContent="flex-end"
                   alignItems="center"
                 >
-                  <Button
-                    variant="contained"
-                    className="ms-2 mt-1"
-                    onClick={createUser}
-                    sx={{
-                      fontSize: "10px",
-                      height: "25px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Create
-                  </Button>
-                </Grid>
-              </Grid>
+                  
+                </Grid> */}
+              {/* </Grid> */}
             </Stack>
-          </Box>
+
           {/* here the code  className="Customerdetails" */}
           <Grid container className="Customerdetails" spacing={0.5}>
             <Grid item xs={2.3} sm={1} md={2.3}>
@@ -536,10 +537,11 @@ const InteractionCard2 = (props) => {
                 value={dispositionReason}
                 onChange={handleReasonChange}
                 className="ms-2"
+                // size="small"
                 style={{
                   height: "25px",
                   fontSize: "10px",
-                  width: "146px",
+                  width: "144px",
                   background: "#faf9f6",
                 }}
               >

@@ -16,6 +16,10 @@ import {
   setIncomingCallReject,
 } from "../../redux/actions/action.js";
 import { AndroidLogo } from "@phosphor-icons/react";
+import ShadowIconInput from "../../Component/shared-components/fields/ShadowIconInput.js";
+import ShadowIconDatePicker from "../../Component/shared-components/fields/ShadowIconDatePicker.js";
+import ShadowIconSelect from "../../Component/shared-components/fields/ShadowIconSelect.js";
+import TextSelect from "../../Component/shared-components/fields/ShadowIconTextField.js";
 
 const mapStateToProps = (state) => {
   return {
@@ -107,6 +111,10 @@ const DashBoard = (props) => {
           />
         </Grid>
 
+        {/* <ShadowIconInput/>
+        <ShadowIconDatePicker/>
+        <ShadowIconSelect/>
+        <TextSelect/> */}
         {props.incomingCall && (
           <IncomingCallScreen
             acceptCall={acceptCall}
