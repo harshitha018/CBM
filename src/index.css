@@ -430,3 +430,16 @@ height: 30px !important;
   font-size: 12px !important;
 
 }
+
+.css-23y92c-MuiStack-root>:not(style)~:not(style) {
+  margin-top: 16px;
+  margin-right: 13px !important;
+}
+
+.realdash{
+  margin-left: 27px !important;
+}
+
+.css-23y92c-MuiStack-root{
+  background-color: #0b3363 !important;
+}
