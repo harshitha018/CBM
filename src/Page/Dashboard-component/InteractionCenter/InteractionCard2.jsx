@@ -202,16 +202,16 @@ const InteractionCard2 = (props) => {
             props.darkMode ? "dark-mode" : "light-mode"
           }`}
           // sx={{ height: "95vh" }}
-          sx={{ height: "32vh" }}
+          sx={{ height: "34vh" }}
         >
             <Stack direction="row" justifyContent="space-between"
-  alignItems="center" sx={{marginX:"8px"}}>
-              <div className="flex gap-2">
+            alignItems="center" sx={{marginX:"8px", paddingY:"3px"}}>
+              <Grid className="flex gap-2">
                 <Notebook size={15} className="" />
                 <Typography
                   className=""
                   color="primary"
-                  sx={{ fontSize: 12 }}
+                  sx={{ fontSize: 12, whiteSpace: "nowrap" }}
                   gutterBottom
                 >
                   Lead/Delinquent Details
