@@ -102,7 +102,7 @@ const DashBoard = (props) => {
           {/* </Grid> */}
         </Grid>
         <Grid container xs={12} md={8} >
-          <InteractionCard2 />
+          {/* <InteractionCard2 /> */}
         </Grid>
         <Grid xs={12} md={12} >
           <InteractionCard4 

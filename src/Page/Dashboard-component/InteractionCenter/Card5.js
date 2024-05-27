@@ -24,6 +24,10 @@ import {
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { connect } from "react-redux";
 import { setDarkMode } from "../../../redux/actions/action";
+import ShadowIconDatePicker from "../../../Component/shared-components/fields/ShadowIconDatePicker";
+import TimeInput from "../../../Component/shared-components/fields/TimeFormat1";
+import ShadowIconSelect from "../../../Component/shared-components/fields/ShadowIconSelect";
+import ShadowIconInput from "../../../Component/shared-components/fields/ShadowIconInput";
 
 const mapStateToProps = (state) => {
   return {
@@ -311,7 +315,7 @@ const InteractionCard5 = (props) => {
               </div>
             </Grid> */}
 
-            <Grid item xs={2.3} sm={2} md={2.3} sx={{ marginLeft: "5px" }}>
+            {/* <Grid item xs={2.3} sm={2} md={2.3} sx={{ marginLeft: "5px" }}>
               <Typography
                 variant="body1"
                 component="span"
@@ -356,8 +360,18 @@ const InteractionCard5 = (props) => {
                   },
                 }}
               />
-            </Grid>
+            </Grid> */}
           {/* </Grid>  */}
+          <div className="flex gap-2 mx-2">
+          <ShadowIconDatePicker/>
+          <TimeInput/>
+          <ShadowIconSelect label="Type"/>
+          <ShadowIconSelect label="SMS"/>
+          <ShadowIconSelect label="Dail plan"/>
+          <ShadowIconSelect label="Assign campaign"/>
+          <ShadowIconInput label="Sticky agent"/>
+          </div>
+
         </Box>
     </>
   );

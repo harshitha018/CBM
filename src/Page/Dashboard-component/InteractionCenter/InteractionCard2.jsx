@@ -25,6 +25,7 @@ import InteractionCard5 from "./InteractionCard5";
 import { ToastContainer, toast } from "react-toastify";
 import ShadowIconInput from "../../../Component/shared-components/fields/ShadowIconInput";
 import ShadowIconSelect from "../../../Component/shared-components/fields/ShadowIconSelect";
+import Card5 from "./Card5";
 
 const mapStateToProps = (state) => {
   return {
@@ -650,7 +651,8 @@ const InteractionCard2 = (props) => {
         </Box>
         </Paper>
         <Paper elevation={10} sx={{marginY:"10px"}}>
-        <InteractionCard5 />
+        {/* <InteractionCard5 /> */}
+        <Card5/>
         </Paper>
         {/* </Stack> */}
         </Grid>

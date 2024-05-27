@@ -5,6 +5,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Error from "../error/Error";
 import Select from "react-select";
+// import {Select}  from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 
 export default function ShadowIconSelect({
@@ -54,9 +55,24 @@ export default function ShadowIconSelect({
     onChange(selectedOption);
   };
   //console.log(selectedValue);
+  console.log(label)
 
   return (
-    <div className="text-start flex-1" style={{ fontSize: "12px" }}>
+    <div className="text-start flex-1 relative" style={{ fontSize: "12px" }}>
+    <span
+        className="text-sm absolute"
+        style={{
+          top: "-10px",
+          left: "10px",
+          background: `${bgColour}`,
+          padding: "0 5px",
+          zIndex: 1,
+          fontSize: "11px",
+        }}
+      >
+        <p>{label}</p>
+        {required && <span style={{ color: "red" }}>*</span>}
+      </span>
       <Select
         ref={selectRef}
         sx={{

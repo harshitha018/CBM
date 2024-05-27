@@ -15,6 +15,7 @@ export default function ShadowIconInput({ showError, apiError, errors, data, ico
          <TextField
             fullWidth={true}
             size="small"
+            label={label}
             type={(type)?type:'text'}
             disabled={disabled?disabled:false}
             sx={{
@@ -32,7 +33,7 @@ export default function ShadowIconInput({ showError, apiError, errors, data, ico
                   fontWeight: '500'
                 }
               }}
-            placeholder={label}
+            // placeholder={label}
             inputProps={{ 'aria-label': name }}
             value={currentValue}
             onChange={onChange}

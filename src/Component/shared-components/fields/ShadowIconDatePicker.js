@@ -68,6 +68,7 @@ export default function ShadowIconDatePicker({
       className="text-start flex-1"
       style={{ fontSize: "12px", width: "100%" }}>
       <TextField
+      label={label}
         fullWidth={true}
         size="small"
         type={"text"}
