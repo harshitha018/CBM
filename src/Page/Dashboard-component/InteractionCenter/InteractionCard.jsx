@@ -161,7 +161,7 @@ const InteractionCard = (props) => {
         >
           {!closeCard && (
             <Box
-              className={` dashboardMode ${
+              className={` ${
                 props.darkMode ? "dark-mode" : "light-mode"
               } `}
               sx={{ minWidth: 275 }}

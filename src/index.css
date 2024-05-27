@@ -467,4 +467,15 @@ height: 30px !important;
 .side_btn .MuiButtonBase-root .active {
   background: red !important;
 }
+.css-23y92c-MuiStack-root>:not(style)~:not(style) {
+  margin-top: 16px;
+  margin-right: 13px !important;
+}
 
+.realdash{
+  margin-left: 27px !important;
+}
+
+.css-23y92c-MuiStack-root{
+  background-color: #0b3363 !important;
+}
