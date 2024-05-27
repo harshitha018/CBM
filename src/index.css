@@ -146,7 +146,7 @@ body {
 .answerScreen {
   background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
   box-shadow: 0px 0px 10px 0px #aaaaaa;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 18rem;
   bottom: 2rem;
   position: fixed;
@@ -160,9 +160,9 @@ body {
 .answerScreen_smallScreen{
   background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
   box-shadow: 0px 0px 10px 0px #aaaaaa;
-  border-radius: 50px;
-  width: 18rem;
-  bottom: 2rem;
+  border-radius: 10px;
+  width: 18rem; 
+   bottom: 2rem;
   position: fixed;
   /* right: 20px; */
   left: 20rem;

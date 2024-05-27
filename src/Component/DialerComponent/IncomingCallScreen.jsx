@@ -108,9 +108,7 @@ const IncomingCallScreen = (props) => {
             </Stack>
           </Box>
 
-          {/* {props.answerScreen ? (
-            <AnswerCallScreen/>
-          ): ""} */}
+         
         </motion.div>
       </Box>
     </>

@@ -556,7 +556,7 @@ const InteractionCard4 = (props) => {
 
                         <div>
                           <Button
-                            // onClick={FilterApi}
+                            onClick={FilterApi}
                             variant="contained"
                             size="small"
                             style={{
@@ -1065,7 +1065,7 @@ const InteractionCard4 = (props) => {
 
                         <div>
                           <Button
-                            // onClick={FilterApi}
+                            onClick={FilterApi}
                             variant="contained"
                             size="small"
                             style={{

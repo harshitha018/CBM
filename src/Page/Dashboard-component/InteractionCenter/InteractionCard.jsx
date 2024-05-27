@@ -227,7 +227,7 @@ const InteractionCard = (props) => {
                       </Box>
                       <Box>
                         <Typography sx={{ fontSize: 12, fontWeight: 500 }}>
-                          Aarumugaselvan
+                          Arumugaselvan
                         </Typography>
                         <Typography
                           variant="caption"

@@ -40,6 +40,7 @@ const DashBoard = (props) => {
     makeCall,
     endCall,
     muteUnmute,
+    handleMuteButtonClick,
     holdUnhold,
     transferCallApi,
     ConferenceCallApi,
@@ -71,7 +72,7 @@ const DashBoard = (props) => {
   } = props;
 
 
-
+// console.log("incomingcallllll",props.incomingCall);
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
       <Grid container >
@@ -111,6 +112,7 @@ const DashBoard = (props) => {
         <AnswerCallScreen
           makeCall={makeCall}
           muteUnmute={muteUnmute}
+          handleMuteButtonClick={handleMuteButtonClick}
           holdUnhold={holdUnhold}
           transferCallApi={transferCallApi}
           ConferenceCallApi={ConferenceCallApi}

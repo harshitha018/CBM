@@ -49,7 +49,7 @@ const SideBar = (props) => {
       >
         <Stack
           alignItems={"center"}
-          sx={{ height: "100%", width: "100%", marginTop: "0px",backgroundColor:"white" }}
+          sx={{ height: "100%", width: "100%", marginTop: "0px",backgroundColor:"#0b3363" }}
           spacing={2}
         >
           <img
@@ -67,7 +67,7 @@ const SideBar = (props) => {
             <Stack className="">
               <Link>
                 <Tooltip title="Dashboard" arrow placement="right-start">
-                <IconButton>
+                <IconButton sx={{background:"#1F75FE"}}>
                   <HomeIcon
                   sx={{ fontSize: 30}}
                     color="white"

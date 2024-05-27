@@ -203,15 +203,16 @@ const InteractionCard2 = (props) => {
           }`}
           // sx={{ height: "95vh" }}
           sx={{ height: "32vh" }}
-        >
+         >
           <Box>
             <Stack direction="row align-item-center justify-content-between">
               <Grid className="d-flex">
-                <Notebook size={18} className="mt-1 ms-3" />
+                <Notebook size={18} className="mt-1 ms-2" />
                 <Typography
                   className="ms-2 mt-1"
                   color="primary"
-                  sx={{ fontSize: 12 }}
+                  sx={{ fontSize: 12, width: "150px"
+                  }}
                   gutterBottom
                 >
                   Lead/Delinquent Details
@@ -230,7 +231,7 @@ const InteractionCard2 = (props) => {
               >
                 <Button
                   variant="contained"
-                  className=""
+                  className="mt-1"
                   onClick={createUser}
                   sx={{
                     fontSize: "10px",
@@ -238,11 +239,11 @@ const InteractionCard2 = (props) => {
                     marginRight: "5px",
                   }}
                 >
-                  Create
+                  Edit
                 </Button>
               </Grid>
 
-              <Grid className="d-flex ms-auto">
+              {/* <Grid className="d-flex ms-auto">
                 <Grid
                   item
                   // xs={1.5}
@@ -267,7 +268,7 @@ const InteractionCard2 = (props) => {
                     Update
                   </Button>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Stack>
           </Box>
           {/* here the code  className="Customerdetails" */}
