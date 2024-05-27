@@ -8,10 +8,10 @@ import Error from "../error/Error";
 import InputAdornment from "@mui/material/InputAdornment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-// import EventIcon from '@mui/icons-material/Event';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import EventIcon from '@mui/icons-material/Event';
 
 export default function ShadowIconDatePicker({
   showError,
