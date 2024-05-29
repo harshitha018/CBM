@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardRealtime.css";
 import NavBar from "../../Component/NavBar";
 import SideBar from "../../Component/SideBar";
@@ -10,8 +10,12 @@ import {
   CardContent,
   Divider,
   Drawer,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Stack,
   Table,
   TableBody,
@@ -35,6 +39,7 @@ import PhoneCall from "../../assests/Realtime-dash-assets/phone-call.png";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ApexChart from "./ApexChart";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -45,6 +50,34 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function DashboardRealtime() {
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const headers = {
+      Authorization:
+        "Bearer " +
+        "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiQWRtaW4iLCJVc2VyRGV0YWlscyI6eyJhdXRvZ2VuVXNlcnNJZCI6MSwiZW1haWwiOiJuYXNAZ21haWwuY29tIiwiZW1wbG95ZWVJZCI6IkFkbWluIiwiZmlyc3ROYW1lIjoiVGVuYW50SSIsImxhc3ROYW1lIjoiVDk3NDIwMjQwNF8wMyIsIm1vYmlsZU51bWJlciI6IjkwMzkzMjA5MDkiLCJwYXNzd29yZCI6IiQyYSQxMCRxdlBKNEhLWDhWMENxZUxnVndET1dPTC90WkxnYUtXUHY4RnNFeVkud0ZIMllkWkUvRlMwaSIsInN0YXR1cyI6IkFDVElWRSIsImF1dG9nZW5Vc2Vyc0RldGFpbHNJZCI6IiIsInVzZXJncm91cE5hbWUiOiIiLCJyb2xlcyI6W3siYXV0b2dlblJvbGVzSWQiOm51bGwsInJlY0FkZER0IjpudWxsLCJyZWNVcGRhdGVEdCI6bnVsbCwicm9sZXNOYW1lIjoiQWRtaW4iLCJkZXNjcmlwdGlvbiI6bnVsbCwicm9sZUNyZWF0ZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRCeSI6bnVsbCwidXNlclNjcmVlbk1hcCI6bnVsbH1dLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQWRtaW4ifV0sInJvbGVzTGlzdCI6WyJBZG1pbiJdLCJlbmFibGVkIjp0cnVlLCJ1c2VybmFtZSI6bnVsbCwiY3JlZGVudGlhbHNOb25FeHBpcmVkIjp0cnVlLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJhY2NvdW50Tm9uRXhwaXJlZCI6dHJ1ZX0sImlhdCI6MTcxNjk3MzM3OCwiZXhwIjoxNzE2OTc2OTc4fQ.0aLlqDlXiCOfbOixpQPBCY59F27yJXTwSpzYbKikCLWAwcSS9rXa4gYy5rvO5Lw3Py9XX-s-QyBhUVT770v4VA", // Replace with your actual access token
+      "Content-Type": "application/json",
+    };
+
+    axios
+      .get("http://192.168.45.59:8080/cbmUAT/usergroup/getusergroupDetail", {
+        headers: headers,
+      })
+      .then((response) => {
+        setData(response.data.value); // Adjust based on the structure of your response
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
+
   return (
     <Grid container direction={"row"}>
       {/* <Snackbar
@@ -69,9 +102,7 @@ function DashboardRealtime() {
                       minWidth: 275,
                       marginLeft: "1px",
                       marginRight: "1px",
-                      background:
-                      " #FFFFFF",
-              
+                      background: " #FFFFFF",
                     }}
                   >
                     <ApexChart />
@@ -157,8 +188,7 @@ function DashboardRealtime() {
                     <Card
                       sx={{
                         height: "20vh",
-                        background:
-                        " #FFFFFF",
+                        background: " #FFFFFF",
 
                         marginBottom: "1px",
                       }}
@@ -477,7 +507,7 @@ function DashboardRealtime() {
                                 }}
                               >
                                 <img
-                                  style={{ height: "50px", }}
+                                  style={{ height: "50px" }}
                                   src={SandClock}
                                   alt="SandClock"
                                 />
@@ -571,8 +601,7 @@ function DashboardRealtime() {
                         <Card
                           sx={{
                             height: "20vh",
-                            background:
-                            "#FFFFFF",
+                            background: "#FFFFFF",
 
                             marginBottom: "1px",
                           }}
@@ -1049,6 +1078,36 @@ function DashboardRealtime() {
                                         }}
                                       >
                                         Type
+                                        {/* type dropdown                      */}
+                                        <FormControl
+                                          sx={{
+                                            marginLeft: "5px",
+                                            marginTop: "5px",
+                                          }}
+                                        >
+                                          <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            onChange={handleChange}
+                                            sx={{
+                                              height: "20px", // Adjust the height as needed
+                                              fontSize: "10px", // Adjust the font size as needed
+                                              color: "#FFFFFF",
+                                            }}
+                                            // Alternatively, you can use inline style
+                                            // style={{ height: '30px', fontSize: '14px' }}
+                                          >
+                                            <MenuItem value={10}>
+                                              Inbound
+                                            </MenuItem>
+                                            <MenuItem value={20}>
+                                              Outbound
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                              Blend
+                                            </MenuItem>
+                                          </Select>
+                                        </FormControl>
                                       </TableCell>
                                       <TableCell
                                         sx={{
@@ -1059,6 +1118,51 @@ function DashboardRealtime() {
                                         }}
                                       >
                                         Status
+
+                                        <FormControl
+                                          sx={{
+                                            marginLeft: "5px",
+                                            marginTop: "5px",
+                                          }}
+                                        >
+                                          <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            onChange={handleChange}
+                                            sx={{
+                                              height: "20px", // Adjust the height as needed
+                                              fontSize: "10px", // Adjust the font size as needed
+                                              color: "#FFFFFF",
+                                            }}
+                                            // Alternatively, you can use inline style
+                                            // style={{ height: '30px', fontSize: '14px' }}
+                                          >
+                                            <MenuItem value={10}>
+                                              Logged In
+                                            </MenuItem>
+                                            <MenuItem value={20}>
+                                            Logged Out
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            Not Ready
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            Idle
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            On Call
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            Break
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            ACW
+                                            </MenuItem>
+                                          </Select>
+                                        </FormControl>
+
+
+
                                       </TableCell>
                                       <TableCell
                                         sx={{
@@ -1079,6 +1183,36 @@ function DashboardRealtime() {
                                         }}
                                       >
                                         Channel
+
+
+                                        <FormControl
+                                          sx={{
+                                            marginLeft: "5px",
+                                            marginTop: "5px",
+                                          }}
+                                        >
+                                          <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            onChange={handleChange}
+                                            sx={{
+                                              height: "20px", // Adjust the height as needed
+                                              fontSize: "10px", // Adjust the font size as needed
+                                              color: "#FFFFFF",
+                                            }}
+                                            // Alternatively, you can use inline style
+                                            // style={{ height: '30px', fontSize: '14px' }}
+                                          >
+                                            <MenuItem value={10} >
+                                              Voice
+                                            </MenuItem>
+                                           
+                                          </Select>
+                                        </FormControl>
+
+
+
+
                                       </TableCell>
                                       <TableCell
                                         sx={{
@@ -1089,6 +1223,43 @@ function DashboardRealtime() {
                                         }}
                                       >
                                         Action
+
+
+                                        <FormControl
+                                          sx={{
+                                            marginLeft: "5px",
+                                            marginTop: "5px",
+                                          }}
+                                        >
+                                          <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            onChange={handleChange}
+                                            sx={{
+                                              height: "20px", // Adjust the height as needed
+                                              fontSize: "10px", // Adjust the font size as needed
+                                              color: "#FFFFFF",
+                                            }}
+                                            // Alternatively, you can use inline style
+                                            // style={{ height: '30px', fontSize: '14px' }}
+                                          >
+                                            <MenuItem value={10}>
+                                            Barge In
+                                            </MenuItem>
+                                            <MenuItem value={20}>
+                                            Whisper
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            Monitor
+                                            </MenuItem>
+                                            <MenuItem value={30}>
+                                            Message
+                                            </MenuItem>
+                                          </Select>
+                                        </FormControl>
+
+
+
                                       </TableCell>
                                     </TableRow>
                                   </TableHead>
