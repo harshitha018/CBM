@@ -8,6 +8,8 @@ import { useStopwatch } from "react-timer-hook";
 import { UserAgent, Registerer, Inviter, SessionState } from "sip.js";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   setIncomingCall,
   setIncomingCallAccepted,
@@ -20,7 +22,6 @@ import {
   setvoiceminutes,
   setvoicehours,
   setAnswerScreen,
-  setCallStatus,
   setShowMute,
   setShowUnMute,
   setShowHold,
@@ -28,9 +29,12 @@ import {
   setTransferCall,
   setShowTransferCall,
   setConference,
+  setShowConference,
   setMergeCall,
+  setCallStatus,
   setCallActivity,
   setIsTransferInitiated,
+  setIsConferenceInitiated,
 } from "../redux/actions/action";
 import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -49,7 +53,7 @@ const mapStateToProps = (state) => {
     OutgoingCallReject: state.data.OutgoingCallReject,
     displayExtNum: state.data.displayExtNum,
     callStatus: state.data.callStatus,
- 
+
     showMute: state.data.showMute,
     showUnMute: state.data.showUnMute,
     showHold: state.data.showHold,
@@ -57,31 +61,34 @@ const mapStateToProps = (state) => {
     transferCall: state.data.transferCall,
     showTransferCall: state.data.showTransferCall,
     conference: state.data.conference,
+    showConference: state.data.showConference,
     mergecall: state.data.mergecall,
     callActivity: state.data.callActivity,
     isTransferInitiated: state.data.isTransferInitiated,
     agentInteraction: state.data.agentInteraction,
   };
 };
- 
+
 const Main = (props) => {
+  // console.log("vvvvvvvvvvvvvvvvvv", props.displayExtNum);
+
   const userDetails = JSON.parse(localStorage.getItem("userinformation"));
- 
+
   var someDate = new Date();
   var date = someDate.setDate(someDate.getDate());
   var defaultValue = new Date(date).toISOString().split("T")[0];
- 
+
   const [simpleUser, setsimpleUser] = useState();
   const { voiceseconds, voiceminutes, voicehours } = props;
- 
+
   const { seconds, minutes, hours, start, pause, reset } = useStopwatch({
     autoStart: true,
   });
- 
+
   props.setvoiceseconds(seconds);
   props.setvoiceminutes(minutes);
   props.setvoicehours(hours);
- 
+
   const userAgentRef = useRef(null);
   const invitationRef = useRef(null);
   const localAudioRef = useRef(null);
@@ -91,10 +98,10 @@ const Main = (props) => {
   const sessionRef = useRef(null);
   const [isWebRTCConnected, setIsWebRTCConnected] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
- 
+
   const [OpenMakecalldialer, setOpenMakecalldialer] = useState(false);
   const [dialedNumber, setDialedNumber] = useState("");
- 
+
   const [Opentransferdialer, setOpentransferdialer] = useState(false);
   const [OpenConferencedialer, setOpenConferencedialer] = useState(false);
   const [OpenSmallscreenDialer, setOpenSmallscreenDialer] = useState(false);
@@ -105,36 +112,35 @@ const Main = (props) => {
   const [port, setPort] = useState(8089);
   const [fromdate, setFromdate] = useState(defaultValue);
   const [direction, setDirection] = useState("Outbound");
- 
+
   const localValue = JSON.parse(localStorage.getItem("userinformation"));
   const userRole = localValue[0].roles;
- 
+
   const handleWebRTCDisconnect = () => {
     setIsWebRTCConnected(false);
   };
- 
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
- 
+
   const handleExtensionChange = (event) => {
     setDialedNumber(event.target.value);
   };
- 
+
   // ACCEPT/DISCONNECT API //
   const callActivitiesApi = async (activitystatus, Callstatusvalue2) => {
     // if (callType) {
     // }
-    const callerid = JSON.parse(localStorage.getItem("Callerid"));
-    console.log("vvvvvvvvvvvvvvvvvv", props.displayExtNum);
- 
+    const sipId = JSON.parse(localStorage.getItem("Sipid"));
+
     await axios
       .post(
         BaseUrl + "/agent/activity",
- 
+
         {
           agentId: userDetails[0].userId,
-          sipId: callerid,
+          sipId: sipId,
           callerNumber: props.displayExtNum,
           callStatus: Callstatusvalue2,
           activity: activitystatus,
@@ -159,32 +165,69 @@ const Main = (props) => {
         console.log("callActivitiesApi", err);
       });
   };
- 
+
+  // MAKECALL API //
+  const makecallApi = async (makecallActivity, makecallstatus) => {
+    const dialedNumber = localStorage.getItem("dialedNumber");
+    const OutgoingSipID = localStorage.getItem("outgoingSipID");
+
+    await axios
+      .post(
+        BaseUrl + "/agent/activity",
+
+        {
+          agentId: userDetails[0].userId,
+          sipId: OutgoingSipID,
+          callerNumber: dialedNumber,
+          callStatus: makecallstatus,
+          activity: makecallActivity,
+          direction: direction,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            TenantID: localStorage.getItem("TenantId"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log("makecallRESPONSE", res);
+        if (res.data.status) {
+          props.setCallActivity(res.data.data);
+        } else {
+          console.log("makecallERRORELSE_STATE");
+        }
+      })
+      .catch((err) => {
+        console.log("makecallERROR", err);
+      });
+  };
+
   // AGENTINTERACTION SAVE //
   const agentInteractionSave = async (Callstatusvalue2) => {
-    const callerid = JSON.parse(localStorage.getItem("Callerid"));
+    const sipId = JSON.parse(localStorage.getItem("Sipid"));
     const currentDate = new Date();
- 
+
     // Arrival time: current time
     const arrivalTime = currentDate.toISOString();
- 
+
     // Connected time: 5 minutes after arrival time
     const connectedTime = new Date(currentDate);
     connectedTime.setMinutes(connectedTime.getMinutes() + 5);
     const connectedTimeISOString = connectedTime.toISOString();
- 
+
     // Disconnected time: 5 minutes after connected time
     const disconnectedTime = new Date(connectedTime);
     disconnectedTime.setMinutes(disconnectedTime.getMinutes() + 5);
     const disconnectedTimeISOString = disconnectedTime.toISOString();
- 
+
     await axios
       .post(
         BaseUrl + "/agent/agentinteraction",
         {
           aniNumber: 3002,
           agentId: userDetails[0].userId,
-          sipId: callerid,
+          sipId: sipId,
           callerNumber: props.displayExtNum,
           date: fromdate
             ? `${fromdate}T00:00:00.000Z`
@@ -214,14 +257,12 @@ const Main = (props) => {
         console.log("agentInteractionSaveERRORR", err);
       });
   };
- 
+
   useEffect(() => {
     if (props.agentInteraction) {
       agentInteractionSave();
     }
   }, [props.agentInteraction]);
-
-  
 
   // MUTE/UNMUTE API //
   const mediaElement = document.getElementById("localAudio");
@@ -232,16 +273,16 @@ const Main = (props) => {
     console.log("mute unmute trigger");
 
     try {
-      const OutgoingcallID = localStorage.getItem("outgoingcallID");
+      const OutgoingSipID = localStorage.getItem("outgoingSipID");
       const dialedNumber = localStorage.getItem("dialedNumber");
       const tenantId = localStorage.getItem("TenantId");
       const userId = userDetails[0].userId;
- 
+
       const response = await axios.post(
         BaseUrl + "/agent/activity",
         {
           agentId: userId,
-          sipId: OutgoingcallID,
+          sipId: OutgoingSipID,
           callerNumber: dialedNumber,
           callStatus: muteStatus,
           activity: muteActivity,
@@ -254,7 +295,7 @@ const Main = (props) => {
           },
         }
       );
- 
+
       console.log("muteAPIII", response.data);
       if (response.data.status) {
         // Mute or unmute the local audio element
@@ -291,17 +332,17 @@ const Main = (props) => {
   // HOLD/UNHOLD API //
   const holdUnhold = async (holdActivity, holdStatus) => {
     try {
-      const OutgoingcallID = localStorage.getItem("outgoingcallID");
+      const OutgoingSipID = localStorage.getItem("outgoingSipID");
       const dialedNumber = localStorage.getItem("dialedNumber");
       const tenantId = localStorage.getItem("TenantId");
       const userId = userDetails[0].userId;
-      const callerid = JSON.parse(localStorage.getItem("Callerid"));
- 
+      const sipId = JSON.parse(localStorage.getItem("Sipid"));
+
       const response = await axios.post(
         BaseUrl + "/agent/activity",
         {
           agentId: userId,
-          sipId: OutgoingcallID,
+          sipId: OutgoingSipID,
           callerNumber: dialedNumber,
           callStatus: holdStatus,
           activity: holdActivity,
@@ -314,17 +355,17 @@ const Main = (props) => {
           },
         }
       );
- 
+
       if (response.data.status) {
         console.log("holdAPIII", response);
         if (holdStatus === "Hold") {
           simpleUser.hold();
- 
+
           props.setShowHold(false);
           console.log("inside if");
         } else {
           simpleUser.unhold();
- 
+
           props.setShowHold(true);
           console.log("inside else");
         }
@@ -335,7 +376,7 @@ const Main = (props) => {
       console.error("Error holding/unholding:", error);
     }
   };
- 
+
   // TRANSFER API //
   const transferCallApi = async (
     transferActivity,
@@ -343,16 +384,16 @@ const Main = (props) => {
     transferdialerNumber
   ) => {
     try {
-      const OutgoingcallID = localStorage.getItem("outgoingcallID");
+      const TransferSipID = localStorage.getItem("TransferSipID");
       const tenantId = localStorage.getItem("TenantId");
       const userId = userDetails[0].userId;
-      console.log("TransferdialedNumberAPIii", transferdialerNumber);
+      console.log("TransferSipIDddddddddddddddddd", TransferSipID);
 
       const response = await axios.post(
         BaseUrl + "/agent/activity",
         {
           agentId: userId,
-          sipId: OutgoingcallID,
+          sipId: TransferSipID,
           callerNumber: transferdialerNumber,
           callStatus: transferStatus,
           activity: transferActivity,
@@ -365,17 +406,17 @@ const Main = (props) => {
           },
         }
       );
- 
+
       if (response.data.status) {
         console.log("TransferAPI", response);
         if (transfer === "Transfer") {
           // SimpleUser.hold();
- 
+
           props.setTransferCall(false);
           console.log("inside if");
         } else {
           // SimpleUser.unhold();
- 
+
           props.setTransferCall(true);
           console.log("inside else");
         }
@@ -386,26 +427,23 @@ const Main = (props) => {
       console.error("Error transfer/nottransfer:", error);
     }
   };
- 
+
   // CONFERENCE API //
   const ConferenceCallApi = async (conferenceActivity, conferenceStatus) => {
     try {
-      const OutgoingcallID = localStorage.getItem("outgoingcallID");
+      const ConferenceSipID = localStorage.getItem("ConferenceSipID");
       const dialedNumber = localStorage.getItem("dialedNumber");
       const tenantId = localStorage.getItem("TenantId");
       const userId = userDetails[0].userId;
-      const callerid = JSON.parse(localStorage.getItem("Callerid"));
-      const ConferencedNum = localStorage.setItem(
-        "ConferencedNum",
-        dialedNumber
-      );
- 
+      const sipId = JSON.parse(localStorage.getItem("Sipid"));
+      console.log("ConferenceeeeeeSipIDddddddddddddddddd", ConferenceSipID);
+
       const response = await axios.post(
         BaseUrl + "/agent/activity",
         {
           agentId: userId,
-          sipId: OutgoingcallID,
-          callerNumber: ConferencedNum,
+          sipId: ConferenceSipID,
+          callerNumber: conferencedialerNumber,
           callStatus: conferenceStatus,
           activity: conferenceActivity,
           direction: direction,
@@ -417,7 +455,7 @@ const Main = (props) => {
           },
         }
       );
- 
+
       if (response.data.status) {
         console.log("conferenceAPI", response);
         if (conferenceStatus === "conference") {
@@ -434,11 +472,11 @@ const Main = (props) => {
       console.error("Error conference/notconference:", error);
     }
   };
- 
+
   // WEBRTC //
 
   // Mute or unmute the local WebRTC audio tracks
-// MUTE/UNMUTE FUNTIONALITY //
+  // MUTE/UNMUTE FUNTIONALITY //
   const handleMuteButtonClick = (muteStatus) => {
     if (invitationRef.current) {
       muteUnmute("muteActivity", muteStatus, invitationRef.current);
@@ -456,23 +494,23 @@ const Main = (props) => {
         }
         console.log("receiverrrrrrrrrr", remoteStream);
       });
- 
+
     if (mediaElement && remoteAudioElement) {
       // Add null checks
       mediaElement.srcObject = remoteStream;
       remoteAudioElement.srcObject = remoteStream;
       console.log("remoteAudioElement", remoteAudioElement.srcObject);
       console.log("localAudioooooooooo", mediaElement.srcObject);
- 
+
       remoteAudioElement.autoplay = true;
       remoteAudioElement.onerror = (error) => {
         console.log("error during remote audio playack", error);
       };
- 
+
       remoteAudioElement.onplay = () => {
         console.log("Remote audio playback started successfully");
       };
- 
+
       mediaElement
         .play()
         .then(() => {
@@ -483,7 +521,7 @@ const Main = (props) => {
         });
     }
   }
- 
+
   const cleanupMedia = () => {
     if (mediaElement) {
       mediaElement.srcObject = null;
@@ -493,13 +531,13 @@ const Main = (props) => {
       console.error("Media element is null. Cleanup aborted.");
     }
   };
- 
+
   const initializeUserAgent = async () => {
     const transportOptions = {
       server: `wss://${domain}:${port}/ws`,
     };
-    const uri = UserAgent.makeURI(`sip:3004@${domain}:${port}`);
- 
+    const uri = UserAgent.makeURI(`sip:3001@${domain}:${port}`);
+
     function getAudioElement(id) {
       console.log("getAudioElement", id);
       const el = document.getElementById(id);
@@ -509,16 +547,16 @@ const Main = (props) => {
       console.log("ellllllll", el);
       return el;
     }
- 
+
     const options = {
-      aor: `sip:3004@${domain}`,
+      aor: `sip:3001@${domain}`,
       media: {
         local: { audio: getAudioElement("localAudio") },
         constraints: { audio: true, video: false },
         remote: { audio: getAudioElement("remoteAudio") },
       },
     };
- 
+
     function onInvite(invitation) {
       console.log("invitationnnnnnnnnnnnnnn", invitation);
       invitation.stateChange.addListener((_state) => {
@@ -536,28 +574,28 @@ const Main = (props) => {
           case "Terminated":
             cleanupMedia();
             endCall();
- 
+
             break;
           default:
             throw new Error("Unknown session state.");
         }
       });
- 
+
       console.log("invitationnnnnnnnnnnn", invitation);
-      const callerid = localStorage.setItem(
-        "Callerid",
+      const sipId = localStorage.setItem(
+        "Sipid",
         JSON.stringify(invitation.incomingInviteRequest.message.callId)
       );
- 
+
       invitationRef.current = invitation;
       localAudioRef.current = invitation;
- 
+
       {
         invitation.incomingInviteRequest.message.method === "INVITE"
           ? props.setIncomingCall(true)
           : props.setIncomingCall(false);
       }
- 
+
       {
         invitation.incomingInviteRequest.message.from._displayName
           ? props.setDisplayExtNum(
@@ -566,11 +604,11 @@ const Main = (props) => {
           : "";
       }
     }
- 
+
     const userAgentOptions = {
-      authorizationPassword: "3004",
-      authorizationUsername: "3004",
- 
+      authorizationPassword: "3001",
+      authorizationUsername: "3001",
+
       delegate: {
         onInvite,
         onDisconnect: handleWebRTCDisconnect,
@@ -580,15 +618,15 @@ const Main = (props) => {
       domain,
     };
     const userAgent = new UserAgent(userAgentOptions);
- 
+
     try {
       const registerer = new Registerer(userAgent);
- 
+
       userAgent.start().then(() => {
         registerer.register();
       });
       userAgentRef.current = userAgent;
- 
+
       // Connect to the WebSocket server
       const server = `wss://${domain}:${port}/ws`;
       simpleUser = new SimpleUser(server, options);
@@ -604,25 +642,26 @@ const Main = (props) => {
       setIsWebRTCConnected(false);
     }
   };
- 
+
   useEffect(() => {
     initializeUserAgent();
   }, []);
- 
+
   // WEBRTC //
- 
+
   const makeCall = (dialedNumber) => {
-    localStorage.getItem("dialedNumber", dialedNumber);
+  
+    console.log("itemmmmmminmakecall",dialedNumber);
+    localStorage.setItem("dialedNumber", dialedNumber);
     console.log("Dialed Number:", dialedNumber);
     const targetUri = `sip:${dialedNumber}@${domain}:${port}`;
     const target = UserAgent.makeURI(targetUri);
     const inviter = new Inviter(userAgentRef.current, target);
     console.log("makecall444444", userAgentRef, inviter, target);
-    // const OutgoingcallID = localStorage.setItem(
-    //   "outgoingcallID",
-    //   JSON.stringify(inviter.outgoingRequestMessage.callId)
-    // );
-    // console.log("OutgoingcallID", OutgoingcallID);
+    const OutgoingSipID = localStorage.setItem(
+      "outgoingSipID",
+      JSON.stringify(inviter.outgoingRequestMessage.callId)
+    );
     inviter.stateChange.addListener((_state) => {
       console.log("inviterrrrrrrrrrrrrrrr", inviter._state);
       switch (inviter._state) {
@@ -635,7 +674,7 @@ const Main = (props) => {
         case "Established":
           setDirection("Outbound");
           setupRemoteMedia(inviter);
-          callActivitiesApi("Accept call", "Answered");
+          // callActivitiesApi("Accept call", "Answered");
           break;
         case "Terminating":
         case "Terminated":
@@ -650,10 +689,13 @@ const Main = (props) => {
     invitationRef.current = inviter;
     localAudioRef.current = inviter;
     transferedRef.current = inviter;
+    makecallApi("make call", "call made");
+    props.setOutgoingCall(true);
+
     reset();
     console.log("targetUriiiiiiiiiiiiiiiiiiiii", transferedRef);
   };
- 
+
   // BLIND TRANSFER //
   // const blindTransfer = (transferdialerNumber) => {
   //   alert("inside blind")
@@ -665,8 +707,7 @@ const Main = (props) => {
   // };
 
   const blindTransfer = (transferdialerNumber) => {
-    alert("inside blind");
-
+    alert("inside blindTransfer")
     const targetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
     const target = UserAgent.makeURI(targetUri);
 
@@ -675,7 +716,23 @@ const Main = (props) => {
         .refer(target)
         .then(() => {
           console.log("Transfer initiated successfully");
-          invitationRef.current.bye();
+          if (props.transferCall == true) {
+            console.log("insde if");
+            transferCallApi(
+              "Blind Transfered",
+              "Complete blind transfer",
+              localStorage.getItem("TransferdialedNumber")
+            );
+            invitationRef.current.bye();
+          } else {
+            console.log("insde else");
+            transferCallApi(
+              "No active blind transfered",
+              "Not complete the blind transfer",
+              localStorage.getItem("TransferdialedNumber")
+            );
+            invitationRef.current.bye();
+          }
         })
         .catch((error) => {
           console.error("Error initiating transfer:", error);
@@ -684,41 +741,97 @@ const Main = (props) => {
       console.error("No current session to transfer");
     }
   };
- 
+
   // Attended TRANSFER //
   const attendedTransfer = (transferdialerNumber) => {
+    alert("inside attendedTransfer")
     console.log("inside attendedTransfer", transferdialerNumber);
-
     const transferTargetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
     const transferTarget = UserAgent.makeURI(transferTargetUri);
     const transferInviter = new Inviter(userAgentRef.current, transferTarget);
     transferInviter.invite();
     invitationRef.current = transferInviter;
-    console.log("initialSessioninitialSession", invitationRef, transferInviter);
+    console.log("attendedREFFFFFF", invitationRef);
+    console.log("attendedINVITer", transferInviter);
     props.setShowTransferCall(true);
-    // if (props.transferCall) {
-    //   transferCallApi("transfered", "Transfer", transferdialerNumber);
-    // } else {
-    //   transferCallApi("Not transfered", "Not Transfer", transferdialerNumber);
-    // }
+    const TransferSipID = localStorage.setItem(
+      "TransferSipID",
+      JSON.stringify(transferInviter.outgoingRequestMessage.callId)
+    );
     if (props.transferCall) {
       transferCallApi(
         "Transfer Completed",
         "Completed Transfer",
         localStorage.getItem("TransferdialedNumber")
       );
+      props.setIsTransferInitiated(true);
     } else {
-      transferCallApi("No active transfer to complete", localStorage.getItem("TransferdialedNumber"));
+      transferCallApi(
+        "No active transfer to complete",
+        localStorage.getItem("TransferdialedNumber")
+      );
     }
   };
- 
+
+  // COMPLETE TRANSFER //
+  const completeTransfer = () => {
+    alert("inside complet")
+    if (invitationRef.current) {
+      transferCallApi(
+        "Transfer Completed",
+        "Completed Transfer",
+        localStorage.getItem("TransferdialedNumber")
+      );
+      props.setShowTransferCall(false);
+      props.setIsTransferInitiated(false);
+      invitationRef.current.bye();
+      reset();
+      localStorage.removeItem("TransferdialedNumber");
+
+     
+    } else {
+      console.log("No active transfer to complete");
+    }
+  };
+
+  // CONFERENCE FUNCTION //
+  const conferencefuntion = (conferencedialerNumber) => {
+    alert("conferencceeeeeeee", conferencedialerNumber);
+    const confTargetUri = `sip:${conferencedialerNumber}@${domain}:${port}`;
+    const confTarget = UserAgent.makeURI(confTargetUri);
+    const confInviter = new Inviter(userAgentRef.current, confTarget);
+    confInviter.invite();
+    invitationRef.current = confInviter;
+    console.log("conferenceeFuntionnnnnn", confInviter);
+
+    // const conferenceSIpID = localStorage.setItem("conferenceSIpID",JSON.stringify())
+    props.setShowConference(true);
+
+    const ConferenceSipID = localStorage.setItem(
+      "ConferenceSipID",
+      JSON.stringify(confInviter.outgoingRequestMessage.callId)
+    );
+    if (props.conference) {
+      ConferenceCallApi(
+        "Conference Completed",
+        "Completed Conference",
+        localStorage.getItem("conferencedialerNumber")
+      );
+    } else {
+      ConferenceCallApi(
+        "No active transfer to complete",
+        localStorage.getItem("conferencedialerNumber")
+      );
+    }
+  };
+
   useEffect(() => {
     // Assuming `userAgentRef.current` represents the original call session
     if (userAgentRef.current) {
       originalCallRef.current = userAgentRef.current;
     }
   }, [userAgentRef.current]);
- 
+
   // Handle an Incoming REFER //
   const delegate = {
     onRefer: (referral) => {
@@ -731,7 +844,7 @@ const Main = (props) => {
       }
     },
   };
- 
+
   const acceptCall = () => {
     if (invitationRef.current && localAudioRef.current) {
       invitationRef.current.stateChange.addListener((_state) => {
@@ -764,55 +877,60 @@ const Main = (props) => {
       props.setCallStatus("Answered");
       callActivitiesApi("Accept call", "Answered");
       setDirection("Inbound");
- 
+
       start();
     }
   };
- 
+
   const endCall = () => {
     if (
       (invitationRef.current && props.incomingCallAccepted) ||
       (invitationRef.current && props.OutgoingCall) ||
-      (invitationRef.current && props.showTransferCall)
+      (invitationRef.current && props.showTransferCall) ||
+      (invitationRef.current && props.showConference)
     ) {
       invitationRef.current.bye();
- 
-      // invitationRef.current.reject();
       props.setIncomingCallAccepted(false);
       props.setOutgoingCall(false);
       props.setShowTransferCall(false);
+      props.setShowConference(false);
       props.setCallActivity("Disconnect Call");
       props.setCallStatus("Disconnected");
       callActivitiesApi("Disconnect call", "Disconnected");
       agentInteractionSave("Answered");
-      setDirection("Inbound");
- 
+      if (props.OutgoingCall) {
+        setDirection("Outbound");
+      } else if (props.incomingCallAccepted) {
+        setDirection("Inbound");
+      }
+
       reset();
       localStorage.removeItem("TransferdialedNumber");
     } else if (invitationRef.current && props.incomingCall) {
       invitationRef.current.reject();
       props.setIncomingCallReject(true);
+      props.setIncomingCallAccepted(false);
       props.setIncomingCall(false);
       props.setCallActivity("Disconnect Call");
       props.setCallStatus("Disconnected");
       // callActivitiesApi("Disconnect call", "Disconnected");
       setDirection("Inbound");
- 
+
       reset();
     } else {
       console.log("no call to end");
     }
     console.log("endcallinvitatation", invitationRef);
   };
- 
+
   // const endCall = () => {
   //   if (!invitationRef.current) {
   //     console.log("No invitation to end.");
   //     return;
   //   }
- 
+
   //   const { state } = invitationRef.current;
- 
+
   //   if (
   //     (state && props.incomingCallAccepted) ||
   //     (state && props.OutgoingCall)
@@ -826,7 +944,7 @@ const Main = (props) => {
   //     agentInteractionSave("Answered");
   //     reset();
   //   } else if (state && props.incomingCall) {
- 
+
   //     invitationRef.current.reject();
   //     props.setIncomingCallReject(true);
   //     props.setIncomingCall(false);
@@ -836,7 +954,7 @@ const Main = (props) => {
   //     // agentInteractionSave("Answered");
   //     reset();
   //   } else if (state && props.OutgoingCall) {
- 
+
   //     invitationRef.current.cancel();
   //     props.setOutgoingCall(false);
   //     props.setCallActivity("Disconnect Call");
@@ -845,19 +963,19 @@ const Main = (props) => {
   //     agentInteractionSave("Answered");
   //     reset();
   //   } else {
- 
+
   //     console.log("No call to end. Current state:", state);
   //   }
- 
+
   //   console.log("endCall invitation", invitationRef);
   // };
- 
+
   const endCallTransfer = () => {
     if (invitationRef.current && props.showTransferCall) {
       invitationRef.current.bye();
       props.setShowTransferCall(false);
       props.setIncomingCallAccepted(false);
- 
+
       reset();
       localStorage.removeItem("TransferdialedNumber");
     } else {
@@ -869,26 +987,14 @@ const Main = (props) => {
     }
     invitationRef.current = null;
   };
- 
-  const completeTransfer = () => {
-    if (invitationRef.current) {
-      invitationRef.current.bye();
-      props.setShowTransferCall(false);
-      reset();
-      localStorage.removeItem("TransferdialedNumber");
 
-      transferCallApi(
-        "Transfer Completed",
-        "Completed Transfer",
-        localStorage.getItem("TransferdialedNumber")
-      );
-    } else {
-      console.log("No active transfer to complete");
-    }
-  };
- 
+
+
   if (userRole.length === 1) {
     return (
+      <>
+    
+      
       <Grid container direction={"row"}>
         <audio ref={invitationRef} id="remoteAudio" />
         <audio ref={localAudioRef} id="localAudio" />
@@ -946,6 +1052,7 @@ const Main = (props) => {
                 hours={hours}
                 blindTransfer={blindTransfer}
                 attendedTransfer={attendedTransfer}
+                conferencefuntion={conferencefuntion}
                 delegate={delegate}
                 handleExtensionChange={handleExtensionChange}
                 dialedNumber={dialedNumber}
@@ -963,6 +1070,10 @@ const Main = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      
+      </>
+      
+     
     );
   } else {
     return (
@@ -1033,7 +1144,7 @@ const Main = (props) => {
     );
   }
 };
- 
+
 export default connect(mapStateToProps, {
   setIncomingCall,
   setIncomingCallAccepted,
@@ -1047,7 +1158,7 @@ export default connect(mapStateToProps, {
   setvoicehours,
   setAnswerScreen,
   setCallStatus,
- 
+
   setShowMute,
   setShowUnMute,
   setShowHold,
@@ -1055,7 +1166,9 @@ export default connect(mapStateToProps, {
   setTransferCall,
   setShowTransferCall,
   setConference,
+  setShowConference,
   setMergeCall,
   setCallActivity,
   setIsTransferInitiated,
+  setIsConferenceInitiated,
 })(Main);

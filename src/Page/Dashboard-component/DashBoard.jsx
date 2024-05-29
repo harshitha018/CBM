@@ -59,6 +59,7 @@ const DashBoard = (props) => {
     reset,
     blindTransfer,
     attendedTransfer,
+    conferencefuntion,
     delegate,
     setDialedNumber,
     dialedNumber,
@@ -90,6 +91,7 @@ const DashBoard = (props) => {
               dialedNumber={dialedNumber}
               setDialedNumber={setDialedNumber}
               attendedTransfer={attendedTransfer}
+              conferencefuntion={conferencefuntion}
             />
           
           {/* </Grid> */}
@@ -137,6 +139,7 @@ const DashBoard = (props) => {
           endCall={endCall}
           blindTransfer={blindTransfer}
           attendedTransfer={attendedTransfer}
+          conferencefuntion={conferencefuntion}
           delegate={delegate}
           dialedNumber={dialedNumber}
           setDialedNumber={setDialedNumber}

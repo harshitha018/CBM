@@ -21,6 +21,8 @@ import {
   SET_SHOW_TRANSFERCALL,
   SET_IS_TRANSFER_INITIATED,
   SET_CONFERENCE,
+  SET_SHOW_CONFERENCE,
+  SET_IS_CONFERENCE_INITIATED,
   SET_MERGECALL,
   SET_CALL_ACTIVITY,
   SET_AGENT_INTERACTION,
@@ -42,7 +44,6 @@ export const initialState = {
   voicehours: "",
   answerScreen: false,
   status: "Not Ready",
-  callStatus: "",
 
   showMute: true,
   showUnMute: false,
@@ -54,7 +55,10 @@ export const initialState = {
   showTransferCall: false,
   isTransferInitiated: false,
   conference: false,
+  showConference: false,
+
   mergecall: false,
+  callStatus: "",
   callActivity: "",
   agentInteraction: false,
 
@@ -203,10 +207,24 @@ export const appReducer = (state = initialState, action) => {
       return { ...state, isTransferInitiated: action.val };
     }
 
-    case SET_CONFERENCE: {
+    case SET_CONFERENCE: {  
       return {
         ...state,
         conference: action.val,
+      };
+    }
+
+    case SET_SHOW_CONFERENCE: {  
+      return {
+        ...state,
+        showConference: action.val,
+      };
+    }
+
+    case SET_IS_CONFERENCE_INITIATED: {
+      return {
+        ...state,
+        isConferenceInitiated: action.val,
       };
     }
 

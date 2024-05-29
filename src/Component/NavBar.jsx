@@ -67,7 +67,7 @@ import {
   setOpensurvey,
 } from "../redux/actions/action";
 import { AndroidLogo } from "@phosphor-icons/react";
-import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
+import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 
 import { color } from "framer-motion";
 import AnswerCallScreen from "./DialerComponent/AnswerCallScreen";
@@ -552,8 +552,6 @@ const NavBar = (props) => {
       onClose={handlePowerDetailClose}
     >
       <MenuItem onClick={handlePowerDetailClose}>Logout</MenuItem>
-      <MenuItem onClick={handlePowerDetailClose}>Reset Password</MenuItem>
-      <MenuItem onClick={handlePowerDetailClose}>Update Profile</MenuItem>
     </Menu>
   );
 
@@ -607,7 +605,7 @@ const NavBar = (props) => {
                 </label>
               </div> */}
 
-              <Search sx={{ height: "37px", backgroundColor: "white" }}>
+              {/* <Search sx={{ height: "37px", backgroundColor: "white" }}>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -615,7 +613,7 @@ const NavBar = (props) => {
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
                 />
-              </Search>
+              </Search> */}
 
               <div
                 style={{
@@ -624,11 +622,11 @@ const NavBar = (props) => {
                   backgroundColor: "white",
                   padding: "4px",
                   borderRadius: "5px",
-                }}
-              >
+                 }}
+               >
                 {/* <div className="dropdown mx-2" style={{   display:"flex",
                   alignItems:"center"}}>
-              <button
+               <button
                 className="btn btn-light dropdown-toggle campine-dropdwn"
                 type="button"
                 id="dropdownMenu2"
@@ -657,6 +655,7 @@ const NavBar = (props) => {
                 </li>
               </ul>
             </div> */}
+
                 <div>
                   <Button
                     // id="basic-button"
@@ -750,47 +749,7 @@ const NavBar = (props) => {
                               </div>
                             </MenuItem>
                           )}
-                          {/* <MenuItem
-                        onClick={() => {
-                          handleClose();
-                          handelUpdateStatus("Ready");
-                        }}
-                      >
-                        <div className="d-flex w-100 justify-content-between">
-                          <div style={{fontSize:'9px',fontWeight:'bold'}}>Ready</div>
-                          <div
-                            className="my-auto mx-2"
-                            style={{
-                              height: "10px",
-                              width: "10px",
-                              borderRadius: "50%",
-                              backgroundColor: "green",
-                            }}
-                          ></div>
-                        </div>
-                      </MenuItem> */}
-                          {/* <MenuItem
-                        onClick={() => {
-                          handleClose();
-                          handelUpdateStatus("Not Ready");
-                        }}
-                      >
-                        <div className="d-flex w-100 justify-content-between">
-                          <div>Not Ready</div>
-                          <div
-                            className="my-auto"
-                            style={{
-                              height: "10px",
-                              width: "10px",
-                              borderRadius: "50%",
-                              backgroundColor: "red",
-                            }}
-                          ></div>
-                        </div>
-                      </MenuItem> */}
-                          {/* <MenuItem onClick={handleSubmenuClick}>
-                        Not Ready (Reason)
-                      </MenuItem> */}
+                      
                           {props.status !== "Not Ready" && (
                             <MenuItem onClick={handleSubmenuClick}>
                               <div className="d-flex w-100 justify-content-between">
@@ -904,14 +863,23 @@ const NavBar = (props) => {
                       }}
                     />
                   </Box>
-                  <Box className="ms-3">
+                  <Box
+                    className={`ms-3 navbarmode ${
+                      props.darkMode ? "dark-mode" : "light-mode"
+                    }`}
+                    sx={{
+                      backgroundColor: props.darkMode ? "#333333" : "#ffffff",
+                      borderRadius: "4px",
+                    }}
+                  >
                     <Stack direction="column" className="mx-2">
                       <Typography
                         variant="caption"
                         className="d-inline-block text-truncate"
                         sx={{
                           fontSize: "12px",
-                          color: "black !important",
+                          // color: "black !important",
+                          color: props.darkMode ? "#ffffff" : "#000000",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
@@ -929,7 +897,7 @@ const NavBar = (props) => {
                         gutterBottom
                         sx={{
                           fontSize: "8px",
-                          color: "black",
+                          color: props.darkMode ? "#dddddd" : "#000000",
                           marginLeft: "1px",
                         }}
                       >
@@ -942,17 +910,23 @@ const NavBar = (props) => {
               </Box>
 
               <Box sx={{ flexGrow: 1 }} />
-<Box>
-<Tooltip title="assist">
-              <Button
-                sx={{color:"#707173"}}
-                onClick={toggleDrawer(true)}
-              >
-                {/* <AndroidLogo size={32} /> */}
-                <SmartToyOutlinedIcon size={30} />
-              </Button>
-</Tooltip>
-</Box>
+
+              <Box>
+                <Tooltip title="assist">
+                  <Button
+                    sx={{ color: "#707173" }}
+                    onClick={toggleDrawer(true)}
+                  >
+                    {/* <AndroidLogo size={32} /> */}
+                    <SmartToyOutlinedIcon
+                      size={30}
+                      sx={{
+                        color: props.darkMode ? "#ffffff" : "#000000",
+                      }}
+                    />
+                  </Button>
+                </Tooltip>
+              </Box>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <Tooltip title="Dial">
@@ -969,7 +943,11 @@ const NavBar = (props) => {
                     onClick={makecallDialpad}
                   >
                     <Badge>
-                      <DialpadOutlinedIcon />
+                      <DialpadOutlinedIcon
+                        sx={{
+                          color: props.darkMode ? "#ffffff" : "#000000",
+                        }}
+                      />
                     </Badge>
                   </IconButton>
                 </Tooltip>
@@ -1010,13 +988,22 @@ const NavBar = (props) => {
                         gutterBottom
                         onClick={toggleWhatsappNotify}
                       >
-                        <X size={16} />
+                        <X
+                          size={16}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                          }}
+                        />
                       </Typography>
                       {!showWhatsapp && (
                         <Typography
                           className="ms-2 mt-1"
                           color="primary"
-                          sx={{ fontSize: 12 }}
+                          // sx={{ fontSize: 12 }}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                            fontSize: 12,
+                          }}
                           gutterBottom
                         >
                           No Whatsapp Notification to display
@@ -1039,7 +1026,12 @@ const NavBar = (props) => {
                 </IconButton>
               </Tooltip> */}
                 {showMessages && (
-                  <Box className="Interaction_toggle">
+                  <Box
+                    // className="Interaction_toggle"
+                    className={`Interaction_toggle navbarmode ${
+                      props.darkMode ? "dark-mode" : "light-mode"
+                    }`}
+                  >
                     <Grid
                       container
                       alignItems="center"
@@ -1061,13 +1053,22 @@ const NavBar = (props) => {
                         gutterBottom
                         onClick={toggleMessages}
                       >
-                        <X size={16} />
+                        <X
+                          size={16}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                          }}
+                        />
                       </Typography>
                       {!showMessages && (
                         <Typography
                           className="ms-2 mt-1"
                           color="primary"
-                          sx={{ fontSize: 12 }}
+                          // sx={{ fontSize: 12 }}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                            fontSize: 12,
+                          }}
                           gutterBottom
                         >
                           No Messages to display
@@ -1084,14 +1085,22 @@ const NavBar = (props) => {
                     onClick={toggleMissedCalls}
                   >
                     <Badge badgeContent={4} color="error">
-                      {/* <Phone size={25} weight="fill" /> */}
-                      <PhoneIcon />
+                      <PhoneIcon
+                        sx={{
+                          color: props.darkMode ? "#ffffff" : "#000000",
+                        }}
+                      />
                     </Badge>
                   </IconButton>
                 </Tooltip>
 
                 {showMissedcalls && (
-                  <Box className="MissedCalls_toggle">
+                  <Box
+                    // className="MissedCalls_toggle"
+                    className={`MissedCalls_toggle navbarmode ${
+                      props.darkMode ? "dark-mode" : "light-mode"
+                    }`}
+                  >
                     <Grid
                       container
                       alignItems="center"
@@ -1113,7 +1122,12 @@ const NavBar = (props) => {
                         gutterBottom
                         onClick={toggleMissedCalls}
                       >
-                        <X size={16} />
+                        <X
+                          size={16}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                          }}
+                        />
                       </Typography>
                       <MissedcallComp />
 
@@ -1121,7 +1135,11 @@ const NavBar = (props) => {
                         <Typography
                           className="ms-2 mt-1"
                           color="primary"
-                          sx={{ fontSize: 12 }}
+                          // sx={{ fontSize: 12 }}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                            fontSize: 12,
+                          }}
                           gutterBottom
                         >
                           No Missed Calls to display
@@ -1131,7 +1149,12 @@ const NavBar = (props) => {
                   </Box>
                 )}
                 {props.opensurvey && (
-                  <Box className="MissedCalls_toggle" sx={{ zIndex: 0 }}>
+                  <Box
+                    className={`MissedCalls_toggle navbarmode ${
+                      props.darkMode ? "dark-mode" : "light-mode"
+                    }`}
+                    sx={{ zIndex: 0 }}
+                  >
                     <Grid
                       container
                       alignItems="center"
@@ -1153,9 +1176,18 @@ const NavBar = (props) => {
                         gutterBottom
                         onClick={toggleSurveyNotification}
                       >
-                        <X size={16} />
+                        <X
+                          size={16}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                          }}
+                        />
                       </Typography>
-                      <MissedcallComp />
+                      <MissedcallComp
+                        sx={{
+                          color: props.darkMode ? "#ffffff" : "#000000",
+                        }}
+                      />
                     </Grid>
                   </Box>
                 )}
@@ -1235,13 +1267,21 @@ const NavBar = (props) => {
                     onClick={toggleNotification}
                   >
                     <Badge badgeContent={17} color="error">
-                      <NotificationsNoneOutlinedIcon />
+                      <NotificationsNoneOutlinedIcon
+                        sx={{
+                          color: props.darkMode ? "#ffffff" : "#000000",
+                        }}
+                      />
                     </Badge>
                   </IconButton>
                 </Tooltip>
 
                 {showNotification && (
-                  <Box className="notification_toggle">
+                  <Box
+                    className={`notification_toggle navbarmode ${
+                      props.darkMode ? "dark-mode" : "light-mode"
+                    }`}
+                  >
                     <Grid
                       container
                       alignItems="center"
@@ -1250,7 +1290,11 @@ const NavBar = (props) => {
                       <Typography
                         className="ms-2 mt-3"
                         color="black"
-                        sx={{ fontSize: 15 }}
+                        // sx={{ fontSize: 15 }}
+                        sx={{
+                          color: props.darkMode ? "#ffffff" : "#000000",
+                          fontSize: 15,
+                        }}
                         gutterBottom
                       >
                         Notifications
@@ -1263,13 +1307,22 @@ const NavBar = (props) => {
                         gutterBottom
                         onClick={toggleNotification}
                       >
-                        <X size={16} />
+                        <X
+                          size={16}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                          }}
+                        />
                       </Typography>
                       {!showNotification && (
                         <Typography
                           className="ms-2 mt-1"
                           color="primary"
-                          sx={{ fontSize: 12 }}
+                          // sx={{ fontSize: 12 }}
+                          sx={{
+                            color: props.darkMode ? "#ffffff" : "#000000",
+                            fontSize: 12,
+                          }}
                           gutterBottom
                         >
                           No notifications to display
@@ -1301,22 +1354,16 @@ const NavBar = (props) => {
                     aria-haspopup="true"
                     onClick={handlePowerDetailsOpen}
                   >
-                    <Power size={25} />
+                    <Power
+                      sx={{
+                        color: props.darkMode ? "#ffffff" : "#000000",
+                        fontSize: 25,
+                      }}
+                    />
                   </IconButton>
                 </Tooltip>
               </Box>
-              {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box> */}
+
             </Toolbar>
           </AppBar>
 
@@ -1333,7 +1380,6 @@ const NavBar = (props) => {
           </Drawer>
         </Box>
       </Stack>
-
       {/* Makecall dialer pad */}
       <Snackbar
         open={openSnackbar}

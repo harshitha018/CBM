@@ -343,7 +343,6 @@ const InteractionCard4 = (props) => {
       console.log("LLLLLLLLLL", response.data.dataList);
       if (response.data.status === "OK") {
         setInteraction(response.data.dataList);
-        setResponseColor("yellow");
       } else if (globalsearch == "") {
         interactionList();
       }

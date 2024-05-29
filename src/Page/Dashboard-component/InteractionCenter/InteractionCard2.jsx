@@ -200,7 +200,7 @@ const InteractionCard2 = (props) => {
       <Grid xs={12}>
         <Paper>
         <Box
-          className={`${
+          className={` dashboardMode ${
             props.darkMode ? "dark-mode" : "light-mode"
           }`}
           // sx={{ height: "95vh" }}

@@ -156,15 +156,15 @@ const InteractionCard = (props) => {
     <>
       <Paper elevation={10} sx={{ marginRight: "5px" }}>
         <div
-          className={` ${props.darkMode ? "dark-mode" : "light-mode"} `}
+          className={`dashboardMode ${props.darkMode ? "dark-mode" : "light-mode"} `}
           style={{ height: "52vh" }}
         >
           {!closeCard && (
             <Box
-              className={` ${
+              className={`dashboardMode ${
                 props.darkMode ? "dark-mode" : "light-mode"
               } `}
-              sx={{ minWidth: 275 }}
+              sx={{ minWidth: 300 }}
             >
               <Stack
                 direction="row"
@@ -323,7 +323,7 @@ const InteractionCard = (props) => {
                 </Box>
                 <Divider />
                 <Box
-                  className={` dashboardMode ${
+                  className={`dashboardMode ${
                     props.darkMode ? "dark-mode" : "light-mode"
                   } `}
                   sx={{
@@ -474,42 +474,7 @@ const InteractionCard = (props) => {
             </>
           )}
 
-          {/* <Stack
-            direction="row"
-            display="flex"
-            spacing={2.5}
-            p={1}
-            alignItems="center"
-            sx={{ position: "absolute", bottom: 0, width: "100%" }}
-          >
-            <Tabs value={alarmTab} onChange={ChangeAlarmTab} aria-label="tabs"
-              >
-              <Tab
-                className={`dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<Alarm size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<ChatDots size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<EnvelopeSimple size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<WhatsappLogo size={16} color="green" />}
-              />
-            </Tabs>
-          </Stack> */}
+         
         </div>
         {/*interaction Transfer dialer */}
         {props.interactiontransferdialer && (
