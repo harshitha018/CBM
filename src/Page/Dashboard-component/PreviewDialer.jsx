@@ -126,12 +126,11 @@ const {makeCall} = props;
                     <CardContent>
                       <button
                         type="button"
-                        className="btn btn-primary d-flex mx-4"
+                        className="btn btn-primary d-flex mx-4 ms-auto"
                         sx={{
-                          fontSize: "10px",
-                          height: "10px",
-                          width:"20px",
-                          // marginLeft: "31px",
+                          height: "28px",
+                          width: "96px",
+                          fontSize: "11px",
                         }}
                       >
                         Robot Dialing

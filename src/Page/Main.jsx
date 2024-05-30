@@ -538,7 +538,7 @@ const Main = (props) => {
     const transportOptions = {
       server: `wss://${domain}:${port}/ws`,
     };
-    const uri = UserAgent.makeURI(`sip:3001@${domain}:${port}`);
+    const uri = UserAgent.makeURI(`sip:3002@${domain}:${port}`);
 
     function getAudioElement(id) {
       console.log("getAudioElement", id);
@@ -551,7 +551,7 @@ const Main = (props) => {
     }
 
     const options = {
-      aor: `sip:3001@${domain}`,
+      aor: `sip:3002@${domain}`,
       media: {
         local: { audio: getAudioElement("localAudio") },
         constraints: { audio: true, video: false },
@@ -608,8 +608,8 @@ const Main = (props) => {
     }
 
     const userAgentOptions = {
-      authorizationPassword: "3001",
-      authorizationUsername: "3001",
+      authorizationPassword: "3002",
+      authorizationUsername: "3002",
 
       delegate: {
         onInvite,
