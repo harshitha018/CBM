@@ -423,117 +423,118 @@ const NavBar = (props) => {
   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Modal
-      aria-labelledby="modal-title"
-      aria-describedby="modal-desc"
-      open={openRotary}
-      onClose={() => setOpenRotary(false)}
-      sx={{ display: "flex", justifyContent: "center", alignItems: "start" }}
-    >
-      <Box
-        sx={{
-          maxWidth: 1200,
-          borderRadius: 2,
-          p: 0,
-          boxShadow: 24,
-          width: "100%",
-          backgroundColor: "background.paper",
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: "#1e40af",
-            padding: "16px",
-            borderRadius: "4px 4px 0 0",
-            width: "100%",
-            boxSizing: "border-box",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography
-            component="h2"
-            id="modal-title"
-            level="h4"
-            sx={{ color: "#fff", margin: 0 }}
-          >
-            <h5>Preview Campaign List</h5>
-          </Typography>
-          <IconButton
-            aria-label="close"
-            onClick={() => setOpenRotary(false)}
-            sx={{ color: "#fff" }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
-        <Box sx={{ p: 3 }}>
-          <Card sx={{ mt: 2 }}>
-            <CardContent>
-              <Box
-                sx={{
-                  maxHeight: 550, // Adjust the height as needed
-                  overflow: "auto",
-                  "&::-webkit-scrollbar": {
-                    width: 0,
-                    height: 0,
-                  },
-                  msOverflowStyle: "none", // IE and Edge
-                  scrollbarWidth: "none", // Firefox
-                }}
-              >
-                <Table>
-                  <TableHead
-                    sx={{
-                      backgroundColor: "#1e3a8a",
-                      position: "sticky",
-                      top: -1,
-                    }}
-                  >
-                    <TableRow>
-                      {Array.from({ length: 11 }).map((_, index) => (
-                        <TableCell
-                          sx={{ color: "#fff", border: "1px solid #cbd5e1" }}
-                          key={index}
-                        >
-                          Heading {index + 1}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {Array.from({ length: 10 }).map((_, rowIndex) => (
-                      <TableRow
-                        key={rowIndex}
-                        sx={{
-                          backgroundColor:
-                            rowIndex % 2 === 0 ? "#f0f0f0" : "#e0e0e0", // Alternating row colors
-                        }}
-                      >
-                        {Array.from({ length: 11 }).map((_, colIndex) => (
-                          <TableCell
-                            sx={{
-                              border: "1px solid #cbd5e1",
-                              fontWeight: "bold",
-                            }}
-                            key={colIndex}
-                          >
-                            Row {rowIndex + 1} Col {colIndex + 1}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            </CardContent>
-          </Card>
-        </Box>
-      </Box>
-    </Modal>
-  );
+  // const renderMenu = (
+  //   <Modal
+  //     aria-labelledby="modal-title"
+  //     aria-describedby="modal-desc"
+  //     open={openRotary}
+  //     onClose={() => setOpenRotary(false)}
+  //     sx={{ display: "flex", justifyContent: "center", alignItems: "start" }}
+  //   >
+  //     <Box
+  //       sx={{
+  //         maxWidth: 1200,
+  //         borderRadius: 2,
+  //         p: 0,
+  //         boxShadow: 24,
+  //         width: "100%",
+  //         backgroundColor: "background.paper",
+  //       }}
+  //     >
+  //       <Box
+  //         sx={{
+  //           backgroundColor: "#1e40af",
+  //           padding: "16px",
+  //           borderRadius: "4px 4px 0 0",
+  //           width: "100%",
+  //           boxSizing: "border-box",
+  //           display: "flex",
+  //           alignItems: "center",
+  //           justifyContent: "space-between",
+  //         }}
+  //       >
+  //         <Typography
+  //           component="h2"
+  //           id="modal-title"
+  //           level="h4"
+  //           sx={{ color: "#fff", margin: 0 }}
+  //         >
+  //           <h5>Preview Campaign List</h5>
+  //         </Typography>
+  //         <IconButton
+  //           aria-label="close"
+  //           onClick={() => setOpenRotary(false)}
+  //           sx={{ color: "#fff" }}
+  //         >
+  //           <CloseIcon />
+  //         </IconButton>
+  //       </Box>
+  //       <Box sx={{ p: 3 }}>
+  //         <Card sx={{ mt: 2 }}>
+  //           <CardContent>
+  //             <Box
+  //               sx={{
+  //                 maxHeight: 550, // Adjust the height as needed
+  //                 overflow: "auto",
+  //                 "&::-webkit-scrollbar": {
+  //                   width: 0,
+  //                   height: 0,
+  //                 },
+  //                 msOverflowStyle: "none", // IE and Edge
+  //                 scrollbarWidth: "none", // Firefox
+  //               }}
+  //             >
+  //               <Table>
+  //                 <TableHead
+  //                   sx={{
+  //                     backgroundColor: "#1e3a8a",
+  //                     position: "sticky",
+  //                     top: -1,
+  //                   }}
+  //                 >
+  //                   <TableRow>
+  //                     {Array.from({ length: 11 }).map((_, index) => (
+  //                       <TableCell
+  //                         sx={{ color: "#fff", border: "1px solid #cbd5e1" }}
+  //                         key={index}
+  //                       >
+  //                         Heading {index + 1}
+  //                       </TableCell>
+  //                     ))}
+  //                   </TableRow>
+  //                 </TableHead>
+  //                 <TableBody>
+  //                   {Array.from({ length: 10 }).map((_, rowIndex) => (
+  //                     <TableRow
+  //                       key={rowIndex}
+  //                       sx={{
+  //                         backgroundColor:
+  //                           rowIndex % 2 === 0 ? "#f0f0f0" : "#e0e0e0", // Alternating row colors
+  //                       }}
+  //                     >
+  //                       {Array.from({ length: 11 }).map((_, colIndex) => (
+  //                         <TableCell
+  //                           sx={{
+  //                             border: "1px solid #cbd5e1",
+  //                             fontWeight: "bold",
+  //                           }}
+  //                           key={colIndex}
+  //                         >
+  //                           Row {rowIndex + 1} Col {colIndex + 1}
+  //                         </TableCell>
+  //                       ))}
+  //                     </TableRow>
+  //                   ))}
+  //                 </TableBody>
+  //               </Table>
+  //             </Box>
+  //           </CardContent>
+  //         </Card>
+  //       </Box>
+  //     </Box>
+  //   </Modal>
+  // );
+
   const powerDetailId = "primary-search-account-menu-mobile";
   const renderPowerDetails = (
     <Menu
@@ -1368,7 +1369,7 @@ const NavBar = (props) => {
           </AppBar>
 
           {renderPowerDetails}
-          {renderMenu}
+          {/* {renderMenu} */}
           <Drawer
             open={openAssist}
             onClose={toggleDrawer(false)}

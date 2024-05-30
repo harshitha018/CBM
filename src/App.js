@@ -4,6 +4,7 @@ import Main from "./Page/Main";
 import Login from "./Page/Login/Login";
 import { connect } from "react-redux";
 import DashboardRealtime from "./Page/Dashboard-Realtime-Supervisor/DashboardRealtime";
+import PreviewDialer from "./Page/Dashboard-component/PreviewDialer";
 
 const mapStateToProps = (state) => {
   const { data } = state;
@@ -18,6 +19,8 @@ const App = () => {
     <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Main />} />
+        <Route path="/previewdialer" element={<PreviewDialer />} />
+
         <Route path="/dashboardrealtime" element={<DashboardRealtime />} />
 
     </Routes>

@@ -202,7 +202,7 @@ const SideBar = (props) => {
               }}
             />
 
-            <Stack spacing={1.8}>
+            <Stack spacing={1.8} >
               <Stack className="realdash">
                 <Tooltip title="Home" arrow placement="right">
                 <Link to="/dashboard">
@@ -222,22 +222,26 @@ const SideBar = (props) => {
                 </Tooltip>
               </Stack>
               <span className="border-top"></span>
+
               <Stack>
-                <Tooltip title="Rotary phone" arrow placement="right" className="ms-2">
+                <Tooltip title="Rotary phone" arrow placement="right">
+                  <Link to="/previewdialer">
                   <IconButton
                     size="large"
                     edge="end"
-                    onClick={() => roteryOpen()}
                     sx={{
                       color: "white",
                       padding: "0px",
-                      // marginRight:"10px",
                       borderRadius: "8px",
+                      marginLeft: "38px",
+
                     }}
                   >
                       <GiRotaryPhone style={{ fontSize: 25 }} />
                     
                   </IconButton>
+                  
+                  </Link>
                 </Tooltip>
               </Stack>
 

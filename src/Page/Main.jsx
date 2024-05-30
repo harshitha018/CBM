@@ -8,8 +8,8 @@ import { useStopwatch } from "react-timer-hook";
 import { UserAgent, Registerer, Inviter, SessionState } from "sip.js";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   setIncomingCall,
   setIncomingCallAccepted,
@@ -41,6 +41,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DashBoardSupervisor from "./Dashboard-component-supervisor/DashBoardSupervisor";
 import axios from "axios";
 import { BaseUrl } from "./Constant/BaseUrl";
+import PreviewDialer from "./Dashboard-component/PreviewDialer";
 const mapStateToProps = (state) => {
   return {
     darkMode: state.data.darkMode,
@@ -66,6 +67,7 @@ const mapStateToProps = (state) => {
     callActivity: state.data.callActivity,
     isTransferInitiated: state.data.isTransferInitiated,
     agentInteraction: state.data.agentInteraction,
+    makecallApi: state.data.makecallApi,
   };
 };
 
@@ -650,8 +652,7 @@ const Main = (props) => {
   // WEBRTC //
 
   const makeCall = (dialedNumber) => {
-  
-    console.log("itemmmmmminmakecall",dialedNumber);
+    console.log("itemmmmmminmakecall", dialedNumber);
     localStorage.setItem("dialedNumber", dialedNumber);
     console.log("Dialed Number:", dialedNumber);
     const targetUri = `sip:${dialedNumber}@${domain}:${port}`;
@@ -689,7 +690,7 @@ const Main = (props) => {
     invitationRef.current = inviter;
     localAudioRef.current = inviter;
     transferedRef.current = inviter;
-    makecallApi("make call", "call made");
+    props.makecallApi("make call", "call made");
     props.setOutgoingCall(true);
 
     reset();
@@ -707,7 +708,7 @@ const Main = (props) => {
   // };
 
   const blindTransfer = (transferdialerNumber) => {
-    alert("inside blindTransfer")
+    alert("inside blindTransfer");
     const targetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
     const target = UserAgent.makeURI(targetUri);
 
@@ -744,7 +745,7 @@ const Main = (props) => {
 
   // Attended TRANSFER //
   const attendedTransfer = (transferdialerNumber) => {
-    alert("inside attendedTransfer")
+    alert("inside attendedTransfer");
     console.log("inside attendedTransfer", transferdialerNumber);
     const transferTargetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
     const transferTarget = UserAgent.makeURI(transferTargetUri);
@@ -775,7 +776,7 @@ const Main = (props) => {
 
   // COMPLETE TRANSFER //
   const completeTransfer = () => {
-    alert("inside complet")
+    alert("inside complet");
     if (invitationRef.current) {
       transferCallApi(
         "Transfer Completed",
@@ -787,8 +788,6 @@ const Main = (props) => {
       invitationRef.current.bye();
       reset();
       localStorage.removeItem("TransferdialedNumber");
-
-     
     } else {
       console.log("No active transfer to complete");
     }
@@ -988,92 +987,87 @@ const Main = (props) => {
     invitationRef.current = null;
   };
 
-
-
   if (userRole.length === 1) {
     return (
       <>
-    
-      
-      <Grid container direction={"row"}>
-        <audio ref={invitationRef} id="remoteAudio" />
-        <audio ref={localAudioRef} id="localAudio" />
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleSnackbarClose}
-        >
-          <MuiAlert
+        <Grid container direction={"row"}>
+          <audio ref={invitationRef} id="remoteAudio" />
+          <audio ref={localAudioRef} id="localAudio" />
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
             onClose={handleSnackbarClose}
-            elevation={6}
-            variant="filled"
-            severity="warning"
           >
-            WebRTC Disconnected. Please check your network connection.
-          </MuiAlert>
-        </Snackbar>
-        <Grid item xs={0.5}>
-          <SideBar />
-        </Grid>
-        <Grid item xs={11.5}>
-          <Grid container spacing={0.4} direction={"column"}>
-            <Grid item xs={12}>
-              <NavBar
-                makeCall={makeCall}
-                dialedNumber={dialedNumber}
-                setDialedNumber={setDialedNumber}
-                handleExtensionChange={handleExtensionChange}
-                OpenMakecalldialer={OpenMakecalldialer}
-                setOpenMakecalldialer={setOpenMakecalldialer}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <DashBoard
-                acceptCall={acceptCall}
-                makeCall={makeCall}
-                endCall={endCall}
-                muteUnmute={muteUnmute}
-                handleMuteButtonClick={handleMuteButtonClick}
-                holdUnhold={holdUnhold}
-                transferCallApi={transferCallApi}
-                isTransferInitiated={props.isTransferInitiated}
-                setIsTransferInitiated={setIsTransferInitiated}
-                ConferenceCallApi={ConferenceCallApi}
-                callActivitiesApi={callActivitiesApi}
-                // muteBrowserAudio={muteBrowserAudio}
-                callActivity={props.callActivity}
-                endCallTransfer={endCallTransfer}
-                completeTransfer={completeTransfer}
-                voiceseconds={voiceseconds}
-                voiceminutes={voiceminutes}
-                voicehours={voicehours}
-                seconds={seconds}
-                minutes={minutes}
-                hours={hours}
-                blindTransfer={blindTransfer}
-                attendedTransfer={attendedTransfer}
-                conferencefuntion={conferencefuntion}
-                delegate={delegate}
-                handleExtensionChange={handleExtensionChange}
-                dialedNumber={dialedNumber}
-                setDialedNumber={setDialedNumber}
-                Opentransferdialer={Opentransferdialer}
-                setOpentransferdialer={setOpentransferdialer}
-                OpenConferencedialer={OpenConferencedialer}
-                setOpenConferencedialer={setOpenConferencedialer}
-                OpenSmallscreenDialer={OpenSmallscreenDialer}
-                setOpenSmallscreenDialer={setOpenSmallscreenDialer}
-                interactiontransferdialer={interactiontransferdialer}
-                setinteractiontransferdialer={setinteractiontransferdialer}
-              />
+            <MuiAlert
+              onClose={handleSnackbarClose}
+              elevation={6}
+              variant="filled"
+              severity="warning"
+            >
+              WebRTC Disconnected. Please check your network connection.
+            </MuiAlert>
+          </Snackbar>
+          <Grid item xs={0.5}>
+            <SideBar />
+          </Grid>
+          <Grid item xs={11.5}>
+            <Grid container spacing={0.4} direction={"column"}>
+              <Grid item xs={12}>
+                <NavBar
+                  makeCall={makeCall}
+                  dialedNumber={dialedNumber}
+                  setDialedNumber={setDialedNumber}
+                  handleExtensionChange={handleExtensionChange}
+                  OpenMakecalldialer={OpenMakecalldialer}
+                  setOpenMakecalldialer={setOpenMakecalldialer}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                
+                <DashBoard
+                  acceptCall={acceptCall}
+                  makeCall={makeCall}
+                  endCall={endCall}
+                  muteUnmute={muteUnmute}
+                  handleMuteButtonClick={handleMuteButtonClick}
+                  holdUnhold={holdUnhold}
+                  transferCallApi={transferCallApi}
+                  isTransferInitiated={props.isTransferInitiated}
+                  setIsTransferInitiated={setIsTransferInitiated}
+                  ConferenceCallApi={ConferenceCallApi}
+                  callActivitiesApi={callActivitiesApi}
+                  // muteBrowserAudio={muteBrowserAudio}
+                  callActivity={props.callActivity}
+                  endCallTransfer={endCallTransfer}
+                  completeTransfer={completeTransfer}
+                  voiceseconds={voiceseconds}
+                  voiceminutes={voiceminutes}
+                  voicehours={voicehours}
+                  seconds={seconds}
+                  minutes={minutes}
+                  hours={hours}
+                  blindTransfer={blindTransfer}
+                  attendedTransfer={attendedTransfer}
+                  conferencefuntion={conferencefuntion}
+                  delegate={delegate}
+                  handleExtensionChange={handleExtensionChange}
+                  dialedNumber={dialedNumber}
+                  setDialedNumber={setDialedNumber}
+                  Opentransferdialer={Opentransferdialer}
+                  setOpentransferdialer={setOpentransferdialer}
+                  OpenConferencedialer={OpenConferencedialer}
+                  setOpenConferencedialer={setOpenConferencedialer}
+                  OpenSmallscreenDialer={OpenSmallscreenDialer}
+                  setOpenSmallscreenDialer={setOpenSmallscreenDialer}
+                  interactiontransferdialer={interactiontransferdialer}
+                  setinteractiontransferdialer={setinteractiontransferdialer}
+                  />
+
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      
       </>
-      
-     
     );
   } else {
     return (
@@ -1109,6 +1103,7 @@ const Main = (props) => {
                 setOpenMakecalldialer={setOpenMakecalldialer}
               />
             </Grid>
+          
             <Grid item xs={12}>
               <DashBoardSupervisor
                 acceptCall={acceptCall}

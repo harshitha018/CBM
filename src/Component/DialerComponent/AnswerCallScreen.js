@@ -1024,7 +1024,13 @@ const AnswerCallScreen = (props) => {
                 <Grid item xs={6} md={6} m={1}>
                   <Button
                     className="dialpad-btn"
-                    onClick={handleCompleteTransfer}
+                    // onClick={handleCompleteTransfer}
+                  
+                    onClick={() => {
+                      props.completeTransfer();
+                      handleTransferDialpad();
+                    }}
+
                     style={{
                       color: "white",
                       background: "red",
@@ -1037,15 +1043,18 @@ const AnswerCallScreen = (props) => {
                 </Grid>
               ) : (
                 <>
+
+                <Grid item xs={6} md={6} m={1}>
                   <Button
                     className="dialpad-btn"
                     onClick={() => {
-                      props.setIsTransferInitiated(true);
+                      // props.setIsTransferInitiated(true);
                       localStorage.setItem(
                         "TransferdialedNumber",
                         transferdialerNumber
                       );
-                      handleBlindTransfer();
+                      // handleBlindTransfer();
+                      props.blindTransfer(transferdialerNumber);
                     }}
                     style={{
                       color: "white",
@@ -1056,11 +1065,12 @@ const AnswerCallScreen = (props) => {
                   >
                     Blind Transfer
                   </Button>
+                  </Grid>
                   <Grid item xs={6} md={6} m={1}>
                     <Button
                       className="dialpad-btn"
                       onClick={() => {
-                        props.setIsTransferInitiated(true);
+                        // props.setIsTransferInitiated(true);
                         localStorage.setItem(
                           "TransferdialedNumber",
                           transferdialerNumber
@@ -1076,7 +1086,9 @@ const AnswerCallScreen = (props) => {
                     >
                       Attend Transfer
                     </Button>
+
                   </Grid>
+                 
                 </>
               )}
             </Grid>

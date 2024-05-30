@@ -27,7 +27,8 @@ import {
   SET_CALL_ACTIVITY,
   SET_AGENT_INTERACTION,
   SET_MAKING_TRANSFERCALL,
-  SET_OPEN_SURVEY
+  SET_OPEN_SURVEY,
+  SET_MAKECALL_API,
 } from "../redux/actions/type";
 
 export const initialState = {
@@ -65,6 +66,7 @@ export const initialState = {
   makingTransferCall: false,
   conference: false,
   mergecall: false,
+  makecallApi: false,
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -253,6 +255,13 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         makingTransferCall: action.val,
+      };
+    }
+
+    case SET_MAKECALL_API: {
+      return {
+        ...state,
+        makecallApi: action.val,
       };
     }
 
