@@ -8,6 +8,8 @@
 }
 body {
   overflow: hidden;
+  background: #d6eaf5 !important;
+
 }
 .callInteraction {
   overflow: auto;
@@ -43,6 +45,7 @@ body {
   height: 100vh;
   width: 207vh !important
 }
+
 .agentSummary::-webkit-scrollbar {
   display: none;
 }
@@ -143,7 +146,7 @@ body {
 .answerScreen {
   background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
   box-shadow: 0px 0px 10px 0px #aaaaaa;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 18rem;
   bottom: 2rem;
   position: fixed;
@@ -157,9 +160,9 @@ body {
 .answerScreen_smallScreen{
   background: linear-gradient(145deg, #f0f0f0, #f0f0f0);
   box-shadow: 0px 0px 10px 0px #aaaaaa;
-  border-radius: 50px;
-  width: 18rem;
-  bottom: 2rem;
+  border-radius: 10px;
+  width: 18rem; 
+   bottom: 2rem;
   position: fixed;
   /* right: 20px; */
   left: 20rem;
@@ -350,11 +353,29 @@ width: 30px;
 }
 
 .sidebarMode {
+  background-color:#0b3363;
+  color: #000000;
+}
+.sidebarMode.dark-mode{
+  background-color: #36454F !important;
+  color: #000000;
+}
+/* .sidebarMode .MuiStack-root{
+  background-color: #0b3363;
+  color: #ffffff;
+} */
+
+.dark-mode .MuiStack-root{
+  background-color: #36454F;
+  color: #ffffff;
+}
+
+.navbarmode{
   background-color:#F4F7FA;
   color: #000000;
 }
 
-.sidebarMode.dark-mode {
+.navbarmode.dark-mode {
   background-color: #36454F;
   color: #ffffff;
 }
@@ -431,19 +452,51 @@ height: 30px !important;
 
 }
 
+.aside_left .nav-item .active {
+  background: var(--secondary-color);
+  color: white !important;
+  height: 50px;
+  padding: unset !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 6px -3px inset;
+}
+.side_btn .MuiButtonBase-root .active {
+  background: red !important;
+}
 .css-23y92c-MuiStack-root>:not(style)~:not(style) {
   margin-top: 16px;
-  margin-right: 13px !important;
+  margin-right: 26px !important;
 }
 
 .realdash{
-  margin-left: 27px !important;
+  margin-left: 20px !important;
 }
 
 .css-23y92c-MuiStack-root{
   background-color: #0b3363 !important;
 }
 
+.inboundscroll{
+  height: 20vh;
+  overflow: "scroll";
+  overflow-x: hidden;
+}
 
+.inboundscroll::-webkit-scrollbar{
+  display: none;
+}
 
+.outboundscroll{
+  height: 20vh;
+  overflow: "scroll";
+  overflow-x: hidden;
+}
+
+.outboundscroll::-webkit-scrollbar{
+  display: none;
+}
 

@@ -47,6 +47,7 @@ import {
   setTransferCall,
   setShowTransferCall,
   setConference,
+  setShowConference,
   setMergeCall,
   setIsTransferInitiated,
 } from "../../redux/actions/action";
@@ -71,13 +72,15 @@ const mapStateToProps = (state) => {
     showUnHold: state.data.showUnHold,
     transferCall: state.data.transferCall,
     showTransferCall: state.data.showTransferCall,
+    showConference: state.data.showConference,
     conference: state.data.conference,
+    isConferenceInitiated: state.data.isConferenceInitiated,
     mergecall: state.data.mergecall,
   };
 };
 
 const AnswerCallScreen = (props) => {
-  // console.log("showTransferCall", props.showTransferCall);
+  // console.log("transferCalggggggggggggggl", props.transferCall);
 
   const {
     endCall,
@@ -92,6 +95,29 @@ const AnswerCallScreen = (props) => {
   const parentRef = useRef();
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [transferdialerNumber, settransferdialerNumber] = useState("");
+  const [conferencedialerNumber, setConferencedialerNumber] = useState("");
+  const [transferType, setTransferType] = useState("");
+
+  const handleBlindTransfer = () => {
+    props.blindTransfer(transferdialerNumber);
+    props.setIsTransferInitiated(true);
+    setTransferType("blind");
+    handleTransferDialpad();
+  };
+
+  const handleAttendedTransfer = () => {
+    props.attendedTransfer(transferdialerNumber);
+    props.setIsTransferInitiated(true);
+    setTransferType("attended");
+  };
+
+  const handleCompleteTransfer = () => {
+    props.completeTransfer();
+    handleTransferDialpad();
+    props.setIsTransferInitiated(false);
+    setTransferType("");
+  };
 
   const handleTransferDialpad = () => {
     props.setOpentransferdialer(!props.Opentransferdialer);
@@ -118,15 +144,27 @@ const AnswerCallScreen = (props) => {
   };
 
   const handleNumberClick = (num) => {
-    props.setDialedNumber((prevNumber) => prevNumber + num);
+    settransferdialerNumber((prevNumber) => prevNumber + num);
+  };
+
+  const ConferenceNumberClick = (num) => {
+    setConferencedialerNumber((prevNumber) => prevNumber + num);
   };
 
   const handleClear = () => {
-    props.setDialedNumber("");
+    settransferdialerNumber("");
   };
 
   const handleDelete = () => {
-    props.setDialedNumber((prevNumber) => prevNumber.slice(0, -1));
+    settransferdialerNumber((prevNumber) => prevNumber.slice(0, -1));
+  };
+
+  const ConferenceClear = () => {
+    setConferencedialerNumber("");
+  };
+
+  const ConferenceDelete = () => {
+    setConferencedialerNumber((prevNumber) => prevNumber.slice(0, -1));
   };
 
   const handleCall = () => {
@@ -175,6 +213,7 @@ const AnswerCallScreen = (props) => {
                         width: "150px",
                       }}
                     >
+                      {/* {localStorage.getItem("dialedNumber")} */}
                       {props.displayExtNum}
                     </Typography>
                     <Typography
@@ -206,15 +245,19 @@ const AnswerCallScreen = (props) => {
 
                       <button
                         type="button"
-                        className="btn btn-danger ms-2"
+                        className="btn btn-danger ms-2 mb-1"
                         style={{
-                          height: "40px",
-                          width: "40px",
+                          height: "35px",
+                          width: "35px",
                           borderRadius: "23px",
                         }}
                         onClick={() => endCall()}
                       >
-                        <MdCallEnd color="white" size={17} />
+                        <MdCallEnd
+                          color="white"
+                          size={17}
+                          style={{ marginLeft: "-3px" }}
+                        />
                       </button>
                     </Box>
                   </Stack>
@@ -247,11 +290,10 @@ const AnswerCallScreen = (props) => {
                     <img src={photo} alt="" />
                   </Stack>
                   <Stack className="call_names mt-2 d-flex flex-column justify-content-center align-items-center mb-3">
-                    {props.conference ? (
+                    {/* {props.conference ? (
                       <>
                         <Typography>
                           <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
-                            {/* {localStorage.getItem("dialedNumber")} */}
                             {props.displayExtNum}
                           </span>
                         </Typography>
@@ -283,7 +325,82 @@ const AnswerCallScreen = (props) => {
                           <span>{props.voiceseconds}</span>
                         </Typography>
                       </>
+                    )} */}
+
+                    {/* {props.conference ? (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.transferCall
+                              ? localStorage.getItem("TransferdialedNumber")
+                              : props.displayExtNum}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem("ConferencedNum")}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.transferCall
+                              ? localStorage.getItem("TransferdialedNumber")
+                              : props.displayExtNum}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )} */}
+
+                    {props.conference ? (
+                      <>
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem("ConferencedNum")}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
                     )}
+
                     <Typography
                       variant="caption"
                       gutterBottom
@@ -312,9 +429,10 @@ const AnswerCallScreen = (props) => {
                           id="muteButton"
                           className="call-btn"
                           onClick={() => {
-                            props.muteUnmute("muted", "Mute");
+                            // props.muteUnmute("muted", "Mute");
+                            props.handleMuteButtonClick("muted", "Mute");
+
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <Microphone color="black" size={20} />
@@ -325,9 +443,9 @@ const AnswerCallScreen = (props) => {
                           id="muteButton"
                           className="call-btn"
                           onClick={() => {
-                            props.muteUnmute("unmuted", "unMute");
+                            // props.muteUnmute("unmuted", "unMute");
+                            props.handleMuteButtonClick("unmuted", "unMute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <MicrophoneSlash color="black" size={20} />
@@ -380,11 +498,12 @@ const AnswerCallScreen = (props) => {
                 <Grid container justifyContent="center" spacing={2}>
                   <Grid item>
                     <Stack direction="column" alignItems="center">
-                      {props.transferCall ? (
+                      {true ? (
                         <Button
                           type="button"
                           className="call-btn"
                           onClick={() => {
+                            alert("inside transfer call");
                             handleTransferDialpad();
                           }}
                         >
@@ -399,6 +518,7 @@ const AnswerCallScreen = (props) => {
                           type="button"
                           className="call-btn"
                           onClick={() => {
+                            alert("else  transfer call");
                             handleTransferDialpad();
                           }}
                         >
@@ -472,13 +592,14 @@ const AnswerCallScreen = (props) => {
                     width: "40px",
                     borderRadius: "23px",
                   }}
-                  onClick={() => {
-                    if (props.showTransferCall == true) {
-                      props.endCallTransfer();
-                    } else {
-                      props.endCall();
-                    }
-                  }}
+                  // onClick={() => {
+                  //   if (props.showTransferCall == true) {
+                  //     props.endCallTransfer();
+                  //   } else {
+                  //     props.endCall();
+                  //   }
+                  // }}
+                  onClick={() => props.endCall()}
                 >
                   <MdCallEnd color="white" size={17} />
                 </button>
@@ -599,7 +720,10 @@ const AnswerCallScreen = (props) => {
 
                         <Typography>
                           <span style={{ fontWeight: "bold" }}>
-                            {localStorage.getItem("TransferdialedNumber", props.dialedNumber)}
+                            {localStorage.getItem(
+                              "TransferdialedNumber",
+                              transferdialerNumber
+                            )}
                           </span>
                         </Typography>
 
@@ -654,9 +778,9 @@ const AnswerCallScreen = (props) => {
                           id="muteButton"
                           className="call-btn"
                           onClick={() => {
-                            props.muteUnmute("muted", "Mute");
+                            // props.muteUnmute("muted", "Mute");
+                            props.handleMuteButtonClick("muted", "Mute");
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <Microphone color="black" size={20} />
@@ -667,9 +791,10 @@ const AnswerCallScreen = (props) => {
                           id="muteButton"
                           className="call-btn"
                           onClick={() => {
-                            props.muteUnmute("unmuted", "unMute");
+                            // props.muteUnmute("unmuted", "unMute");
+                            props.handleMuteButtonClick("unmuted", "unMute");
+
                             // props.muteBrowserAudio();
-                            // props.toggleMute();
                           }}
                         >
                           <MicrophoneSlash color="black" size={20} />
@@ -818,14 +943,14 @@ const AnswerCallScreen = (props) => {
                     width: "40px",
                     borderRadius: "23px",
                   }}
-                  onClick={() => {
-                    if (props.showTransferCall == true) {
-                      props.endCallTransfer();
-                    } else {
-                      props.endCall();
-                    }
-                  }}
-                  // onClick={() => endCall()}
+                  // onClick={() => {
+                  //   if (props.showTransferCall == true) {
+                  //     props.endCallTransfer();
+                  //   } else {
+                  //     props.endCall();
+                  //   }
+                  // }}
+                  onClick={() => props.endCall()}
                 >
                   <MdCallEnd color="white" size={17} />
                 </button>
@@ -842,8 +967,10 @@ const AnswerCallScreen = (props) => {
         <Box className="dialpad_main">
           <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
             <TextField
-              value={props.dialedNumber}
-              onChange={props.handleExtensionChange}
+              value={transferdialerNumber}
+              onChange={(e) => {
+                settransferdialerNumber(e.target.value);
+              }}
               style={{ width: "18rem" }}
               className="p-2"
             />
@@ -892,50 +1019,65 @@ const AnswerCallScreen = (props) => {
                 </Button>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={12} m={2}>
-              {/* <Button
-                className="dialpad-btn"
-                onClick={() => {
-                  props.attendedTransfer();
-                  handleTransferDialpad();
-
-                  localStorage.setItem(
-                    "TransferdialedNumber",
-                    props.dialedNumber
-                  );
-                }}
-                style={{ color: "white", background: "green" }}
-                fullWidth
-              >
-                Call
-              </Button> */}
+            <Grid style={{ marginLeft: "8px", display: "flex" }}>
               {props.isTransferInitiated ? (
-                <Button
-                  className="dialpad-btn"
-                  onClick={props.attendedTransfer}
-                  style={{ color: "white", background: "red" }}
-                  fullWidth
-                >
-                  Complete Transfer
-                </Button>
+                <Grid item xs={6} md={6} m={1}>
+                  <Button
+                    className="dialpad-btn"
+                    onClick={handleCompleteTransfer}
+                    style={{
+                      color: "white",
+                      background: "red",
+                      fontSize: "10px",
+                    }}
+                    fullWidth
+                  >
+                    Complete Transfer
+                  </Button>
+                </Grid>
               ) : (
-                <Button
-                  className="dialpad-btn"
-                  onClick={() => {
-                    alert("attend transfer");
-                    // handleTransfer();
-                    props.attendedTransfer();
-                    props.setIsTransferInitiated(true); // Update state to indicate transfer is initiated
-                    localStorage.setItem(
-                      "TransferdialedNumber",
-                      props.dialedNumber
-                    );
-                  }}
-                  style={{ color: "white", background: "green" }}
-                  fullWidth
-                >
-                  {isTransferInitiated ? "Attend Transfer" : "Call"}
-                </Button>
+                <>
+                  <Button
+                    className="dialpad-btn"
+                    onClick={() => {
+                      props.setIsTransferInitiated(true);
+                      localStorage.setItem(
+                        "TransferdialedNumber",
+                        transferdialerNumber
+                      );
+                      handleBlindTransfer();
+                    }}
+                    style={{
+                      color: "white",
+                      background: "green",
+                      fontSize: "10px",
+                    }}
+                    fullWidth
+                  >
+                    Blind Transfer
+                  </Button>
+                  <Grid item xs={6} md={6} m={1}>
+                    <Button
+                      className="dialpad-btn"
+                      onClick={() => {
+                        props.setIsTransferInitiated(true);
+                        localStorage.setItem(
+                          "TransferdialedNumber",
+                          transferdialerNumber
+                        );
+                        handleAttendedTransfer();
+                      }}
+                      style={{
+                        color: "white",
+                        background: "green",
+                        fontSize: "10px",
+                      }}
+                      fullWidth
+                    >
+                      Attend Transfer
+                    </Button>
+                  </Grid>
+                </>
               )}
             </Grid>
           </Card>
@@ -949,8 +1091,10 @@ const AnswerCallScreen = (props) => {
         <Box className="dialpad_main">
           <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
             <TextField
-              value={props.dialedNumber}
-              onChange={props.handleExtensionChange}
+              value={conferencedialerNumber}
+              onChange={(e) => {
+                setConferencedialerNumber(e.target.value);
+              }}
               style={{ width: "18rem" }}
               className="p-2"
             />
@@ -965,7 +1109,7 @@ const AnswerCallScreen = (props) => {
                   <Button
                     className="dialpad-btn"
                     style={{ color: "black" }}
-                    onClick={() => handleNumberClick(num)}
+                    onClick={() => ConferenceNumberClick(num)}
                   >
                     {num}
                   </Button>
@@ -974,7 +1118,7 @@ const AnswerCallScreen = (props) => {
               <Grid item xs={4}>
                 <Button
                   className="dialpad-btn"
-                  onClick={handleClear}
+                  onClick={ConferenceClear}
                   style={{ color: "orange" }}
                 >
                   Clear
@@ -983,7 +1127,7 @@ const AnswerCallScreen = (props) => {
               <Grid item xs={4}>
                 <Button
                   className="dialpad-btn"
-                  onClick={handleDelete}
+                  onClick={ConferenceDelete}
                   style={{ color: "red" }}
                 >
                   Delete
@@ -1000,17 +1144,36 @@ const AnswerCallScreen = (props) => {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} m={2}>
-              <Button
-                className="dialpad-btn"
-                onClick={() => {
-                  handleConferenceDialpad();
-                  props.ConferenceCallApi("call on conference", "conference");
-                }}
-                style={{ color: "white", background: "green" }}
-                fullWidth
-              >
-                Call
-              </Button>
+              {props.isConferenceInitiated ? (
+                <Button
+                  className="dialpad-btn"
+                  onClick={() => {
+                    handleConferenceDialpad();
+                    props.conferencefuntion("call on conference", "conference");
+                  }}
+                  style={{ color: "white", background: "green" }}
+                  fullWidth
+                >
+                  Conference
+                </Button>
+              ) : (
+                <Button
+                  className="dialpad-btn"
+                  onClick={() => {
+                    handleConferenceDialpad();
+                    props.ConferenceCallApi("call on conference", "conference");
+                    localStorage.setItem(
+                      "ConferenceNumber",
+                      conferencedialerNumber
+                    );
+                    props.conferencefuntion(conferencedialerNumber);
+                  }}
+                  style={{ color: "white", background: "green" }}
+                  fullWidth
+                >
+                  Call
+                </Button>
+              )}
             </Grid>
           </Card>
         </Box>
@@ -1080,9 +1243,9 @@ const AnswerCallScreen = (props) => {
                       props.attendedTransfer();
                       // handleTransferDialpad();
                       setOpentransferdialer(false);
-                      localStorage.getItem(
+                      localStorage.setItem(
                         "TransferdialedNumber",
-                        props.dialedNumber
+                        transferdialerNumber
                       );
                     }}
                     style={{
@@ -1091,7 +1254,7 @@ const AnswerCallScreen = (props) => {
                       width: "100%",
                     }}
                   >
-                    Complete Transfer
+                    Transfer
                   </Button>
                 ) : (
                   <Button
@@ -1099,9 +1262,9 @@ const AnswerCallScreen = (props) => {
                     onClick={() => {
                       props.attendedTransfer();
                       handleTransferDialpad();
-                      localStorage.getItem(
+                      localStorage.setItem(
                         "TransferdialedNumber",
-                        props.dialedNumber
+                        transferdialerNumber
                       );
                     }}
                     style={{
@@ -1150,6 +1313,7 @@ export default connect(mapStateToProps, {
   setTransferCall,
   setShowTransferCall,
   setConference,
+  setShowConference,
   setMergeCall,
   setIsTransferInitiated,
 })(AnswerCallScreen);

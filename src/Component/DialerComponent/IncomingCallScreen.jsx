@@ -61,6 +61,7 @@ const IncomingCallScreen = (props) => {
                     <Typography style={{ fontSize: "12px" }}>
                       {" "}
                       {props.displayExtNum}
+                      {/* {localStorage.getItem("dialedNumber")} */}
                     </Typography>
                   </Stack>
                   <div className="d-flex mt-3 mx-2">
@@ -108,9 +109,7 @@ const IncomingCallScreen = (props) => {
             </Stack>
           </Box>
 
-          {/* {props.answerScreen ? (
-            <AnswerCallScreen/>
-          ): ""} */}
+         
         </motion.div>
       </Box>
     </>

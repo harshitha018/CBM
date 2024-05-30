@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Box, Button, Card } from "@mui/material";
+import { Grid, Box, Button, Card, Stack, Paper } from "@mui/material";
 import InteractionCard from "./InteractionCenter/InteractionCard";
 import InteractionCard2 from "./InteractionCenter/InteractionCard2";
 import InteractionCard3 from "./InteractionCenter/InteractionCard3";
@@ -15,7 +15,10 @@ import {
   setIncomingCallAccepted,
   setIncomingCallReject,
 } from "../../redux/actions/action.js";
-import { AndroidLogo } from "@phosphor-icons/react";
+import ShadowIconInput from "../../Component/shared-components/fields/ShadowIconInput.js";
+import ShadowIconDatePicker from "../../Component/shared-components/fields/ShadowIconDatePicker.js";
+import ShadowIconSelect from "../../Component/shared-components/fields/ShadowIconSelect.js";
+import TextSelect from "../../Component/shared-components/fields/ShadowIconTextField.js";
 
 const mapStateToProps = (state) => {
   return {
@@ -27,17 +30,13 @@ const mapStateToProps = (state) => {
 };
 
 const DashBoard = (props) => {
-  const [showInteractionCard3, setShowInteractionCard3] = useState(false); // State to manage InteractionCard3 visibility
-  const [open, setOpen] = useState(false);
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
 
   const handleDragStart = (event, info) => {
     setDragStartPos({ x: info.point.x, y: info.point.y });
   };
 
-  const toggleInteractionCard3 = () => {
-    setShowInteractionCard3((prevState) => !prevState);
-  };
+  
 
   const {
     acceptCall,
@@ -45,13 +44,14 @@ const DashBoard = (props) => {
     makeCall,
     endCall,
     muteUnmute,
+    handleMuteButtonClick,
     holdUnhold,
     transferCallApi,
     ConferenceCallApi,
     muteBrowserAudio,
     callActivity,
-    toggleMute,
     endCallTransfer,
+    completeTransfer,
     holdCall,
     unholdCall,
     handleMuteplay,
@@ -59,6 +59,7 @@ const DashBoard = (props) => {
     reset,
     blindTransfer,
     attendedTransfer,
+    conferencefuntion,
     delegate,
     setDialedNumber,
     dialedNumber,
@@ -75,15 +76,13 @@ const DashBoard = (props) => {
     setIsTransferInitiated,
   } = props;
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
 
+// console.log("incomingcallllll",props.incomingCall);
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
-      <Grid container spacing={0.5}>
-        <Grid xs={3} md={4}>
-          <Grid container spacing={0.5} direction={"column"}>
+      <Grid container >
+        <Grid xs={12} md={4} className="mb-2 sm:mb-0">
+          {/* <Grid container spacing={0.5} direction={"column"}> */}
             <InteractionCard
               callActivity={props.callActivity}
               endCall={endCall}
@@ -91,14 +90,16 @@ const DashBoard = (props) => {
               setinteractiontransferdialer={setinteractiontransferdialer}
               dialedNumber={dialedNumber}
               setDialedNumber={setDialedNumber}
-              attendedTransfer={attendedTransfer  }
+              attendedTransfer={attendedTransfer}
+              conferencefuntion={conferencefuntion}
             />
-          </Grid>
+          
+          {/* </Grid> */}
         </Grid>
-        <Grid container xs={7.5} md={8} >
+        <Grid container xs={12} md={8} >
           <InteractionCard2 />
         </Grid>
-        <Grid xs={12} md={12}>
+        <Grid xs={12} md={12} >
           <InteractionCard4 
           makeCall={makeCall}
           dialedNumber={dialedNumber}
@@ -106,6 +107,10 @@ const DashBoard = (props) => {
           />
         </Grid>
 
+        {/* <ShadowIconInput/>
+        <ShadowIconDatePicker/>
+        <ShadowIconSelect/>
+        <TextSelect/> */}
         {props.incomingCall && (
           <IncomingCallScreen
             acceptCall={acceptCall}
@@ -117,14 +122,15 @@ const DashBoard = (props) => {
         <AnswerCallScreen
           makeCall={makeCall}
           muteUnmute={muteUnmute}
+          handleMuteButtonClick={handleMuteButtonClick}
           holdUnhold={holdUnhold}
           transferCallApi={transferCallApi}
           ConferenceCallApi={ConferenceCallApi}
           isTransferInitiated={props.isTransferInitiated}
           setIsTransferInitiated={props.setIsTransferInitiated}
-          muteBrowserAudio={muteBrowserAudio}
-          toggleMute={toggleMute}
+          // muteBrowserAudio={muteBrowserAudio}
           endCallTransfer={endCallTransfer}
+          completeTransfer={completeTransfer}
           holdCall={holdCall}
           unholdCall={unholdCall}
           handleMuteplay={handleMuteplay}
@@ -133,6 +139,7 @@ const DashBoard = (props) => {
           endCall={endCall}
           blindTransfer={blindTransfer}
           attendedTransfer={attendedTransfer}
+          conferencefuntion={conferencefuntion}
           delegate={delegate}
           dialedNumber={dialedNumber}
           setDialedNumber={setDialedNumber}
@@ -145,19 +152,10 @@ const DashBoard = (props) => {
           setOpenSmallscreenDialer={setOpenSmallscreenDialer}
         />
 
-        <Button
-          sx={{ position: "fixed", top: "50%", right: 0, zIndex: 999 }}
-          onClick={toggleDrawer(true)}
-        >
-          <AndroidLogo size={32} />
-        </Button>
+       
       </Grid>
 
-      <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
-        <Box sx={{ width: 400 }} role="presentation">
-          <InteractionCard3 show={showInteractionCard3} />
-        </Box>
-      </Drawer>
+    
     </Box>
   );
 };

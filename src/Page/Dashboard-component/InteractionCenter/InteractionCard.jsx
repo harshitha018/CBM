@@ -17,24 +17,24 @@ import {
   Tabs,
   TextField,
   List as ListIcon,
-  Paper
+  Paper,
 } from "@mui/material";
-import ReorderIcon from '@mui/icons-material/Reorder';
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-import PhonePausedIcon from '@mui/icons-material/PhonePaused';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CallEndIcon from '@mui/icons-material/CallEnd';
-import CallEndRoundedIcon from '@mui/icons-material/CallEndRounded';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import ReorderIcon from "@mui/icons-material/Reorder";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import PhonePausedIcon from "@mui/icons-material/PhonePaused";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CallEndIcon from "@mui/icons-material/CallEnd";
+import CallEndRoundedIcon from "@mui/icons-material/CallEndRounded";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import {
   Alarm,
   ArrowsLeftRight,
@@ -66,6 +66,9 @@ const mapStateToProps = (state) => {
     displayExtNum: state.data.displayExtNum,
     callStatus: state.data.callStatus,
     callActivity: state.data.callActivity,
+    voiceseconds: state.data.voiceseconds,
+    voiceminutes: state.data.voiceminutes,
+    voicehours: state.data.voicehours,
   };
 };
 
@@ -151,18 +154,17 @@ const InteractionCard = (props) => {
 
   return (
     <>
+      <Paper elevation={10} sx={{ marginRight: "5px" }}>
         <div
-          className={`card dashboardMode ${
-            props.darkMode ? "dark-mode" : "light-mode"
-          } ms-1`}
-          sx={{ height: "47vh", marginTop: "6px" }}
+          className={`dashboardMode ${props.darkMode ? "dark-mode" : "light-mode"} `}
+          style={{ height: "52vh" }}
         >
-     {!closeCard && (
+          {!closeCard && (
             <Box
-              className={` dashboardMode ${
+              className={`dashboardMode ${
                 props.darkMode ? "dark-mode" : "light-mode"
               } `}
-              sx={{ minWidth: 275 }}
+              sx={{ minWidth: 300 }}
             >
               <Stack
                 direction="row"
@@ -177,11 +179,11 @@ const InteractionCard = (props) => {
                   sx={{ fontSize: 14 }}
                   gutterBottom
                 >
-                  <ReorderIcon sx={{fontSize:16}} color="lightgray" />
+                  <ReorderIcon sx={{ fontSize: 16 }} color="lightgray" />
                 </Typography>
-                <Typography sx={{ fontSize: 13, fontWeight:700}} gutterBottom>
-                    Live interaction
-                  </Typography>
+                <Typography sx={{ fontSize: 13, fontWeight: 700 }} gutterBottom>
+                  Live interaction
+                </Typography>
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
@@ -192,53 +194,106 @@ const InteractionCard = (props) => {
                 </ExpandMore>
               </Stack>
               {/* <Paper elevation={5}> */}
-              <Box sx={{marginX:"15px", border:"0.5px solid lightgray", borderRadius:"10px"}}>
-              <Box sx={{borderTopLeftRadius:"10%", borderTopRightRadius:"10%" , paddingX:"5px"}}>
-                <Stack direction="row"  justifyContent="space-between" sx={{paddingTop:"4px"}}>
-                <Stack direction="row" spacing={4}>
-                  <Box sx={{display:'flex',alignItems:"center", justifyContent:"center"}}>
-                  <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
-                  </Box>
-                  <Box>
-                  <Typography  sx={{ fontSize: 20, fontWeight:600}} >Aarumugaselvan</Typography>
-                  <Typography variant="caption" display={"block"} >+91-8300756165</Typography>
-                  <Typography variant="caption" display={"block"}>(Basic queue)</Typography>
-                  <Typography variant="subtitle2" display="block">
-                  <Box
-                    component="span"
-                    sx={{
-                      padding: "3px",
-                      backgroundColor: "#FC3D3D",
-                      borderRadius: "100%",
-                      height: "5px",
-                      width: "5px",
-                      display: "inline-block",
-                      marginRight: "4px" // Added for better spacing
-                    }}
-                  />
-                  on call
-                </Typography>
-                  </Box>
-                  <Box>
-                  </Box>
-                </Stack>
-                <Stack direction="column-reverse" justifyContent="space-between"  alignItems="center" spacing={2}>
-                  <Box>
-                  <p style={{fontSize:"25px",fontWeight:700,color:"#FC3D3D"}}>05:00</p>
-                  </Box>
-                  <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  spacing={1}
+              <Box
+                sx={{
+                  marginX: "15px",
+                  border: "0.5px solid lightgray",
+                  borderRadius: "10px",
+                }}
+              >
+                <Box
+                  sx={{
+                    borderTopLeftRadius: "10%",
+                    borderTopRightRadius: "10%",
+                    paddingX: "5px",
+                  }}
                 >
-                  <PhoneCall size={16} />
-                  <Pen size={16} />
-                </Stack>
-
-                </Stack>
-                </Stack>
-                {/* <Stack>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    sx={{ paddingTop: "4px" }}
+                  >
+                    <Stack direction="row" spacing={3}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Avatar alt="Remy Sharp" sx={{ width: 45, height: 45 }}>
+                          <AccountCircleSharpIcon />
+                        </Avatar>
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: 12, fontWeight: 500 }}>
+                          Arumugaselvan
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontSize: 10 }}
+                          display={"block"}
+                        >
+                            {props.displayExtNum}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontSize: 10 }}
+                          display={"block"}
+                        >
+                         {moment(props.callActivity.createdDate).format(
+                      "MMMM Do YYYY"
+                    )}
+                        </Typography>
+                        <Typography variant="subtitle2" display="block" sx={{fontSize:"10px"}}>
+                          <Box
+                            component="span"
+                            sx={{
+                              padding: "3px",
+                              backgroundColor: "#FC3D3D",
+                              borderRadius: "100%",
+                              height: "5px",
+                              width: "5px",
+                              display: "inline-block",
+                              marginRight: "4px",
+                            }}
+                          />
+                         {props.callStatus}
+                        </Typography>
+                      </Box>
+                      <Box></Box>
+                    </Stack>
+                    <Stack
+                      direction="column-reverse"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      spacing={2}
+                    >
+                      <Box>
+                        <p
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: 600,
+                            color: "#FC3D3D",
+                          }}
+                        >
+                         {/* <span>{props.voicehours}</span>:
+                      <span>{props.voiceminutes}</span>:
+                      <span>{props.voiceseconds}</span> */}
+                        </p>
+                      </Box>
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        spacing={1}
+                      >
+                        <PhoneCall size={16} />
+                        <Pen size={16} />
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                  {/* <Stack>
                   <Box>
                   <Avatar alt="Remy Sharp" src={<AccountCircleSharpIcon/>} />
                   </Box>
@@ -246,8 +301,8 @@ const InteractionCard = (props) => {
 
                   </Box>
                 </Stack> */}
-              
-                {/* <Stack direction="row">
+
+                  {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {props.displayExtNum}
                   </Typography>
@@ -257,67 +312,71 @@ const InteractionCard = (props) => {
                     {props.callStatus}
                   </Typography>
                 </Stack> */}
-                {/* <Stack direction="row">
+                  {/* <Stack direction="row">
                   <Typography component="div" sx={{ fontSize: 10 }}>
                     {/* {moment(props.callActivity.createdDate).format('MMMM Do YYYY, h:mm:ss a')} */}
-                    {/* {moment(props.callActivity.createdDate).format(
+                  {/* {moment(props.callActivity.createdDate).format(
                       "MMMM Do YYYY"
                     )}
                   </Typography>
-                </Stack> */} 
-              </Box>
-              <Divider />
-              <Box
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                sx={{
-                  backgroundColor: "#F1F1F1",
-                  border:'0.5px solid lightgray',
-                  // borderTopColor: "lightgray",
-                  display: "flex",
-                  paddingY:"7px",
-                  borderBottomLeftRadius:'10px',
-                  borderBottomRightRadius:"10px"
-                }}
-              >
-              <Stack direction="row"
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={3}
-              sx={{marginLeft:2}}
-              >
-                <CustomButton >
-                  <KeyboardVoiceIcon sx={{fontSize:30}}/>
-                </CustomButton>
-                <CustomButton>
-                  <PhonePausedIcon sx={{fontSize:30}}/>
-                </CustomButton>
-                <CustomButton>
-                  <PersonAddAlt1Icon sx={{fontSize:30}}/>
-                </CustomButton>
-                  {/* <ArrowsLeftRight size={16} /> */}
-                  <CustomButton
-                    onClick={() => {
-                      handleinteractionTransfer();
-                    }}
+                </Stack> */}
+                </Box>
+                <Divider />
+                <Box
+                  className={`dashboardMode ${
+                    props.darkMode ? "dark-mode" : "light-mode"
+                  } `}
+                  sx={{
+                    backgroundColor: "#F1F1F1",
+                    border: "0.5px solid lightgray",
+                    // borderTopColor: "lightgray",
+                    display: "flex",
+                    paddingY: "7px",
+                    borderBottomLeftRadius: "10px",
+                    borderBottomRightRadius: "10px",
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                    spacing={4.5}
+                    // sx={{marginLeft:2}}
                   >
-                    <SyncAltIcon  sx={{fontSize:30}}/>
-                  </CustomButton>
-                  <CustomButton>
-                  <MoreVertIcon sx={{fontSize:30}}/>
-                  </CustomButton>
-                  <ThemeProvider theme={Buttontheme}>
-                  <CustomButton
-                  backgroundColor="#FC3D3D"
-                  borderRadius="100%"
-                    onClick={() => endCall()}
-                  >
-                    <CallEndRoundedIcon  style={{ fill: 'white',"&:hover": { color: "red" }  }} sx={{fontSize:30}}/>
-                  </CustomButton>
-                  </ThemeProvider>
-              </Stack>
-              </Box>
+                    <CustomButton>
+                      <KeyboardVoiceIcon sx={{ fontSize: 18 }} />
+                    </CustomButton>
+                    <CustomButton>
+                      <PhonePausedIcon sx={{ fontSize: 18 }} />
+                    </CustomButton>
+                    <CustomButton>
+                      <PersonAddAlt1Icon sx={{ fontSize: 18 }} />
+                    </CustomButton>
+                    {/* <ArrowsLeftRight size={16} /> */}
+                    <CustomButton
+                      onClick={() => {
+                        handleinteractionTransfer();
+                      }}
+                    >
+                      <SyncAltIcon sx={{ fontSize: 18 }} />
+                    </CustomButton>
+                    <CustomButton>
+                      <MoreVertIcon sx={{ fontSize: 18 }} />
+                    </CustomButton>
+                    <ThemeProvider theme={Buttontheme}>
+                      <CustomButton
+                        backgroundColor="#FC3D3D"
+                        borderRadius="100%"
+                        onClick={() => endCall()}
+                      >
+                        <CallEndRoundedIcon
+                          style={{ fill: "white", "&:hover": { color: "red" } }}
+                          sx={{ fontSize: 18 }}
+                        />
+                      </CustomButton>
+                    </ThemeProvider>
+                  </Stack>
+                </Box>
               </Box>
               {/* </Paper> */}
               <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -325,11 +384,11 @@ const InteractionCard = (props) => {
                   className="interactioncard_collapse"
                   sx={{
                     fontSize: "12px",
-                    height: "70%",
+                    height: "100%",
                     overflowY: "scroll",
                     background: "whitesmoke",
                     zIndex: 999,
-                    position: "relative",
+                    // position: "relative",
                   }}
                 >
                   <Typography
@@ -353,7 +412,7 @@ const InteractionCard = (props) => {
               </Collapse>
             </Box>
           )}
-     
+
           {/* Tabs content */}
           {alarmTab === 0 && (
             <>
@@ -415,122 +474,86 @@ const InteractionCard = (props) => {
             </>
           )}
 
-          {/* <Stack
-            direction="row"
-            display="flex"
-            spacing={2.5}
-            p={1}
-            alignItems="center"
-            sx={{ position: "absolute", bottom: 0, width: "100%" }}
-          >
-            <Tabs value={alarmTab} onChange={ChangeAlarmTab} aria-label="tabs"
-              >
-              <Tab
-                className={`dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<Alarm size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<ChatDots size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<EnvelopeSimple size={16} />}
-              />
-              <Tab
-                className={` dashboardMode ${
-                  props.darkMode ? "dark-mode" : "light-mode"
-                } `}
-                icon={<WhatsappLogo size={16} color="green" />}
-              />
-            </Tabs>
-          </Stack> */}
+         
         </div>
-
-
-      {/*interaction Transfer dialer */}
-      {props.interactiontransferdialer && (
-        <Box className="dialpad_main" sx={{zIndex: 9999}}>
-          <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
-            <TextField
-              value={props.dialedNumber}
-              onChange={props.handleExtensionChange}
-              style={{ width: "18rem" }}
-              className="p-2"
-            />
-            <Grid
-              container
-              spacing={1}
-              className="p-2"
-              style={{ marginLeft: "8px" }}
-            >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
-                <Grid key={num} item xs={4} p={1}>
+        {/*interaction Transfer dialer */}
+        {props.interactiontransferdialer && (
+          <Box className="dialpad_main" sx={{ zIndex: 999 }}>
+            <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
+              <TextField
+                value={props.dialedNumber}
+                onChange={props.handleExtensionChange}
+                style={{ width: "18rem" }}
+                className="p-2"
+              />
+              <Grid
+                container
+                spacing={1}
+                className="p-2"
+                style={{ marginLeft: "8px" }}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
+                  <Grid key={num} item xs={4} p={1}>
+                    <Button
+                      className="dialpad-btn"
+                      style={{ color: "black" }}
+                      onClick={() => handleNumberClick(num)}
+                    >
+                      {num}
+                    </Button>
+                  </Grid>
+                ))}
+                <Grid item xs={4}>
+                  <Button
+                    className="dialpad-btn"
+                    onClick={handleClear}
+                    style={{ color: "orange" }}
+                  >
+                    Clear
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <Button
+                    className="dialpad-btn"
+                    onClick={handleDelete}
+                    style={{ color: "red" }}
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
                   <Button
                     className="dialpad-btn"
                     style={{ color: "black" }}
-                    onClick={() => handleNumberClick(num)}
+                    onClick={CloseTransferDialpad}
                   >
-                    {num}
+                    <X size={20} />
                   </Button>
                 </Grid>
-              ))}
-              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={12} md={12} m={2}>
                 <Button
                   className="dialpad-btn"
-                  onClick={handleClear}
-                  style={{ color: "orange" }}
-                >
-                  Clear
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button
-                  className="dialpad-btn"
-                  onClick={handleDelete}
-                  style={{ color: "red" }}
-                >
-                  Delete
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button
-                  className="dialpad-btn"
-                  style={{ color: "black" }}
-                  onClick={CloseTransferDialpad}
-                >
-                  <X size={20} />
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} md={12} m={2}>
-              <Button
-                className="dialpad-btn"
-                onClick={() => {
-                  props.attendedTransfer();
-                  handleinteractionTransfer();
+                  onClick={() => {
+                    props.attendedTransfer();
+                    handleinteractionTransfer();
 
-                  localStorage.getItem(
-                    "TransferdialedNumber",
-                    props.dialedNumber
-                  );
-                  console.log("TransferdialedNumber",props.dialedNumber)
-                }}
-                style={{ color: "white", background: "green" }}
-                fullWidth
-              >
-                Call
-              </Button>
-            </Grid>
-          </Card>
-        </Box>
-      )}
+                    localStorage.getItem(
+                      "TransferdialedNumber",
+                      props.dialedNumber
+                    );
+                    console.log("TransferdialedNumber", props.dialedNumber);
+                  }}
+                  style={{ color: "white", background: "green" }}
+                  fullWidth
+                >
+                  Call
+                </Button>
+              </Grid>
+            </Card>
+          </Box>
+        )}
+      </Paper>
     </>
   );
 };

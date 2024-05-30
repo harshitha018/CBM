@@ -51,7 +51,6 @@ TabPanel.propTypes = {
 };
 
 const InteractionCard3 = (props) => {
-  const {show, setShowInteractionCard3,onClick, text} = props
 
   const [selectedAssistTab, setSelectedAssistTab] = useState(0);
 

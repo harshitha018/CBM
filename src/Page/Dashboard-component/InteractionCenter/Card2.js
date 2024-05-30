@@ -200,21 +200,20 @@ const InteractionCard2 = (props) => {
       <Grid xs={12}>
         <Paper>
         <Box
-          className={` dashboardMode ${
+          className={`${
             props.darkMode ? "dark-mode" : "light-mode"
           }`}
           // sx={{ height: "95vh" }}
-          sx={{ height: "32vh" }}
-         >
-          <Box>
-            <Stack direction="row align-item-center justify-content-between">
-              <Grid className="d-flex">
-                <Notebook size={18} className="mt-1 ms-2" />
+          sx={{ height: "34vh" }}
+        >
+            <Stack direction="row" justifyContent="space-between"
+            alignItems="center" sx={{marginX:"8px", paddingY:"3px"}}>
+              <Grid className="flex gap-2">
+                <Notebook size={15} className="" />
                 <Typography
                   className=""
                   color="primary"
-                  sx={{ fontSize: 12, width: "150px"
-                  }}
+                  sx={{ fontSize: 12, whiteSpace: "nowrap" }}
                   gutterBottom
                 >
                   Lead/Delinquent Details
@@ -233,7 +232,7 @@ const InteractionCard2 = (props) => {
               >
                 <Button
                   variant="contained"
-                  className="mt-1"
+                  className=""
                   onClick={createUser}
                   sx={{
                     fontSize: "10px",
@@ -241,11 +240,11 @@ const InteractionCard2 = (props) => {
                     marginRight: "5px",
                   }}
                 >
-                  Edit
+                  Create
                 </Button>
               </Grid>
 
-              {/* <Grid className="d-flex ms-auto">
+              <Grid className="d-flex ms-auto">
                 <Grid
                   item
                   // xs={1.5}
@@ -270,11 +269,11 @@ const InteractionCard2 = (props) => {
                     Update
                   </Button>
                 </Grid>
-              </Grid> */}
+              </Grid>
             </Stack>
 
           {/* here the code  className="Customerdetails" */}
-          <Grid container className="Customerdetails ms-2" spacing={0.5}>
+          {/* <Grid container className="Customerdetails" spacing={0.5}>
             <Grid item xs={2.3} sm={1} md={2.3}>
               <div>
                 <Typography
@@ -631,8 +630,7 @@ const InteractionCard2 = (props) => {
           {/* </Grid>  */} 
         
         {/*optimizing */}
-        </Grid>
-        {/* <div className="grid grid-cols-5 gap-2 mx-3 mt-2">
+        <div className="grid grid-cols-5 gap-2 mx-3 mt-2">
           <ShadowIconInput label="First Name"/>
           <ShadowIconInput label="Last Name"/>
           <ShadowIconInput label="Whats app num"/>
@@ -648,14 +646,13 @@ const InteractionCard2 = (props) => {
           <ShadowIconInput label="Duelinquent date"/>
           <ShadowIconSelect label="Disposition"/>
           <ShadowIconInput label="Sticky agent"/>
-          </div> */}
+          </div>
         {/* end the code  */}
-        </Box>
         </Box>
         </Paper>
         <Paper elevation={10} sx={{marginY:"10px"}}>
-        <InteractionCard5 />
-        {/* <Card5/> */}
+        {/* <InteractionCard5 /> */}
+        <Card5/>
         </Paper>
         {/* </Stack> */}
         </Grid>

@@ -21,6 +21,8 @@ import {
   SET_SHOW_TRANSFERCALL,
   SET_IS_TRANSFER_INITIATED,
   SET_CONFERENCE,
+  SET_SHOW_CONFERENCE,
+  SET_IS_CONFERENCE_INITIATED,
   SET_MERGECALL,
   SET_CALL_ACTIVITY,
   SET_AGENT_INTERACTION,
@@ -121,7 +123,9 @@ export const setIsTransferInitiated = (val) => (dispatch) => {
   dispatch({ type: SET_IS_TRANSFER_INITIATED, val });
 };
 
-
+export const setIsConferenceInitiated = (val) => (dispatch) => {
+  dispatch({ type: SET_IS_CONFERENCE_INITIATED, val });
+};
 
 export const setMakingTransferCall = (val) => (dispatch) => {
   dispatch({ type: SET_MAKING_TRANSFERCALL, val });
@@ -129,7 +133,11 @@ export const setMakingTransferCall = (val) => (dispatch) => {
 
 export const setConference = (val) => (dispatch) => {
   dispatch({ type: SET_CONFERENCE, val });
-};
+}; 
+
+export const setShowConference = (val) => (dispatch) => {
+  dispatch({ type: SET_SHOW_CONFERENCE, val });
+}; 
 
 export const setMergeCall = (val) => (dispatch) => {
   dispatch({ type: SET_MERGECALL, val });

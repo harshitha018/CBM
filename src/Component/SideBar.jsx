@@ -179,10 +179,14 @@ const SideBar = (props) => {
             },
             height: "100vh",
           }}
-          className={`sidebarMode ${props.darkMode ? "dark-mode" : "#2ea55e"}`}
+          // className={`${props.darkMode ? "dark-mode" : "white"}`}
+        
         >
           <Stack
             alignItems={"center"}
+            className={`sidebarMode  ${
+              props.darkMode ? "dark-mode" : "light-mode"
+            }`}
             sx={{ height: "100%", width: "100%", marginTop: "0px" }}
             spacing={2}
           >
@@ -203,17 +207,15 @@ const SideBar = (props) => {
                 <Tooltip title="Home" arrow placement="right">
                 <Link to="/dashboard">
                   <IconButton
-                    // size="medium"
                     edge="end"
                     sx={{
                       color: "white",
-
+                      width: "63px",
                       padding: "0px",
                       borderRadius: "8px",
-                      fontSize: "2px",
                     }}
                   >
-                    <HomeIcon sx={{ fontSize: 35 }} />
+                    <HomeIcon sx={{ fontSize: 25 }} />
                   </IconButton>
                   </Link>
 
@@ -221,22 +223,20 @@ const SideBar = (props) => {
               </Stack>
               <span className="border-top"></span>
               <Stack>
-                <Tooltip title="Rotary phone" arrow placement="right">
+                <Tooltip title="Rotary phone" arrow placement="right" className="ms-2">
                   <IconButton
                     size="large"
                     edge="end"
-                    aria-label="show 17 new notifications"
                     onClick={() => roteryOpen()}
                     sx={{
                       color: "white",
-
                       padding: "0px",
+                      // marginRight:"10px",
                       borderRadius: "8px",
                     }}
                   >
-                    <Badge badgeContent={17} color="error">
-                      <GiRotaryPhone style={{ fontSize: 35 }} />
-                    </Badge>
+                      <GiRotaryPhone style={{ fontSize: 25 }} />
+                    
                   </IconButton>
                 </Tooltip>
               </Stack>
@@ -250,11 +250,12 @@ const SideBar = (props) => {
                       edge="end"
                       sx={{
                         color: "white",
-                        padding: "0px",
-                        borderRadius: "8px",
+                      width: "63px",
+                      padding: "0px",
+                      borderRadius: "8px",
                       }}
                     >
-                      <DashboardIcon style={{ fontSize: 35 }} />
+                      <DashboardIcon style={{ fontSize: 25 }} />
                     </IconButton>
                   </Link>
                 </Tooltip>
