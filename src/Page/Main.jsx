@@ -22,7 +22,7 @@ import {
   setvoiceminutes,
   setvoicehours,
   setAnswerScreen,
-  setShowMute,
+ 
   setShowUnMute,
   setShowHold,
   setShowUnHold,
@@ -55,7 +55,6 @@ const mapStateToProps = (state) => {
     displayExtNum: state.data.displayExtNum,
     callStatus: state.data.callStatus,
 
-    showMute: state.data.showMute,
     showUnMute: state.data.showUnMute,
     showHold: state.data.showHold,
     showUnHold: state.data.showUnHold,
@@ -72,7 +71,6 @@ const mapStateToProps = (state) => {
 };
 
 const Main = (props) => {
-  // console.log("vvvvvvvvvvvvvvvvvv", props.displayExtNum);
 
   const userDetails = JSON.parse(localStorage.getItem("userinformation"));
 
@@ -98,6 +96,8 @@ const Main = (props) => {
   const originalCallRef = useRef(null);
   const transferedRef = useRef(null);
   const sessionRef = useRef(null);
+  const domain = "cognicx.callanywhere.co.in"
+  const port = 8089
   const [isWebRTCConnected, setIsWebRTCConnected] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -110,10 +110,13 @@ const Main = (props) => {
   const [AgentDialedNumber, setAgentDialedNumber] = useState("");
   const [interactiontransferdialer, setinteractiontransferdialer] =
     useState(false);
-  const [domain, setDomain] = useState("cognicx.callanywhere.co.in");
-  const [port, setPort] = useState(8089);
+  // const [domain, setDomain] = useState("cognicx.callanywhere.co.in");
+  // const [port, setPort] = useState(8089);
   const [fromdate, setFromdate] = useState(defaultValue);
   const [direction, setDirection] = useState("Outbound");
+  const [showMute, setShowMute] = useState(false);
+  // console.log("vvvvvvvvvvvvvvvvvv", showMute);
+
 
   const localValue = JSON.parse(localStorage.getItem("userinformation"));
   const userRole = localValue[0].roles;
@@ -265,7 +268,7 @@ const Main = (props) => {
       agentInteractionSave();
     }
   }, [props.agentInteraction]);
-
+  
   // MUTE/UNMUTE API //
   const mediaElement = document.getElementById("localAudio");
   const remoteAudioElement = document.getElementById("remoteAudio");
@@ -300,32 +303,27 @@ const Main = (props) => {
 
       console.log("muteAPIII", response.data);
       if (response.data.status) {
+        const mediaElement = document.getElementById("localAudio");
+        const remoteAudioElement = document.getElementById("remoteAudio");
         // Mute or unmute the local audio element
-        if (mediaElement) {
-          mediaElement.muted = muteStatus === "Mute";
-          console.log("Local audio element muted:", mediaElement.muted);
-        }
-        // mutefuntion();
-
-        // Mute or unmute the local WebRTC audio tracks
-        // if (simpleUser && simpleUser.session) {
-        //   simpleUser.session.sessionDescriptionHandler.peerConnection.getSenders().forEach((sender) => {
-        //     if (sender.track && sender.track.kind === "audio") {
-        //       sender.track.enabled = (muteStatus !== "Mute");
-        //       console.log(`Sender track enabled status for ${sender.track.id}:`, sender.track.enabled);
-        //     }
-        //   });
-        // } else {
-        //   console.log("simpleUser or session is undefined");
-        // }
-
         if (muteStatus === "Mute") {
-          props.setShowMute(false);
+          alert("mute audio");
+          if (mediaElement) {
+            mediaElement.muted = true;
+            console.log("Local audio element muted:", mediaElement.muted);
+          }
+          setShowMute(true);
         } else {
-          props.setShowMute(true);
+          alert("UNmute audio");
+          if (mediaElement) {
+            mediaElement.muted = false;
+            console.log("Local audio element unmuted:", mediaElement.muted);
+          }
+          setShowMute(false);
+          setupRemoteMedia(invitation);
         }
       } else {
-        console.log("muteeeeeerr");
+        console.log("Error muting/unmuting:", response.data.message);
       }
     } catch (error) {
       console.error("Error muting/unmuting:", error);
@@ -333,6 +331,12 @@ const Main = (props) => {
   };
   // HOLD/UNHOLD API //
   const holdUnhold = async (holdActivity, holdStatus) => {
+
+    if (!simpleUser || !simpleUser.session) {
+      console.error("No active session found to hold/unhold.");
+      return;
+    }
+
     try {
       const OutgoingSipID = localStorage.getItem("outgoingSipID");
       const dialedNumber = localStorage.getItem("dialedNumber");
@@ -361,18 +365,18 @@ const Main = (props) => {
       if (response.data.status) {
         console.log("holdAPIII", response);
         if (holdStatus === "Hold") {
-          simpleUser.hold();
+         await simpleUser.hold();
 
           props.setShowHold(false);
-          console.log("inside if");
+          console.log("Call placed on hold.");
         } else {
-          simpleUser.unhold();
+        await simpleUser.unhold();
 
           props.setShowHold(true);
-          console.log("inside else");
+          console.log("Call resumed on hold.");
         }
       } else {
-        console.log("HOldddddddddddddddd");
+        console.log("Failed to update hold status in API.");
       }
     } catch (error) {
       console.error("Error holding/unholding:", error);
@@ -481,19 +485,31 @@ const Main = (props) => {
   // MUTE/UNMUTE FUNTIONALITY //
   const handleMuteButtonClick = (muteStatus) => {
     if (invitationRef.current) {
+      alert(`triggering ${muteStatus}`);
       muteUnmute("muteActivity", muteStatus, invitationRef.current);
     } else {
       console.error("Invitation is not available");
     }
-  };
+  }; 
 
-  function setupRemoteMedia(invitation) {
+  const setupRemoteMedia = (invitation) => {
+    const remoteStream = new MediaStream();
+    const mediaElement = document.getElementById("localAudio");
+    const remoteAudioElement = document.getElementById("remoteAudio");
+
+    remoteStream.getTracks().forEach(track => {
+      track.stop();
+      remoteStream.removeTrack(track);
+    });
+
     invitation.sessionDescriptionHandler.peerConnection
       .getReceivers()
       .forEach((receiver) => {
-        if (receiver.track && receiver.track.kind === "audio") {
+
+        if (!showMute || (receiver.track && receiver.track.kind === "audio")) {
           remoteStream.addTrack(receiver.track);
         }
+
         console.log("receiverrrrrrrrrr", remoteStream);
       });
 
@@ -560,6 +576,7 @@ const Main = (props) => {
     };
 
     function onInvite(invitation) {
+      
       console.log("invitationnnnnnnnnnnnnnn", invitation);
       invitation.stateChange.addListener((_state) => {
         console.log(`Session state changed to ${invitation._state}`);
@@ -623,7 +640,7 @@ const Main = (props) => {
 
     try {
       const registerer = new Registerer(userAgent);
-
+console.log("registerrr",registerer)
       userAgent.start().then(() => {
         registerer.register();
       });
@@ -631,16 +648,17 @@ const Main = (props) => {
 
       // Connect to the WebSocket server
       const server = `wss://${domain}:${port}/ws`;
-      simpleUser = new SimpleUser(server, options);
+    let simpleUser = new SimpleUser(server, options);
       setsimpleUser(simpleUser);
       await simpleUser.connect();
       console.log("WebRTC Connected Successfully");
+      console.log("iswgggggggggggggg",isWebRTCConnected)
       setIsWebRTCConnected(true);
 
       simpleUser.session = simpleUser.session || null; // Ensure session is defined
       console.log("simpleUser session:", simpleUser.session);
     } catch (error) {
-      console.error("Error starting UserAgent:", error);
+      console.error("WebRTC DisConnected :", error);
       setIsWebRTCConnected(false);
     }
   };
@@ -681,6 +699,7 @@ const Main = (props) => {
         case "Terminated":
           cleanupMedia();
           endCall();
+          props.setOutgoingCall(false);
           break;
         default:
           throw new Error("Unknown session state.");
@@ -690,7 +709,7 @@ const Main = (props) => {
     invitationRef.current = inviter;
     localAudioRef.current = inviter;
     transferedRef.current = inviter;
-    props.makecallApi("make call", "call made");
+    makecallApi("make call", "call made");
     props.setOutgoingCall(true);
 
     reset();
@@ -707,37 +726,78 @@ const Main = (props) => {
 
   // };
 
+  // const blindTransfer = (transferdialerNumber) => {
+  //   alert("inside blindTransfer");
+  //   const targetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
+  //   const target = UserAgent.makeURI(targetUri);
+
+  //   if (invitationRef.current) {
+  //     invitationRef.current
+  //       .refer(target)
+  //       .then(() => {
+  //         console.log("Transfer initiated successfully");
+  //         if (props.transferCall == true) {
+  //           console.log("insde if");
+  //           transferCallApi(
+  //             "Blind Transfered",
+  //             "Complete blind transfer",
+  //             localStorage.getItem("TransferdialedNumber")
+  //           );
+  //           invitationRef.current.bye();
+  //         } else {
+  //           console.log("insde else");
+  //           transferCallApi(
+  //             "No active blind transfered",
+  //             "Not complete the blind transfer",
+  //             localStorage.getItem("TransferdialedNumber")
+  //           );
+  //           invitationRef.current.bye();
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error initiating transfer:", error);
+  //       });
+  //   } else {
+  //     console.error("No current session to transfer");
+  //   }
+  // };
+
   const blindTransfer = (transferdialerNumber) => {
     alert("inside blindTransfer");
     const targetUri = `sip:${transferdialerNumber}@${domain}:${port}`;
     const target = UserAgent.makeURI(targetUri);
 
     if (invitationRef.current) {
-      invitationRef.current
-        .refer(target)
-        .then(() => {
-          console.log("Transfer initiated successfully");
-          if (props.transferCall == true) {
-            console.log("insde if");
-            transferCallApi(
-              "Blind Transfered",
-              "Complete blind transfer",
-              localStorage.getItem("TransferdialedNumber")
-            );
-            invitationRef.current.bye();
-          } else {
-            console.log("insde else");
-            transferCallApi(
-              "No active blind transfered",
-              "Not complete the blind transfer",
-              localStorage.getItem("TransferdialedNumber")
-            );
-            invitationRef.current.bye();
-          }
-        })
-        .catch((error) => {
-          console.error("Error initiating transfer:", error);
-        });
+      // Check if the session is active before attempting the transfer
+      if (invitationRef.current.state !== SessionState.Terminated) {
+        invitationRef.current
+          .refer(target)
+          .then(() => {
+            console.log("Transfer initiated successfully");
+            if (props.transferCall === true) {
+              console.log("inside if");
+              transferCallApi(
+                "Blind Transferred",
+                "Complete blind transfer",
+                localStorage.getItem("TransferdialedNumber")
+              );
+              invitationRef.current.bye();
+            } else {
+              console.log("inside else");
+              transferCallApi(
+                "No active blind transferred",
+                "Not complete the blind transfer",
+                localStorage.getItem("TransferdialedNumber")
+              );
+              invitationRef.current.bye();
+            }
+          })
+          .catch((error) => {
+            console.error("Error initiating transfer:", error);
+          });
+      } else {
+        console.error("Cannot transfer: Session is already terminated");
+      }
     } else {
       console.error("No current session to transfer");
     }
@@ -890,6 +950,7 @@ const Main = (props) => {
     ) {
       invitationRef.current.bye();
       props.setIncomingCallAccepted(false);
+      props.setIncomingCall(false);
       props.setOutgoingCall(false);
       props.setShowTransferCall(false);
       props.setShowConference(false);
@@ -910,6 +971,7 @@ const Main = (props) => {
       props.setIncomingCallReject(true);
       props.setIncomingCallAccepted(false);
       props.setIncomingCall(false);
+      props.setOutgoingCall(false);
       props.setCallActivity("Disconnect Call");
       props.setCallStatus("Disconnected");
       // callActivitiesApi("Disconnect call", "Disconnected");
@@ -1023,7 +1085,6 @@ const Main = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                
                 <DashBoard
                   acceptCall={acceptCall}
                   makeCall={makeCall}
@@ -1051,6 +1112,8 @@ const Main = (props) => {
                   conferencefuntion={conferencefuntion}
                   delegate={delegate}
                   handleExtensionChange={handleExtensionChange}
+                  showMute={showMute}
+                  setShowMute={setShowMute}
                   dialedNumber={dialedNumber}
                   setDialedNumber={setDialedNumber}
                   Opentransferdialer={Opentransferdialer}
@@ -1061,8 +1124,7 @@ const Main = (props) => {
                   setOpenSmallscreenDialer={setOpenSmallscreenDialer}
                   interactiontransferdialer={interactiontransferdialer}
                   setinteractiontransferdialer={setinteractiontransferdialer}
-                  />
-
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -1103,7 +1165,7 @@ const Main = (props) => {
                 setOpenMakecalldialer={setOpenMakecalldialer}
               />
             </Grid>
-          
+
             <Grid item xs={12}>
               <DashBoardSupervisor
                 acceptCall={acceptCall}
@@ -1154,7 +1216,6 @@ export default connect(mapStateToProps, {
   setAnswerScreen,
   setCallStatus,
 
-  setShowMute,
   setShowUnMute,
   setShowHold,
   setShowUnHold,

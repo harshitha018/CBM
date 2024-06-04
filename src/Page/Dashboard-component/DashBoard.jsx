@@ -36,8 +36,6 @@ const DashBoard = (props) => {
     setDragStartPos({ x: info.point.x, y: info.point.y });
   };
 
-  
-
   const {
     acceptCall,
     callActivitiesApi,
@@ -63,6 +61,8 @@ const DashBoard = (props) => {
     delegate,
     setDialedNumber,
     dialedNumber,
+    showMute,
+    setShowMute,
     handleExtensionChange,
     Opentransferdialer,
     OpenConferencedialer,
@@ -76,34 +76,33 @@ const DashBoard = (props) => {
     setIsTransferInitiated,
   } = props;
 
-
-// console.log("incomingcallllll",props.incomingCall);
+  // console.log("incomingcallllll",props.incomingCall);
   return (
     <Box p={1} sx={{ zIndex: 0 }}>
-      <Grid container >
+      <Grid container>
         <Grid xs={12} md={4} className="mb-2 sm:mb-0">
           {/* <Grid container spacing={0.5} direction={"column"}> */}
-            <InteractionCard
-              callActivity={props.callActivity}
-              endCall={endCall}
-              interactiontransferdialer={interactiontransferdialer}
-              setinteractiontransferdialer={setinteractiontransferdialer}
-              dialedNumber={dialedNumber}
-              setDialedNumber={setDialedNumber}
-              attendedTransfer={attendedTransfer}
-              conferencefuntion={conferencefuntion}
-            />
-          
+          <InteractionCard
+            callActivity={props.callActivity}
+            endCall={endCall}
+            interactiontransferdialer={interactiontransferdialer}
+            setinteractiontransferdialer={setinteractiontransferdialer}
+            dialedNumber={dialedNumber}
+            setDialedNumber={setDialedNumber}
+            attendedTransfer={attendedTransfer}
+            conferencefuntion={conferencefuntion}
+          />
+
           {/* </Grid> */}
         </Grid>
-        <Grid container xs={12} md={8} >
+        <Grid container xs={12} md={8}>
           <InteractionCard2 />
         </Grid>
-        <Grid xs={12} md={12} >
-          <InteractionCard4 
-          makeCall={makeCall}
-          dialedNumber={dialedNumber}
-          callActivitiesApi={callActivitiesApi}
+        <Grid xs={12} md={12}>
+          <InteractionCard4
+            makeCall={makeCall}
+            dialedNumber={dialedNumber}
+            callActivitiesApi={callActivitiesApi}
           />
         </Grid>
 
@@ -119,6 +118,7 @@ const DashBoard = (props) => {
           />
         )}
 
+     
         <AnswerCallScreen
           makeCall={makeCall}
           muteUnmute={muteUnmute}
@@ -141,6 +141,8 @@ const DashBoard = (props) => {
           attendedTransfer={attendedTransfer}
           conferencefuntion={conferencefuntion}
           delegate={delegate}
+          showMute={showMute}
+          setShowMute={setShowMute}
           dialedNumber={dialedNumber}
           setDialedNumber={setDialedNumber}
           handleExtensionChange={handleExtensionChange}
@@ -151,11 +153,7 @@ const DashBoard = (props) => {
           OpenSmallscreenDialer={OpenSmallscreenDialer}
           setOpenSmallscreenDialer={setOpenSmallscreenDialer}
         />
-
-       
       </Grid>
-
-    
     </Box>
   );
 };

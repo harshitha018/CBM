@@ -1,3 +1,4 @@
+import { FaDoorClosed } from "react-icons/fa";
 import {
   SET_DARKMODE,
   SET_INCOMING_CALL,
