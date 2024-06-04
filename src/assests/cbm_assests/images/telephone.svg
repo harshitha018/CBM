@@ -1,0 +1,56 @@
+<svg id="telephone" xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: silver;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        stroke: silver;
+      }
+
+      .cls-1 {
+        stroke-width: 2px;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .cls-3 {
+        font-size: 8.333px;
+        text-anchor: middle;
+        font-family: Arial;
+        font-weight: 700;
+      }
+
+      .cls-4 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="60" cy="60" r="50"/>
+  <circle id="Ellipse_2_copy_12" data-name="Ellipse 2 copy 12" class="cls-2" cx="60" cy="60" r="20"/>
+  <circle id="Ellipse_2_copy_4" data-name="Ellipse 2 copy 4" class="cls-2" cx="75.5" cy="94.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_5" data-name="Ellipse 2 copy 5" class="cls-2" cx="58.5" cy="97.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_6" data-name="Ellipse 2 copy 6" class="cls-2" cx="40.5" cy="91.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_7" data-name="Ellipse 2 copy 7" class="cls-2" cx="27.5" cy="77.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_8" data-name="Ellipse 2 copy 8" class="cls-2" cx="22.5" cy="58.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_9" data-name="Ellipse 2 copy 9" class="cls-2" cx="28.5" cy="39.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_10" data-name="Ellipse 2 copy 10" class="cls-2" cx="43.5" cy="26.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_11" data-name="Ellipse 2 copy 11" class="cls-2" cx="62.5" cy="21.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_13" data-name="Ellipse 2 copy 13" class="cls-2" cx="80.5" cy="27.5" r="7.5"/>
+  <circle id="Ellipse_2_copy_14" data-name="Ellipse 2 copy 14" class="cls-2" cx="93.5" cy="41.5" r="7.5"/>
+  <text id="_1" data-name="1" class="cls-3" x="75.86" y="97.408"><tspan x="75.86">1</tspan></text>
+  <text id="_2" data-name="2" class="cls-3" x="58.86" y="100.408"><tspan x="58.86">2</tspan></text>
+  <text id="_3" data-name="3" class="cls-3" x="40.86" y="94.408"><tspan x="40.86">3</tspan></text>
+  <text id="_4" data-name="4" class="cls-3" x="27.86" y="80.408"><tspan x="27.86">4</tspan></text>
+  <text id="_5" data-name="5" class="cls-3" x="22.86" y="61.408"><tspan x="22.86">5</tspan></text>
+  <text id="_6" data-name="6" class="cls-3" x="28.86" y="42.408"><tspan x="28.86">6</tspan></text>
+  <text id="_7" data-name="7" class="cls-3" x="43.86" y="29.408"><tspan x="43.86">7</tspan></text>
+  <text id="_8" data-name="8" class="cls-3" x="62.86" y="24.408"><tspan x="62.86">8</tspan></text>
+  <text id="_9" data-name="9" class="cls-3" x="80.86" y="30.408"><tspan x="80.86">9</tspan></text>
+  <text id="_0" data-name="0" class="cls-3" x="93.86" y="44.408"><tspan x="93.86">0</tspan></text>
+  <path class="cls-4" d="M84.973,72.009l26.243,20.008a1,1,0,0,1,.189,1.4L108.98,96.6a1,1,0,0,1-1.4.189L81.335,76.78a1,1,0,0,1-.189-1.4L83.572,72.2A1,1,0,0,1,84.973,72.009Z"/>
+</svg>

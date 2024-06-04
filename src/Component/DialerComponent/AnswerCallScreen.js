@@ -1,0 +1,1397 @@
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+  TextField,
+  Card,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import photo from "../../assests/cbm_assests/assets2/images/47.png";
+import {
+  ArrowsLeftRight,
+  ArrowsOutSimple,
+  GitMerge,
+  Microphone,
+  Minus,
+  PauseCircle,
+  PlayCircle,
+  UserPlus,
+  X,
+  SpeakerSimpleSlash,
+  MicrophoneSlash,
+} from "@phosphor-icons/react";
+import { TiArrowMinimise } from "react-icons/ti";
+import { HiOutlineUserAdd } from "react-icons/hi";
+import { MdMerge } from "react-icons/md";
+import { HiMiniArrowsPointingOut } from "react-icons/hi2";
+import { GoUnmute } from "react-icons/go";
+import { MdDialpad } from "react-icons/md";
+import { MdCallEnd } from "react-icons/md";
+import { motion } from "framer-motion";
+import { HiOutlineSpeakerWave } from "react-icons/hi2";
+import { IoMdCall } from "react-icons/io";
+// import { PauseCircle, PlayCircle } from "@mui/icons-material";
+import {
+  setDisplayExtNum,
+  setvoicehours,
+  setvoiceminutes,
+  setvoiceseconds,
+  setOutgoingCall,
+  setAnswerScreen,
+  setIncomingCall,
+  setShowUnMute,
+  setShowHold,
+  setShowUnHold,
+  setTransferCall,
+  setShowTransferCall,
+  setConference,
+  setShowConference,
+  setMergeCall,
+  setIsTransferInitiated,
+} from "../../redux/actions/action";
+import { connect } from "react-redux";
+import CustomButton from "../shared-components/liveInteractionButton/CustomButton";
+
+const mapStateToProps = (state) => {
+  return {
+    displayExtNum: state.data.displayExtNum,
+    displayOutgoingExtNum: state.data.displayOutgoingExtNum,
+    voiceseconds: state.data.voiceseconds,
+    voiceminutes: state.data.voiceminutes,
+    voicehours: state.data.voicehours,
+    incomingCallReject: state.data.incomingCallReject,
+    OutgoingCall: state.data.OutgoingCall,
+    incomingCall: state.data.incomingCall,
+    answerScreen: state.data.answerScreen,
+    incomingCallAccepted: state.data.incomingCallAccepted,
+
+    showUnMute: state.data.showUnMute,
+    showHold: state.data.showHold,
+    showUnHold: state.data.showUnHold,
+    transferCall: state.data.transferCall,
+    showTransferCall: state.data.showTransferCall,
+    showConference: state.data.showConference,
+    conference: state.data.conference,
+    isConferenceInitiated: state.data.isConferenceInitiated,
+    mergecall: state.data.mergecall,
+  };
+};
+
+const AnswerCallScreen = (props) => {
+  // console.log("muteeteettetetettet", props.showMute);
+
+  const {
+    endCall,
+    blindTransfer,
+    attendedTransfer,
+    delegate,
+    dialedNumber,
+    setDialedNumber,
+    ConferenceCallApi,
+    isTransferInitiated,
+    showMute,
+    setShowUnMute,
+  } = props;
+  const parentRef = useRef();
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [transferdialerNumber, settransferdialerNumber] = useState("");
+  const [conferencedialerNumber, setConferencedialerNumber] = useState("");
+  const [transferType, setTransferType] = useState("");
+
+  const handleBlindTransfer = () => {
+    props.blindTransfer(transferdialerNumber);
+    props.setIsTransferInitiated(true);
+    setTransferType("blind");
+    handleTransferDialpad();
+  };
+
+  const handleAttendedTransfer = () => {
+    props.attendedTransfer(transferdialerNumber);
+    props.setIsTransferInitiated(true);
+    setTransferType("attended");
+  };
+
+  const handleCompleteTransfer = () => {
+    props.completeTransfer();
+    handleTransferDialpad();
+    props.setIsTransferInitiated(false);
+    setTransferType("");
+  };
+
+  const handleTransferDialpad = () => {
+    props.setOpentransferdialer(!props.Opentransferdialer);
+  };
+
+  const handleConferenceDialpad = () => {
+    props.setOpenConferencedialer(!props.OpenConferencedialer);
+  };
+
+  const handleSmallscreenDialpad = () => {
+    props.setOpenSmallscreenDialer(!props.OpenSmallscreenDialer);
+  };
+
+  const CloseTransferDialpad = () => {
+    props.setOpentransferdialer(false);
+  };
+
+  const CloseConferenceDialpad = () => {
+    props.setOpenConferencedialer(false);
+  };
+
+  const CloseSmallScreenDialpad = () => {
+    props.setOpenSmallscreenDialer(false);
+  };
+
+  const handleNumberClick = (num) => {
+    settransferdialerNumber((prevNumber) => prevNumber + num);
+  };
+
+  const ConferenceNumberClick = (num) => {
+    setConferencedialerNumber((prevNumber) => prevNumber + num);
+  };
+
+  const handleClear = () => {
+    settransferdialerNumber("");
+  };
+
+  const handleDelete = () => {
+    settransferdialerNumber((prevNumber) => prevNumber.slice(0, -1));
+  };
+
+  const ConferenceClear = () => {
+    setConferencedialerNumber("");
+  };
+
+  const ConferenceDelete = () => {
+    setConferencedialerNumber((prevNumber) => prevNumber.slice(0, -1));
+  };
+
+  const handleCall = () => {
+    props.setOpenDialer(false);
+  };
+
+  const toggleScreen = () => {
+    setIsSmallScreen(!isSmallScreen);
+  };
+
+  const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
+
+  const handleDragStart = (event, info) => {
+    setDragStartPos({ x: info.point.x, y: info.point.y });
+  };
+
+  return (
+    <>
+      {/* Main answer screen after incoming */}
+
+      {/* inbound call screen */}
+      {/* props.incomingCallAccepted */}
+      {props.incomingCallAccepted ? (
+        isSmallScreen ? (
+          <motion.div
+            className="answerScreen_smallScreen"
+            drag
+            dragConstraints=".draggable_main"
+            onDragStart={handleDragStart}
+          >
+            <Box className=" ">
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                  <img src={photo} alt="" />
+          
+                      {/* {localStorage.getItem("dialedNumber")} */}
+                      <Stack direction="column">
+                      <Typography variant="body2" gutterBottom>
+                      {props?.displayExtNum || "Agent"}
+                      </Typography>
+                      <span className="flex font-bold text-xs">
+                      <p>{props.voicehours}</p>:
+                      <p>{props.voiceminutes}</p>:
+                      <p>{props.voiceseconds}</p>
+                      </span>
+                      </Stack>
+
+                    {/* Container for buttons */}
+
+                      <Tooltip title="Dial">
+                      <Button
+                        type="button"
+                        // className="call-btn mb-1 d-flex mx-auto"
+                        onClick={handleSmallscreenDialpad}
+                        // style={{ marginRight: "8px" }}
+                      >
+                        <MdDialpad  className="rounded-full" size={25} color="black" />
+                      </Button>
+                      </Tooltip>
+
+                      <Tooltip title="End Call">
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-2 mb-1"
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          borderRadius: "23px",
+                        }}
+                        onClick={() => endCall()}
+                      >
+                        <MdCallEnd
+                          color="white"
+                          size={17}
+                          style={{ marginLeft: "-3px" }}
+                        />
+                      </button>
+                      </Tooltip>
+                    
+                      <Tooltip title="Maximize">
+                      <IconButton>
+                    <HiMiniArrowsPointingOut
+                      size={16}
+                      onClick={toggleScreen}
+                      style={{ cursor: "pointer" }}
+                    />
+                      </IconButton>
+                      </Tooltip>
+              
+          
+              </Stack>
+            </Box>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="answerScreen"
+            drag
+            dragConstraints=".draggable_main"
+            onDragStart={handleDragStart}
+          >
+            <Box className="answerScreen">
+              <Box className="p-3 flex flex-col justify-center items-center">
+                <Box className="p-2">
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <img src={photo} alt="" />
+                  </Stack>
+                  <Stack className="call_names mt-2 d-flex flex-column justify-content-center align-items-center mb-3">
+                    {/* {props.conference ? (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem("ConferencedNum")}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )} */}
+
+                    {/* {props.conference ? (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.transferCall
+                              ? localStorage.getItem("TransferdialedNumber")
+                              : props.displayExtNum}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem("ConferencedNum")}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.transferCall
+                              ? localStorage.getItem("TransferdialedNumber")
+                              : props.displayExtNum}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )} */}
+
+                    {/* {props.conference ? (
+                      <>
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem("ConferencedNum")}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {props?.displayExtNum ||"#####"}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )} */}
+
+                    {props.transferCall ? (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {localStorage.getItem("dialedNumber")}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem(
+                              "TransferdialedNumber",
+                              transferdialerNumber
+                            )}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {/* {localStorage.getItem("dialedNumber")} */}
+                            {props.displayExtNum}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )}
+
+                    <Typography
+                      variant="caption"
+                      gutterBottom
+                      style={{ fontSize: "8px" }}
+                    >
+                      IVR Exit Point: CARD MENU PAYMENT OPTIONS incoming
+                    </Typography>
+                  </Stack>
+                </Box>
+                <div className="grid grid-cols-3 gap-3">
+                    <Stack
+                      direction="column"
+                      alignItems="center"
+                      // sx={{
+                      //   borderRadius: "50% !important",
+                      //   height: "70px",
+                      //   paddingBottom: "0px",
+                      //   paddingRight: "0px",
+                      //   paddingLeft: "0px",
+                      // }}
+                    >
+                      {props.showMute ? (
+                        <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                          // type="button"
+                          // id="muteButton"
+                          // className="call-btn"
+                          tooltipTitle="unmute"
+                          onClick={() => {
+                            // props.muteUnmute("muted", "Mute");
+                            props.handleMuteButtonClick("muted", "Mute");
+
+                            // props.muteBrowserAudio();
+                          }}
+                        >
+                          <Microphone color="#373A40"  size={28} />
+                        </CustomButton>
+                      ) : (
+                        <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                          // type="button"
+                          // id="muteButton"
+                          // className="call-btn"
+                          tooltipTitle="muted"
+                          onClick={() => {
+                            // props.muteUnmute("unmuted", "unMute");
+                            props.handleMuteButtonClick("unmuted", "unMute");
+                            // props.muteBrowserAudio();
+                          }}
+                        >
+                          <MicrophoneSlash color="#373A40" size={28} />
+                        </CustomButton>
+                      )}
+                      {/* <Typography variant="caption">
+                        {props.showMute ? "UnMute" : "Mute"}
+                      </Typography> */}
+                    </Stack>
+                  <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Dial"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={handleSmallscreenDialpad}
+                        >
+                             <MdDialpad  className="rounded-full" size={28} color="#373A40" /> 
+                    </CustomButton>
+              
+                    <Stack direction="column" alignItems="center">
+                      {props.showHold ? (
+                        <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Hold"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={() => {
+                            props.holdUnhold("Call on progress", "Hold");
+                          }}
+                        >
+                          <PlayCircle
+                            color="#373A40"
+                            size={28}
+                            className="icon"
+                          />
+                        </CustomButton>
+                      ) : (
+                        <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Un Hold"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={() => {
+                            props.holdUnhold("Call on Hold", "UnHold");
+                          }}
+                        >
+                          <PauseCircle
+                            color="#373A40"
+                            size={28}
+                            className="icon"
+                          />
+                        </CustomButton>
+                      )}
+                      {/* <Typography variant="caption">
+                        {props.showHold ? "Unhold" : "Hold"}
+                      </Typography> */}
+                    </Stack>
+                  <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Speaker"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={handleSmallscreenDialpad}
+                        >
+                             <HiOutlineSpeakerWave  className="rounded-full" size={28} color="#373A40" /> 
+                  </CustomButton>
+              
+                    <Stack direction="column" alignItems="center">
+                      {true ? (
+                        <CustomButton
+                        backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Transfer"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={() => {
+                            alert("inside transfer call");
+                            handleTransferDialpad();
+                          }}
+                        >
+                          <ArrowsLeftRight
+                            color="#373A40"
+                            size={28}
+                            // className="icon"
+                          />
+                        </CustomButton>
+                      ) : (
+                        <CustomButton
+                          backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Transfer"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={() => {
+                            alert("else  transfer call");
+                            handleTransferDialpad();
+                          }}
+                        >
+                          <ArrowsLeftRight
+                            color="#373A40"
+                            size={20}
+                            className="icon"
+                          />
+                        </CustomButton>
+                      )}
+
+                      {/* <Typography variant="caption">
+                        {props.transferCall ? "Not Transfer" : "Transfer"}
+                      </Typography> */}
+                    </Stack>
+              
+                    <Stack direction="column" alignItems="center">
+                      {props.conference ? (
+                        <CustomButton
+                          backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Consference"
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            handleConferenceDialpad();
+                            // props.conferenceCallApi(
+                            //   "call on conference",
+                            //   "conference"
+                            // );
+                          }}
+                        >
+                          <HiOutlineUserAdd
+                            color="#373A40"
+                            size={28}
+                            // className="icon"
+                          />
+                        </CustomButton>
+                      ) : (
+                        <CustomButton
+                          backgroundColor="white"
+                        borderRadius="100%"
+                        tooltipTitle="Conference"
+                          // type="button"
+                          // className="call-btn"
+                          onClick={() => {
+                            handleConferenceDialpad();
+                            // props.conferenceCallApi("call on Merge", "Merged");
+                          }}
+                        >
+                          <MdMerge color="#373A40" size={28} 
+                          // className="icon"
+                           />
+                        </CustomButton>
+                      )}
+                      {/* <Typography variant="caption">
+                        {props.conference ? "Merged" : "conference"}
+                      </Typography> */}
+                    </Stack>
+                </div>
+
+                <Box className="position-absolute top-0 end-0 p-2">
+                  <TiArrowMinimise
+                    size={20}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsSmallScreen(true);
+                    }}
+                  />
+                </Box>
+
+                <button
+                  type="button"
+                  className="btn btn-danger ms-2"
+                  style={{
+                    height: "40px",
+                    width: "40px",
+                    borderRadius: "23px",
+                    marginTop:"10px"
+                  }}
+                  // onClick={() => {
+                  //   if (props.showTransferCall == true) {
+                  //     props.endCallTransfer();
+                  //   } else {
+                  //     props.endCall();
+                  //   }
+                  // }}
+                  onClick={() => props.endCall()}
+                >
+                  <MdCallEnd color="white" size={17} />
+                </button>
+              </Box>
+            </Box>
+          </motion.div>
+        )
+      ) : (
+        ""
+      )}
+
+      {/* outbound  answer screen */}
+      {props.OutgoingCall ? (
+        isSmallScreen ? (
+          <motion.div
+            className="answerScreen_smallScreen"
+            drag
+            dragConstraints=".draggable_main"
+            onDragStart={handleDragStart}
+          >
+            <Box className="answerScreen_smallScreen">
+              <Stack direction="row" alignItems="center">
+                <Box className="ms-2">
+                  <img src={photo} alt="" />
+                </Box>
+                <Box className="ms-3">
+                  <Stack direction="column" className="mx-2">
+                    <Typography
+                      variant="caption"
+                      className="d-inline-block text-truncate"
+                      style={{
+                        fontSize: "15px",
+                        color: "black !important",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        width: "150px",
+                      }}
+                    >
+                      {localStorage.getItem("dialedNumber")}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      gutterBottom
+                      style={{ fontSize: "12px", color: "black" }}
+                    >
+                      <span>{props.voicehours}</span>:
+                      <span>{props.voiceminutes}</span>:
+                      <span>{props.voiceseconds}</span>
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "8px",
+                      }}
+                    >
+                      <Button
+                        type="button"
+                        className="call-btn mb-1 d-flex mx-auto"
+                        onClick={handleSmallscreenDialpad}
+                        style={{ marginRight: "8px" }}
+                      >
+                        <MdDialpad className="icon" size={15} color="black" />
+                      </Button>
+
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-2"
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                          borderRadius: "23px",
+                        }}
+                        onClick={() => endCall()}
+                      >
+                        <MdCallEnd color="white" size={17} />
+                      </button>
+                    </Box>
+                  </Stack>
+                  <Box className="position-absolute top-0 end-0 p-2 me-2">
+                    <HiMiniArrowsPointingOut
+                      size={16}
+                      onClick={toggleScreen}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Box>
+                </Box>
+              </Stack>
+            </Box>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="answerScreen"
+            drag
+            dragConstraints=".draggable_main"
+            onDragStart={handleDragStart}
+          >
+            <Box className="answerScreen">
+              <Box className="p-3 d-flex flex-column justify-content-center align-items-center">
+                <Box className="p-2">
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <img src={photo} alt="" />
+                  </Stack>
+                  <Stack className="call_names mt-2 d-flex flex-column justify-content-center align-items-center mb-3">
+                    {props.transferCall ? (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {localStorage.getItem("dialedNumber")}
+                          </span>
+                        </Typography>
+
+                        <Typography>
+                          <span style={{ fontWeight: "bold" }}>
+                            {localStorage.getItem(
+                              "TransferdialedNumber",
+                              transferdialerNumber
+                            )}
+                          </span>
+                        </Typography>
+
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography>
+                          <span style={{ color: "rgba(0, 0, 0, 0.5)" }}>
+                            {localStorage.getItem("dialedNumber")}
+                          </span>
+                        </Typography>
+                        <Typography variant="body2">
+                          {" "}
+                          <span>{props.voicehours}</span>:
+                          <span>{props.voiceminutes}</span>:
+                          <span>{props.voiceseconds}</span>
+                        </Typography>
+                      </>
+                    )}
+
+                    <Typography
+                      variant="caption"
+                      gutterBottom
+                      style={{ fontSize: "8px" }}
+                    >
+                      IVR Exit Point: CARD MENU PAYMENT OPTIONS outgoingg
+                    </Typography>
+                  </Stack>
+                </Box>
+                <Grid container justifyContent="center" spacing={2} mb={4}>
+                  <Grid item>
+                    <Stack
+                      direction="column"
+                      alignItems="center"
+                      sx={{
+                        borderRadius: "50% !important",
+                        height: "70px",
+                        paddingBottom: "0px",
+                        paddingRight: "0px",
+                        paddingLeft: "0px",
+                      }}
+                    >
+                      {props.showMute ? (
+                        <Button
+                          type="button"
+                          id="muteButton"
+                          className="call-btn"
+                          onClick={() => {
+                            // props.muteUnmute("muted", "Mute");
+                            props.handleMuteButtonClick("muted", "Mute");
+                            // props.muteBrowserAudio();
+                          }}
+                        >
+                          <Microphone color="black" size={20} />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          id="muteButton"
+                          className="call-btn"
+                          onClick={() => {
+                            // props.muteUnmute("unmuted", "unMute");
+                            props.handleMuteButtonClick("unmuted", "unMute");
+
+                            // props.muteBrowserAudio();
+                          }}
+                        >
+                          <MicrophoneSlash color="black" size={20} />
+                        </Button>
+                      )}
+
+                      <Typography variant="caption">
+                        {props.showMute ? "UnMute" : "Mute"}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+
+                  <Grid item>
+                    <Stack direction="column" alignItems="center">
+                      {props.showHold ? (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            props.holdUnhold("Call on progress", "Hold");
+                            // alert("inside hold");
+                          }}
+                        >
+                          <PlayCircle
+                            color="black"
+                            size={20}
+                            className="icon"
+                          />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            props.holdUnhold("Call on Hold", "UnHold");
+                            // alert("inside UNhold");
+                          }}
+                        >
+                          <PauseCircle
+                            color="black"
+                            size={20}
+                            className="icon"
+                          />
+                        </Button>
+                      )}
+
+                      <Typography variant="caption">
+                        {props.showHold ? "Unhold" : "Hold"}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                </Grid>
+
+                <Grid container justifyContent="center" spacing={2}>
+                  <Grid item>
+                    <Stack direction="column" alignItems="center">
+                      {true ? (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            alert("outgoing transfer call");
+                            handleTransferDialpad();
+                          }}
+                        >
+                          <ArrowsLeftRight
+                            color="black"
+                            size={20}
+                            className="icon"
+                          />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            alert("else outgoing transfer call");
+                            handleTransferDialpad();
+                          }}
+                        >
+                          <ArrowsLeftRight
+                            color="black"
+                            size={20}
+                            className="icon"
+                          />
+                        </Button>
+                      )}
+
+                      <Typography variant="caption">
+                        {props.transferCall ? "Not Transfer" : "Transfer"}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                  <Grid item>
+                    <Stack direction="column" alignItems="center">
+                      {props.conference ? (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            handleConferenceDialpad();
+                            props.ConferenceCallApi(
+                              "call on conference",
+                              "conference"
+                            );
+                          }}
+                        >
+                          <HiOutlineUserAdd
+                            color="black"
+                            size={20}
+                            className="icon"
+                          />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          className="call-btn"
+                          onClick={() => {
+                            handleConferenceDialpad();
+                            props.ConferenceCallApi("call on Merge", "Merged");
+                          }}
+                        >
+                          <MdMerge color="black" size={20} className="icon" />
+                        </Button>
+                      )}
+                      <Typography variant="caption">
+                        {props.conference ? "Merged" : "conference"}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                </Grid>
+
+                <Box className="position-absolute top-0 end-0 p-2">
+                  <TiArrowMinimise
+                    size={20}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsSmallScreen(true);
+                    }}
+                  />
+                </Box>
+
+                <button
+                  type="button"
+                  className="btn btn-danger ms-2"
+                  style={{
+                    height: "40px",
+                    width: "40px",
+                    borderRadius: "23px",
+                  }}
+                  // onClick={() => {
+                  //   if (props.showTransferCall == true) {
+                  //     props.endCallTransfer();
+                  //   } else {
+                  //     props.endCall();
+                  //   }
+                  // }}
+                  onClick={() => props.endCall()}
+                >
+                  <MdCallEnd color="white" size={17} />
+                </button>
+              </Box>
+            </Box>
+          </motion.div>
+        )
+      ) : (
+        ""
+      )}
+
+      {/* Transfer dialer pad */}
+      {props.Opentransferdialer ? (
+        <Box className="dialpad_main">
+          <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
+            <TextField
+              value={transferdialerNumber}
+              onChange={(e) => {
+                settransferdialerNumber(e.target.value);
+              }}
+              style={{ width: "18rem" }}
+              className="p-2"
+            />
+            <Grid
+              container
+              spacing={1}
+              className="p-2"
+              style={{ marginLeft: "8px" }}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
+                <Grid key={num} item xs={4} p={1}>
+                  <Button
+                    className="dialpad-btn"
+                    style={{ color: "black" }}
+                    onClick={() => handleNumberClick(num)}
+                  >
+                    {num}
+                  </Button>
+                </Grid>
+              ))}
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={handleClear}
+                  style={{ color: "orange" }}
+                >
+                  Clear
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={handleDelete}
+                  style={{ color: "red" }}
+                >
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  style={{ color: "black" }}
+                  onClick={CloseTransferDialpad}
+                >
+                  <X size={20} />
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid style={{ marginLeft: "8px", display: "flex" }}>
+              {props.isTransferInitiated ? (
+                <Grid item xs={6} md={6} m={1}>
+                  <Button
+                    className="dialpad-btn"
+                    // onClick={handleCompleteTransfer}
+
+                    onClick={() => {
+                      props.completeTransfer();
+                      handleTransferDialpad();
+                    }}
+                    style={{
+                      color: "white",
+                      background: "red",
+                      fontSize: "10px",
+                    }}
+                    fullWidth
+                  >
+                    Complete Transfer
+                  </Button>
+                </Grid>
+              ) : (
+                <>
+                  <Grid item xs={6} md={6} m={1}>
+                    <Button
+                      className="dialpad-btn"
+                      onClick={() => {
+                        // props.setIsTransferInitiated(true);
+                        localStorage.setItem(
+                          "TransferdialedNumber",
+                          transferdialerNumber
+                        );
+
+                        props.blindTransfer(transferdialerNumber);
+                        
+                      }}
+                      style={{
+                        color: "white",
+                        background: "green",
+                        fontSize: "10px",
+                      }}
+                      fullWidth
+                    >
+                      Blind Transfer
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} md={6} m={1}>
+                    <Button
+                      className="dialpad-btn"
+                      onClick={() => {
+                        // props.setIsTransferInitiated(true);
+                        localStorage.setItem(
+                          "TransferdialedNumber",
+                          transferdialerNumber
+                        );
+                        handleAttendedTransfer();
+                      }}
+                      style={{
+                        color: "white",
+                        background: "green",
+                        fontSize: "10px",
+                      }}
+                      fullWidth
+                    >
+                      Attend Transfer
+                    </Button>
+                  </Grid>
+                </>
+              )}
+            </Grid>
+          </Card>
+        </Box>
+      ) : (
+        ""
+      )}
+
+      {/* conference  dialer pad */}
+      {props.OpenConferencedialer && (
+        <Box className="dialpad_main">
+          <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
+            <TextField
+              value={conferencedialerNumber}
+              onChange={(e) => {
+                setConferencedialerNumber(e.target.value);
+              }}
+              style={{ width: "18rem" }}
+              className="p-2"
+            />
+            <Grid
+              container
+              spacing={1}
+              className="p-2"
+              style={{ marginLeft: "8px" }}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
+                <Grid key={num} item xs={4} p={1}>
+                  <Button
+                    className="dialpad-btn"
+                    style={{ color: "black" }}
+                    onClick={() => ConferenceNumberClick(num)}
+                  >
+                    {num}
+                  </Button>
+                </Grid>
+              ))}
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={ConferenceClear}
+                  style={{ color: "orange" }}
+                >
+                  Clear
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={ConferenceDelete}
+                  style={{ color: "red" }}
+                >
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  style={{ color: "black" }}
+                  onClick={CloseConferenceDialpad}
+                >
+                  <X size={20} />
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} md={12} m={2}>
+              {props.isConferenceInitiated ? (
+                <Button
+                  className="dialpad-btn"
+                  onClick={() => {
+                    handleConferenceDialpad();
+                    props.conferencefuntion("call on conference", "conference");
+                  }}
+                  style={{ color: "white", background: "green" }}
+                  fullWidth
+                >
+                  Conference
+                </Button>
+              ) : (
+                <Button
+                  className="dialpad-btn"
+                  onClick={() => {
+                    handleConferenceDialpad();
+                    props.ConferenceCallApi("call on conference", "conference");
+                    localStorage.setItem(
+                      "ConferenceNumber",
+                      conferencedialerNumber
+                    );
+                    props.conferencefuntion(conferencedialerNumber);
+                  }}
+                  style={{ color: "white", background: "green" }}
+                  fullWidth
+                >
+                  Call
+                </Button>
+              )}
+            </Grid>
+          </Card>
+        </Box>
+      )}
+
+      {/* Small Screen dialer */}
+      {props.OpenSmallscreenDialer && (
+        <Box className="dialpad_main">
+          <Card className="dialpad-card" style={{ borderRadius: "10px" }}>
+            <TextField
+              value={props.dialedNumber}
+              onChange={props.handleExtensionChange}
+              style={{ width: "18rem" }}
+              className="p-2"
+            />
+            <Grid
+              container
+              spacing={1}
+              className="p-2"
+              style={{ marginLeft: "8px" }}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
+                <Grid key={num} item xs={4} p={1}>
+                  <Button
+                    className="dialpad-btn"
+                    style={{ color: "black" }}
+                    onClick={() => handleNumberClick(num)}
+                  >
+                    {num}
+                  </Button>
+                </Grid>
+              ))}
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={handleClear}
+                  style={{ color: "orange" }}
+                >
+                  Clear
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={handleDelete}
+                  style={{ color: "red" }}
+                >
+                  Delete
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="dialpad-btn"
+                  style={{ color: "black" }}
+                  onClick={CloseSmallScreenDialpad}
+                >
+                  <X size={20} />
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid style={{ marginLeft: "8px", display: "flex" }}>
+              <Grid item xs={6} md={6} m={1}>
+                {props.isTransferInitiated ? (
+                  <Button
+                    className="dialpad-btn"
+                    onClick={() => {
+                      props.attendedTransfer();
+                      // handleTransferDialpad();
+                      setOpentransferdialer(false);
+                      localStorage.setItem(
+                        "TransferdialedNumber",
+                        transferdialerNumber
+                      );
+                    }}
+                    style={{
+                      color: "white",
+                      background: "green",
+                      width: "100%",
+                    }}
+                  >
+                    Transfer
+                  </Button>
+                ) : (
+                  <Button
+                    className="dialpad-btn"
+                    onClick={() => {
+                      props.attendedTransfer();
+                      handleTransferDialpad();
+                      localStorage.setItem(
+                        "TransferdialedNumber",
+                        transferdialerNumber
+                      );
+                    }}
+                    style={{
+                      color: "white",
+                      background: "green",
+                      width: "100%",
+                    }}
+                  >
+                    Transfer
+                  </Button>
+                )}
+              </Grid>
+              <Grid item xs={6} md={6} m={1}>
+                <Button
+                  className="dialpad-btn"
+                  onClick={() => {
+                    props.ConferenceCallApi();
+                    handleConferenceDialpad();
+                  }}
+                  style={{ color: "white", background: "green", width: "100%" }}
+                >
+                  Conference
+                </Button>
+              </Grid>
+            </Grid>
+          </Card>
+        </Box>
+      )}
+    </>
+  );
+};
+
+export default connect(mapStateToProps, {
+  setDisplayExtNum,
+  setvoicehours,
+  setvoiceminutes,
+  setvoiceseconds,
+  setOutgoingCall,
+  setIncomingCall,
+  setAnswerScreen,
+
+  setShowUnMute,
+  setShowHold,
+  setShowUnHold,
+  setTransferCall,
+  setShowTransferCall,
+  setConference,
+  setShowConference,
+  setMergeCall,
+  setIsTransferInitiated,
+})(AnswerCallScreen);

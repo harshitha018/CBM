@@ -1,0 +1,33 @@
+.MuiPickersLayout-actionBar{
+    display: none !important;
+}
+
+.time-container .MuiStack-root {
+    padding-top: 0 !important;
+    height: 100%;
+  }
+.time-container .MuiInputBase-input{
+    padding: 0px;
+    padding-left: 6px;
+    font-size: 12px !important;
+    width: 34px;
+}  
+
+.time-container .MuiIconButton-root{
+    padding: 0;
+    margin-right: 6px;
+    height: 16px;
+    width: 16px;
+}
+.time-container .MuiSvgIcon-fontSizeMedium{
+    height: 95%;
+    width: 95%;
+}
+
+.time-container .MuiTextField-root{
+    min-width: 60px !important;
+}
+
+.time-container .MuiInputBase-root{
+    padding-right: 0;
+}
