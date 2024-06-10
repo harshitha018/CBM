@@ -93,9 +93,17 @@ h1 {
 }
 
 .login {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  min-height: 100vh !important;
+  min-height: -webkit-fill-available !important;
 }
+@media only screen and (max-width: 768px) {
+  .login {
+    background-size: cover !important;
+    min-height: 100vh !important;
+  }
+}
+
+
 
 .login-banner {
   background-image: url(../images/banner.jpg);

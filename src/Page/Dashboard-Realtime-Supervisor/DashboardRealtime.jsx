@@ -51,6 +51,132 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function DashboardRealtime() {
   const [age, setAge] = React.useState("");
+  const [agents, setAgents] = useState([]);
+
+  useEffect(() => {
+    // Mock API fetch simulation
+    const mockFetch = () => {
+      // Simulated API response
+      const mockApiResponse = {
+        agents: [
+          {
+            id: 1,
+            agentName: "Emily Smith",
+            login: "emily.smith01",
+            ext: "3001",
+            type: "Inbound",
+            status: "Logged In",
+            skillset: "Sales",
+            channel: "Voice",
+            action: "Barge In",
+          },
+          {
+            id: 2,
+            agentName: "James Johnson",
+            login: "james.johnson02",
+            ext: "3002",
+            type: "Outbound",
+            status: "Logged Out",
+            skillset: "Production",
+            channel: "Voice",
+            action: "Whisper",
+          },
+          {
+            id: 3,
+            agentName: "Sophia Williams",
+            login: "sophia.williams03",
+            ext: "3003",
+            type: "Blend",
+            status: "Not Ready",
+            skillset: "Outbound Sales",
+            channel: "Voice",
+            action: "Monitor",
+          },
+          {
+            id: 4,
+            agentName: "Noah Brown",
+            login:  "noah.brown04",
+            ext: "3004",
+            type: "Inbound",
+            status: "Idle",
+            skillset: "Customer Support",
+            channel: "Voice",
+            action: "Message",
+          },
+          {
+            id: 5,
+            agentName: "Olivia Jones",
+            login: "olivia.jones05",
+            ext: "3005",
+            type: "Outbound",
+            status: "On Call",
+            skillset: "Account Management",
+            channel: "Voice",
+            action: "Barge In",
+          },
+          {
+            id: 6,
+            agentName: "Ethan Davis",
+            login: "ethan.davis06",
+            ext: "3006",
+            type: "Blend",
+            status: "Break",
+            skillset: "Technical Support",
+            channel: "Voice",
+            action: "Whisper",
+          },
+          {
+            id: 7,
+            agentName: "Emma Miller",
+            login: "emma.miller07",
+            ext: "3007",
+            type: "Inbound",
+            status: "ACW",
+            skillset: "Retention Specialist",
+            channel: "Voice",
+            action: "Monitor",
+          },
+          {
+            id: 8,
+            agentName: "Mason Wilson",
+            login: "mason.wilson08",
+            ext: "3008",
+            type: "Outbound",
+            status: "Logged In",
+            skillset: "Complaint Resolution",
+            channel: "Voice",
+            action: "Message",
+          },
+          {
+            id: 9,
+            agentName: "Ava Moore",
+            login: "ava.moore09",
+            ext: "3009",
+            type: "Blend",
+            status: "Logged Out",
+            skillset: "IT Helpdesk",
+            channel: "Voice",
+            action: "Barge In",
+          },
+          {
+            id: 10,
+            agentName: "Liam Taylor",
+            login: " liam.taylor10",
+            ext: "3000",
+            type: "Inbound",
+            status: "Not Ready",
+            skillset: "Billing and Payments",
+            channel: "Voice",
+            action: "Whisper",
+          },
+        ],
+      };
+
+      setAgents(mockApiResponse.agents);
+    };
+
+    mockFetch(); // Simulate fetching data
+  }, []);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -58,25 +184,29 @@ function DashboardRealtime() {
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  useEffect(() => {
-    const headers = {
-      Authorization:
-        "Bearer " +
-        "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiQWRtaW4iLCJVc2VyRGV0YWlscyI6eyJhdXRvZ2VuVXNlcnNJZCI6MSwiZW1haWwiOiJuYXNAZ21haWwuY29tIiwiZW1wbG95ZWVJZCI6IkFkbWluIiwiZmlyc3ROYW1lIjoiVGVuYW50SSIsImxhc3ROYW1lIjoiVDk3NDIwMjQwNF8wMyIsIm1vYmlsZU51bWJlciI6IjkwMzkzMjA5MDkiLCJwYXNzd29yZCI6IiQyYSQxMCRxdlBKNEhLWDhWMENxZUxnVndET1dPTC90WkxnYUtXUHY4RnNFeVkud0ZIMllkWkUvRlMwaSIsInN0YXR1cyI6IkFDVElWRSIsImF1dG9nZW5Vc2Vyc0RldGFpbHNJZCI6IiIsInVzZXJncm91cE5hbWUiOiJzYWxlc3MiLCJyb2xlcyI6W3siYXV0b2dlblJvbGVzSWQiOm51bGwsInJlY0FkZER0IjpudWxsLCJyZWNVcGRhdGVEdCI6bnVsbCwicm9sZXNOYW1lIjoiQWRtaW4iLCJkZXNjcmlwdGlvbiI6bnVsbCwicm9sZUNyZWF0ZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRCeSI6bnVsbCwidXNlclNjcmVlbk1hcCI6bnVsbH1dLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQWRtaW4ifV0sInJvbGVzTGlzdCI6WyJBZG1pbiJdLCJwYnhFeHQiOiIiLCJza2lsbFNldCI6IiIsImRpc3Bvc2l0aW9uIjoiQ09MTEVDVElPTiIsInVzZXJncm91cHR5cGUiOm51bGwsImVuYWJsZWQiOnRydWUsInVzZXJuYW1lIjpudWxsLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJhY2NvdW50Tm9uRXhwaXJlZCI6dHJ1ZSwiY3JlZGVudGlhbHNOb25FeHBpcmVkIjp0cnVlfSwiaWF0IjoxNzE3MDY5MTc4LCJleHAiOjE3MTcwNzI3Nzh9.b9roP6x41uNn7T-8WaOt0BymiGXyPGx_MyFBGfwT3sGzkH2_zg1ZZlrCrGXBOECgk-O7pH1ESkBhUA2DNl3jEw", // Replace with your actual access token
-      "Content-Type": "application/json",
-    };
 
-    async function getUser() {
-      try {
-        const response = await axios.get(
-          "http://192.168.45.59:8080/cbmUAT/usergroup/getusergroupDetail"
-        );
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const headers = {
+  //     Authorization:
+  //       "Bearer " +
+  //       "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiQWRtaW4iLCJVc2VyRGV0YWlscyI6eyJhdXRvZ2VuVXNlcnNJZCI6MSwiZW1haWwiOiJuYXNAZ21haWwuY29tIiwiZW1wbG95ZWVJZCI6IkFkbWluIiwiZmlyc3ROYW1lIjoiVGVuYW50SSIsImxhc3ROYW1lIjoiVDk3NDIwMjQwNF8wMyIsIm1vYmlsZU51bWJlciI6IjkwMzkzMjA5MDkiLCJwYXNzd29yZCI6IiQyYSQxMCRxdlBKNEhLWDhWMENxZUxnVndET1dPTC90WkxnYUtXUHY4RnNFeVkud0ZIMllkWkUvRlMwaSIsInN0YXR1cyI6IkFDVElWRSIsImF1dG9nZW5Vc2Vyc0RldGFpbHNJZCI6IiIsInVzZXJncm91cE5hbWUiOiJzYWxlc3MiLCJyb2xlcyI6W3siYXV0b2dlblJvbGVzSWQiOm51bGwsInJlY0FkZER0IjpudWxsLCJyZWNVcGRhdGVEdCI6bnVsbCwicm9sZXNOYW1lIjoiQWRtaW4iLCJkZXNjcmlwdGlvbiI6bnVsbCwicm9sZUNyZWF0ZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRCeSI6bnVsbCwidXNlclNjcmVlbk1hcCI6bnVsbH1dLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQWRtaW4ifV0sInJvbGVzTGlzdCI6WyJBZG1pbiJdLCJwYnhFeHQiOiIiLCJza2lsbFNldCI6IiIsImRpc3Bvc2l0aW9uIjoiQ09MTEVDVElPTiIsInVzZXJncm91cHR5cGUiOm51bGwsImVuYWJsZWQiOnRydWUsInVzZXJuYW1lIjpudWxsLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJhY2NvdW50Tm9uRXhwaXJlZCI6dHJ1ZSwiY3JlZGVudGlhbHNOb25FeHBpcmVkIjp0cnVlfSwiaWF0IjoxNzE3MDY5MTc4LCJleHAiOjE3MTcwNzI3Nzh9.b9roP6x41uNn7T-8WaOt0BymiGXyPGx_MyFBGfwT3sGzkH2_zg1ZZlrCrGXBOECgk-O7pH1ESkBhUA2DNl3jEw", // Replace with your actual access token
+  //     "Content-Type": "application/json",
+  //   };
+
+  //   async function getUser() {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://192.168.45.59:8080/cbmUAT/usergroup/getusergroupDetail",
+  //         { headers }
+  //       );
+  //       setData(response.data.value); // Adjust based on the structure of your response
+  //     } catch (error) {
+  //       setError(error);
+  //     }
+  //   }
+
+  //   getUser();
+  // }, []);
 
   return (
     <Grid container direction={"row"}>
@@ -1122,209 +1252,124 @@ function DashboardRealtime() {
                                     </TableRow>
                                   </TableHead>
                                   <TableBody>
-                                    {[...Array(10)].map((_, index) => (
-                                      <TableRow key={index}>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Agent Name {index + 1}
-                                        </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Login {index + 1}
-                                        </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Ext {index + 1}
-                                        </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Type {index + 1}
-                                          {/* type dropdown                      */}
+                                    {agents.map((agent) => (
+                                      <TableRow key={agent.id}>
+                                        <TableCell>{agent.agentName}</TableCell>
+                                        <TableCell>{agent.login}</TableCell>
+                                        <TableCell>{agent.ext}</TableCell>
+                                        <TableCell>
                                           <FormControl
                                             sx={{
                                               marginLeft: "5px",
                                               minWidth: 91,
-                                              width: 91,
                                             }}
                                           >
                                             <Select
-                                              labelId="demo-simple-select-label"
-                                              id="demo-simple-select"
+                                              value={agent.type}
                                               onChange={handleChange}
                                               sx={{
-                                                height: "20px", // Adjust the height as needed
-                                                fontSize: "10px", // Adjust the font size as needed
-                                                // color: "#FFFFFF",
+                                                height: "20px",
+                                                fontSize: "10px",
                                               }}
-                                              // Alternatively, you can use inline style
-                                              // style={{ height: '30px', fontSize: '14px' }}
                                             >
-                                              <MenuItem value={10}>
+                                              <MenuItem value="Inbound">
                                                 Inbound
                                               </MenuItem>
-                                              <MenuItem value={20}>
+                                              <MenuItem value="Outbound">
                                                 Outbound
                                               </MenuItem>
-                                              <MenuItem value={30}>
+                                              <MenuItem value="Blend">
                                                 Blend
                                               </MenuItem>
                                             </Select>
                                           </FormControl>
                                         </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Status {index + 1}
-                                          {/* status dropdown */}
+                                        <TableCell>
                                           <FormControl
                                             sx={{
                                               marginLeft: "5px",
                                               minWidth: 100,
-                                              width: 100,
                                             }}
                                           >
                                             <Select
-                                              labelId="demo-simple-select-label"
-                                              id="demo-simple-select"
+                                              value={agent.status}
                                               onChange={handleChange}
                                               sx={{
-                                                height: "20px", // Adjust the height as needed
-                                                fontSize: "10px", // Adjust the font size as needed
-                                                // color: "#FFFFFF",
+                                                height: "20px",
+                                                fontSize: "10px",
                                               }}
-                                              // Alternatively, you can use inline style
-                                              // style={{ height: '30px', fontSize: '14px' }}
                                             >
-                                              <MenuItem value={10}>
+                                              <MenuItem value="Logged In">
                                                 Logged In
                                               </MenuItem>
-                                              <MenuItem value={20}>
+                                              <MenuItem value="Logged Out">
                                                 Logged Out
                                               </MenuItem>
-                                              <MenuItem value={30}>
+                                              <MenuItem value="Not Ready">
                                                 Not Ready
                                               </MenuItem>
-                                              <MenuItem value={40}>
+                                              <MenuItem value="Idle">
                                                 Idle
                                               </MenuItem>
-                                              <MenuItem value={50}>
+                                              <MenuItem value="On Call">
                                                 On Call
                                               </MenuItem>
-                                              <MenuItem value={60}>
+                                              <MenuItem value="Break">
                                                 Break
                                               </MenuItem>
-                                              <MenuItem value={70}>
+                                              <MenuItem value="ACW">
                                                 ACW
                                               </MenuItem>
                                             </Select>
                                           </FormControl>
                                         </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Skillset {index + 1}
-                                        </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Channel {index + 1}
-                                          {/* channel dropdown  */}
+                                        <TableCell>{agent.skillset}</TableCell>
+                                        <TableCell>
                                           <FormControl
                                             sx={{
                                               marginLeft: "5px",
                                               minWidth: 75,
-                                              width: 75,
                                             }}
                                           >
                                             <Select
-                                              labelId="demo-simple-select-label"
-                                              id="demo-simple-select"
+                                              value={agent.channel}
                                               onChange={handleChange}
                                               sx={{
-                                                height: "20px", // Adjust the height as needed
-                                                fontSize: "10px", // Adjust the font size as needed
-                                                // color: "#FFFFFF",
+                                                height: "20px",
+                                                fontSize: "10px",
                                               }}
-                                              // Alternatively, you can use inline style
-                                              // style={{ height: '30px', fontSize: '14px' }}
                                             >
-                                              <MenuItem value={10}>
+                                              <MenuItem value="Voice">
                                                 Voice
                                               </MenuItem>
                                             </Select>
                                           </FormControl>
                                         </TableCell>
-                                        <TableCell
-                                          sx={{
-                                            padding: "6px",
-                                            backgroundColor: "#FFFFFF",
-
-                                            // color: "white",
-                                          }}
-                                        >
-                                          Action {index + 1}
-                                          {/* action dropdown  */}
+                                        <TableCell>
                                           <FormControl
                                             sx={{
                                               marginLeft: "5px",
                                               minWidth: 90,
-                                              width: 90,
                                             }}
                                           >
                                             <Select
-                                              labelId="demo-simple-select-label"
-                                              id="demo-simple-select"
+                                              value={agent.action}
                                               onChange={handleChange}
                                               sx={{
-                                                height: "20px", // Adjust the height as needed
-                                                fontSize: "10px", // Adjust the font size as needed
-                                                // color: "#FFFFFF",
+                                                height: "20px",
+                                                fontSize: "10px",
                                               }}
-                                              // Alternatively, you can use inline style
-                                              // style={{ height: '30px', fontSize: '14px' }}
                                             >
-                                              <MenuItem value={10}>
+                                              <MenuItem value="Barge In">
                                                 Barge In
                                               </MenuItem>
-                                              <MenuItem value={20}>
+                                              <MenuItem value="Whisper">
                                                 Whisper
                                               </MenuItem>
-                                              <MenuItem value={30}>
+                                              <MenuItem value="Monitor">
                                                 Monitor
                                               </MenuItem>
-                                              <MenuItem value={40}>
+                                              <MenuItem value="Message">
                                                 Message
                                               </MenuItem>
                                             </Select>

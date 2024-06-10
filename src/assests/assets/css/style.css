@@ -243,6 +243,91 @@ input::-ms-clear {
   backdrop-filter: blur(49px);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
+/* added */
+.login-form{
+  background:rgba(255, 255, 255, -10.5)   ;  /*#1a11117a */
+  margin: 0 auto;
+  margin-bottom: 50px;
+  margin-top:80px !important;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  width:30%;
+  height: 40%;
+  box-shadow: 0px 9px 10px 10px rgb(229 216 216 / 75%);
+  right: -380px;
+    top: -70px;
+}
+
+@media only screen and (max-width: 768px) {
+  .login-form {
+    margin: 0 auto; 
+    display: flex;
+    justify-content: start; 
+    align-items: center; 
+    right: 22px;
+    
+  }
+}
+.login {
+  min-height: 100vh !important;
+  min-height: -webkit-fill-available !important;
+}
+@media only screen and (max-width: 768px) {
+  .login {
+    background-size: cover !important;
+    min-height: 100vh !important;
+  }
+}
+
+
+.btn-hover-effect {
+  transition: background-color 0.3s ease, transform 0.1s ease !important;
+}
+
+.btn-hover-effect:hover {
+  background-color: rgb(62, 138, 222) !important;
+  color: darkgray !important;
+  transform: scale(1.05) !important;
+  box-shadow: none !important;
+ 
+}
+
+
+
+
+.input-custom {
+  border: none;
+  border-bottom: 3px solid #00a3e4; /* Change color as needed */
+  padding-left: 30px; /* Adjust padding to accommodate the icon */
+  outline: none !important; /* Remove default focus outline */
+  border-radius: 0px;
+  font-size: 12px; /* Reduce the font size */
+ 
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}
+
+
+.custom-input {
+  outline: none; /* Remove default focus outline */
+}
+
+.custom-input:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: none; /* Remove any default focus box-shadow */
+}
+
+
+
+
+.loginHeader{
+  color: #00a3e4;
+  /* font-weight: bold; */
+  font-size: 30px;
+}
 .login .banner .login-welcome .hero__caption h3 {
   font-size: 17px;
   font-weight: 600;

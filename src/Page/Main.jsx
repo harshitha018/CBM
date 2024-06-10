@@ -225,7 +225,7 @@ const Main = (props) => {
       .post(
         BaseUrl + "/agent/agentinteraction",
         {
-          aniNumber: 3002,
+          aniNumber: 3003,
           agentId: userDetails[0].userId,
           sipId: sipId,
           callerNumber: props.displayExtNum,
@@ -536,7 +536,7 @@ const Main = (props) => {
     const transportOptions = {
       server: `wss://${domain}:${port}/ws`,
     };
-    const uri = UserAgent.makeURI(`sip:3002@${domain}:${port}`);
+    const uri = UserAgent.makeURI(`sip:3003@${domain}:${port}`);
 
     function getAudioElement(id) {
       console.log("getAudioElement", id);
@@ -549,7 +549,7 @@ const Main = (props) => {
     }
 
     const options = {
-      aor: `sip:3002@${domain}`,
+      aor: `sip:3003@${domain}`,
       media: {
         local: { audio: getAudioElement("localAudio") },
         constraints: { audio: true, video: false },
@@ -606,8 +606,8 @@ const Main = (props) => {
     }
 
     const userAgentOptions = {
-      authorizationPassword: "3002",
-      authorizationUsername: "3002",
+      authorizationPassword: "3003",
+      authorizationUsername: "3003",
 
       delegate: {
         onInvite,

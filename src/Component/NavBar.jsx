@@ -75,6 +75,7 @@ import moment from "moment";
 import axios from "axios";
 import { BaseUrl } from "../Page/Constant/BaseUrl";
 import MissedcallComp from "./MissedcallComp";
+import NotificationComp from "./NotificationComp";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { DarkMode } from "@mui/icons-material";
 import InteractionCard3 from "../Page/Dashboard-component/InteractionCenter/InteractionCard3";
@@ -622,8 +623,8 @@ const NavBar = (props) => {
                   backgroundColor: "white",
                   padding: "4px",
                   borderRadius: "5px",
-                 }}
-               >
+                }}
+              >
                 {/* <div className="dropdown mx-2" style={{   display:"flex",
                   alignItems:"center"}}>
                <button
@@ -749,7 +750,7 @@ const NavBar = (props) => {
                               </div>
                             </MenuItem>
                           )}
-                      
+
                           {props.status !== "Not Ready" && (
                             <MenuItem onClick={handleSubmenuClick}>
                               <div className="d-flex w-100 justify-content-between">
@@ -1314,6 +1315,7 @@ const NavBar = (props) => {
                           }}
                         />
                       </Typography>
+                      <NotificationComp/>
                       {!showNotification && (
                         <Typography
                           className="ms-2 mt-1"
@@ -1363,7 +1365,6 @@ const NavBar = (props) => {
                   </IconButton>
                 </Tooltip>
               </Box>
-
             </Toolbar>
           </AppBar>
 

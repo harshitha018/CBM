@@ -4,6 +4,9 @@ import Main from "./Page/Main";
 import Login from "./Page/Login/Login";
 import { connect } from "react-redux";
 import DashboardRealtime from "./Page/Dashboard-Realtime-Supervisor/DashboardRealtime";
+// index.js or App.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const mapStateToProps = (state) => {
   const { data } = state;
